@@ -37,6 +37,31 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/news/update/{id}', ['as' => 'admin.news.update', 'uses' => 'Backend\NewsController@update']);
     Route::delete('/news/delete/{id}', ['as' => 'admin.news.destroy', 'uses' => 'Backend\NewsController@destroy']);
 
+    /* Quản lý supplier */
+    Route::get('/supplier', ['as' => 'admin.supplier.index', 'uses' => 'Backend\SupplierController@index']);
+    Route::get('/supplier/create', ['as' => 'admin.supplier.create', 'uses' => 'Backend\SupplierController@create']);
+    Route::post('/supplier/store', ['as' => 'admin.supplier.store', 'uses' => 'Backend\SupplierController@store']);
+    Route::get('/supplier/edit/{id}', ['as' => 'admin.supplier.edit', 'uses' => 'Backend\SupplierController@edit']);
+    Route::post('/supplier/update/{id}', ['as' => 'admin.supplier.update', 'uses' => 'Backend\SupplierController@update']);
+    Route::delete('/supplier/delete/{id}', ['as' => 'admin.supplier.destroy', 'uses' => 'Backend\SupplierController@destroy']);
+
+    /* Quản lý Stock */
+    Route::get('/stock', ['as' => 'admin.stock.index', 'uses' => 'Backend\StockController@index']);
+    Route::get('/stock/create', ['as' => 'admin.stock.create', 'uses' => 'Backend\StockController@create']);
+    Route::post('/stock/store', ['as' => 'admin.stock.store', 'uses' => 'Backend\StockController@store']);
+    Route::get('/stock/edit/{id}', ['as' => 'admin.stock.edit', 'uses' => 'Backend\StockController@edit']);
+    Route::post('/stock/update/{id}', ['as' => 'admin.stock.update', 'uses' => 'Backend\StockController@update']);
+    Route::delete('/stock/delete/{id}', ['as' => 'admin.stock.destroy', 'uses' => 'Backend\StockController@destroy']);
+
+    /* Quản lý import-bill */
+    Route::get('/import-bill', ['as' => 'admin.import_bill.index', 'uses' => 'Backend\ImportBillController@index']);
+    Route::get('/import-bill/create', ['as' => 'admin.import_bill.create', 'uses' => 'Backend\ImportBillController@create']);
+    Route::post('/import-bill/store', ['as' => 'admin.import_bill.store', 'uses' => 'Backend\ImportBillController@store']);
+    Route::get('/import-bill/edit/{id}', ['as' => 'admin.import_bill.edit', 'uses' => 'Backend\ImportBillController@edit']);
+    Route::post('/import-bill/update/{id}', ['as' => 'admin.import_bill.update', 'uses' => 'Backend\ImportBillController@update']);
+    Route::delete('/import-bill/delete/{id}', ['as' => 'admin.import_bill.destroy', 'uses' => 'Backend\ImportBillController@destroy']);
+
+
     /* Quản lý product */
     Route::get('/product', ['as' => 'admin.product.index', 'uses' => 'Backend\ProductController@index']);
     Route::get('/product/create', ['as' => 'admin.product.create', 'uses' => 'Backend\ProductController@create']);
@@ -44,6 +69,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/product/edit/{id}', ['as' => 'admin.product.edit', 'uses' => 'Backend\ProductController@edit']);
     Route::post('/product/update/{id}', ['as' => 'admin.product.update', 'uses' => 'Backend\ProductController@update']);
     Route::delete('/product/delete/{id}', ['as' => 'admin.product.destroy', 'uses' => 'Backend\ProductController@destroy']);
+
+     
 
     /* Quản lý attribute */
     Route::get('/attribute', ['as' => 'admin.attribute.index', 'uses' => 'Backend\AttributeController@index']);
