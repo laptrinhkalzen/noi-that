@@ -33,7 +33,7 @@ class ProductRepository extends AbstractRepository {
             'vat_number' => 'required',
             'vat_date' => 'required',
             
-
+//
         ];
     }
 
