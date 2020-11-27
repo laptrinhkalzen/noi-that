@@ -41,23 +41,14 @@ if ($('.ckeditor').length) {
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label text-right">Tên công ty: <span class="text-danger">*</span></label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="name" value="{!!old('name')!!}" >
-                                            {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
+                                            <input type="text" class="form-control" name="supplier_name" value="{!!old('supplier_name')!!}" >
+                                            {!! $errors->first('supplier_name', '<span class="text-danger">:message</span>') !!}
                                         </div>
                                     </div>
       
                             </div>
                 
-                            <div class="col-md-10">
-                                <div class="form-group row">
-                                        <label class="col-md-2 col-form-label text-right">Tax code: <span class="text-danger">*</span></label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="tax_code" value="{!!old('tax_code')!!}" >
-                                            {!! $errors->first('tax_code', '<span class="text-danger">:message</span>') !!}
-                                        </div>
-                                    </div>
-      
-                            </div>
+                    
                              <div class="col-md-10">
                                 <div class="form-group row">
                                         <label class="col-md-2 col-form-label text-right">Email: <span class="text-danger">*</span></label>
@@ -74,6 +65,16 @@ if ($('.ckeditor').length) {
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="address" value="{!!old('address')!!}" >
                                             {!! $errors->first('address', '<span class="text-danger">:message</span>') !!}
+                                        </div>
+                                    </div>
+      
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group row">
+                                        <label class="col-md-2 col-form-label text-right">Mô tả: </label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" rows="5" name="describe" id="comment"></textarea>
                                         </div>
                                     </div>
       

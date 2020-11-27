@@ -1,6 +1,7 @@
 @extends('backend.layouts.master')
 @section('content')
 <!-- Content area -->
+
 <div class="content">
     <!-- Table header styling -->
     <div class="card">

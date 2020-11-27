@@ -49,18 +49,39 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/stock', ['as' => 'admin.stock.index', 'uses' => 'Backend\StockController@index']);
     Route::get('/stock/create', ['as' => 'admin.stock.create', 'uses' => 'Backend\StockController@create']);
     Route::post('/stock/store', ['as' => 'admin.stock.store', 'uses' => 'Backend\StockController@store']);
+
+    //nhap kho
+    Route::get('/stock/import_index', ['as' => 'admin.import.index', 'uses' => 'Backend\StockController@import_index']);
+    Route::get('/stock/import_create', ['as' => 'admin.import.create', 'uses' => 'Backend\StockController@import_create']);
+    Route::post('/stock/import_store', ['as' => 'admin.import.store', 'uses' => 'Backend\StockController@import_store']);
+    Route::get('/stock/import_edit/{id}', ['as' => 'admin.import.edit', 'uses' => 'Backend\StockController@import_edit']);
+    Route::post('/stock/import_update/{id}', ['as' => 'admin.import.update', 'uses' => 'Backend\StockController@import_update']);
+    Route::delete('/stock/import_delete/{id}', ['as' => 'admin.import.destroy', 'uses' => 'Backend\StockController@import_destroy']);
+
+    //xuatkho
+    Route::get('/stock/export_index', ['as' => 'admin.export.index', 'uses' => 'Backend\StockController@export_index']);
+    Route::get('/stock/export_create/{id}', ['as' => 'admin.export.create', 'uses' => 'Backend\StockController@export_create']);
+    Route::post('/stock/export_store', ['as' => 'admin.export.store', 'uses' => 'Backend\StockController@export_store']);
+    
+    //kho
     Route::get('/stock/edit/{id}', ['as' => 'admin.stock.edit', 'uses' => 'Backend\StockController@edit']);
     Route::post('/stock/update/{id}', ['as' => 'admin.stock.update', 'uses' => 'Backend\StockController@update']);
     Route::delete('/stock/delete/{id}', ['as' => 'admin.stock.destroy', 'uses' => 'Backend\StockController@destroy']);
 
-    /* Quản lý import-bill */
-    Route::get('/import-bill', ['as' => 'admin.import_bill.index', 'uses' => 'Backend\ImportBillController@index']);
-    Route::get('/import-bill/create', ['as' => 'admin.import_bill.create', 'uses' => 'Backend\ImportBillController@create']);
-    Route::post('/import-bill/store', ['as' => 'admin.import_bill.store', 'uses' => 'Backend\ImportBillController@store']);
-    Route::get('/import-bill/edit/{id}', ['as' => 'admin.import_bill.edit', 'uses' => 'Backend\ImportBillController@edit']);
-    Route::post('/import-bill/update/{id}', ['as' => 'admin.import_bill.update', 'uses' => 'Backend\ImportBillController@update']);
-    Route::delete('/import-bill/delete/{id}', ['as' => 'admin.import_bill.destroy', 'uses' => 'Backend\ImportBillController@destroy']);
+    //chuyen kho
 
+    /* Quản lý import-bill */
+    // Route::get('/import-bill', ['as' => 'admin.import_bill.index', 'uses' => 'Backend\ImportBillController@index']);
+    // Route::get('/import-bill/create', ['as' => 'admin.import_bill.create', 'uses' => 'Backend\ImportBillController@create']);
+    // Route::post('/import-bill/store', ['as' => 'admin.import_bill.store', 'uses' => 'Backend\ImportBillController@store']);
+    // Route::get('/import-bill/edit/{id}', ['as' => 'admin.import_bill.edit', 'uses' => 'Backend\ImportBillController@edit']);
+    // Route::post('/import-bill/update/{id}', ['as' => 'admin.import_bill.update', 'uses' => 'Backend\ImportBillController@update']);
+    // Route::delete('/import-bill/delete/{id}', ['as' => 'admin.import_bill.destroy', 'uses' => 'Backend\ImportBillController@destroy']);
+
+    //bill
+    Route::get('/bill', ['as' => 'admin.bill.index', 'uses' => 'Backend\BillController@index']);
+    Route::get('/bill/create', ['as' => 'admin.bill.create', 'uses' => 'Backend\BillController@create']);
+    Route::post('/bill/store', ['as' => 'admin.bill.store', 'uses' => 'Backend\BillController@store']);
 
     /* Quản lý product */
     Route::get('/product', ['as' => 'admin.product.index', 'uses' => 'Backend\ProductController@index']);

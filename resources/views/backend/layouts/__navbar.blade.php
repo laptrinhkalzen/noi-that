@@ -98,8 +98,8 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.import_bill.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Phiếu nhập kho</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Phiếu xuất kho</a>
+                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Xuất nhập kho</a>
+                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Nhập/xuất kho</a>
                         <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Kiểm kho</a>
                         <a href="{{route('admin.stock.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Kho</a>
                         <a href="{{route('admin.supplier.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Nhà cung cấp</a>
@@ -112,8 +112,8 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Danh mục</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Bài viết</a>
+                        <a href="{{route('admin.bill.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Bán lẻ</a>
+                  
                     </div>
                 </li>
                 <li class="nav-item dropdown">

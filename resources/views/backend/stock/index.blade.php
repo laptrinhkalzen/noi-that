@@ -27,38 +27,7 @@
                 @endif
             </div>
 
-        <table class="table datatable-basic">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tên kho</th>
-                    <th>Địa chỉ</th>
-                    <th>Thao tác</th>
-                    
-                </tr>
-            </thead>
-                 @foreach($stocks as $key => $stock)
-                 <tr>
-                    <th>{{$key+1}}</th>
-                    <th>{{$stock->name}}</th>
-                    <th>{!!substr($stock->address,0,150)!!}...</th>
-                    
-                    <td class="text-center">
-                        <a href="{{route('admin.stock.edit', $stock->id)}}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
-                        <form action="{!! route('admin.stock.destroy', $stock->id) !!}" method="POST" style="display: inline-block">
-                            {!! method_field('DELETE') !!}
-                            {!! csrf_field() !!}
-                            <a title="Xóa" class="delete text-danger" data-action="delete">
-                                <i class="icon-close2"></i>
-                            </a>              
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            <tbody>
-            
-            </tbody>
-        </table>
+     @yield('filter')
     </div>
     <!-- /table header styling -->
     

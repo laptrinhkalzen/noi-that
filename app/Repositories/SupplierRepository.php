@@ -16,7 +16,7 @@ class SupplierRepository extends AbstractRepository {
 
     public function validateCreate() {
         return $rules = [
-            'name' => 'required|unique:supplier',
+            'supplier_name' => 'required|unique:supplier',
             'email'=> 'required|email'
             
         ];
@@ -24,7 +24,7 @@ class SupplierRepository extends AbstractRepository {
 
     public function validateUpdate($id) {
         return $rules = [
-            'name' => 'required',
+            'supplier_name' => 'required',
             'email'=> 'required|email'
             ];
     }

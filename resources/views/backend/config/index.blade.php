@@ -128,17 +128,25 @@
 
                         </fieldset>
                         <div class="text-right">
-                            <a type="button" href="{{route('admin.config.index')}}" class="btn btn-secondary legitRipple">Hủy</a>
-                            <button type="submit" class="btn btn-primary legitRipple">Lưu lại <i class="icon-arrow-right14 position-right"></i></button>
+                            <a type="button" href="{{route('admin.config.index')}}" class="btn btn-secondary legitRipple to-print">Hủy</a>
+                            <button type="submit" class="btn btn-primary legitRipple to-print">Lưu lại <i class="icon-arrow-right14 position-right"></i></button>
                         </div>
 
-
+                           <button onclick="window.print()">Print this page</button>
                     </form>
                 </div>  
             </div>
         </div>
     </div>
 </div>
+<style type="text/css">
+    @media print {
+    .to-print {
+      display: none;
+    }
+
+}
+</style>
 @stop
 
 @section('script')

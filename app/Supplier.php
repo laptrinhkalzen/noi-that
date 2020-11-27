@@ -9,7 +9,7 @@ class Supplier extends Model {
     //
     protected $table = "supplier";
     protected $fillable = [
-        'name', 'tax_code', 'email', 'address'
+        'supplier_name', 'phone', 'email', 'address','describe','total_payment','payment_due'
     ];
 
     public function created_at() {

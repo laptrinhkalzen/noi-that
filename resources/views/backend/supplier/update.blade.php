@@ -41,26 +41,14 @@ if ($('.ckeditor').length) {
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label text-right">Tên công ty: <span class="text-danger">*</span></label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="name" value="{!!is_null(old('name'))?$supplier->name:old('name')!!}" >
-                                            {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
+                                            <input type="text" class="form-control" name="supplier_name" value="{!!is_null(old('supplier_name'))?$supplier->supplier_name:old('supplier_name')!!}" >
+                                            {!! $errors->first('supplier_name', '<span class="text-danger">:message</span>') !!}
                                         </div>
                                     </div>
       
                             </div>
                            
                            
-                            
-                            <div class="col-md-10">
-                               
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label text-right">Tax code: <span class="text-danger">*</span></label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="tax_code" value="{!!is_null(old('tax_code'))?$supplier->tax_code:old('tax_code')!!}" >
-                                            {!! $errors->first('tax_code', '<span class="text-danger">:message</span>') !!}
-                                        </div>
-                                    </div>
-      
-                            </div>
                             <div class="col-md-10">
                                
                                     <div class="form-group row">
@@ -70,8 +58,8 @@ if ($('.ckeditor').length) {
                                             {!! $errors->first('email', '<span class="text-danger">:message</span>') !!}
                                         </div>
                                     </div>
-      
                             </div>
+
                             <div class="col-md-10">
                                
                                     <div class="form-group row">
@@ -79,6 +67,16 @@ if ($('.ckeditor').length) {
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" name="address" value="{!!is_null(old('address'))?$supplier->address:old('address')!!}" >
                                             {!! $errors->first('address', '<span class="text-danger">:message</span>') !!}
+                                        </div>
+                                    </div>
+      
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group row">
+                                        <label class="col-md-2 col-form-label text-right">Mô tả: </label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control" rows="5"  name="describe" id="comment">{!!is_null(old('describe'))?$supplier->describe:old('describe')!!}</textarea>
                                         </div>
                                     </div>
       

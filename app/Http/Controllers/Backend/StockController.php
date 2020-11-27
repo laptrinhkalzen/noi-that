@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use TIMESTAMP;
 use DB;
+use Auth;
 
 
 class StockController extends Controller {
@@ -25,7 +26,7 @@ class StockController extends Controller {
     public function index() {
         
        
-            $stocks = $this->stockRepo->all();
+        $stocks = $this->stockRepo->all();
         
         return view('backend/stock/index', compact('stocks'));
     }
@@ -36,9 +37,163 @@ class StockController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+      
+
         return view('backend/stock/create');
     }
+
+    
+     
+
+     //nhap kho
+     
+    public function import_index(){
+        $records=DB::table('import')->join('stock','import.stock_id','=','stock.id')->join('supplier','import.supplier_id','=','supplier.id')->join('user','user.id','=','import.created_by')->get();
+    
+
+        return view('backend/stock/import_index',compact('records'));
+    }
+
+    public function import_create() {
+        $products=DB::table('product')->get();
+        $stocks=DB::table('stock')->get();
+        $suppliers=DB::table('supplier')->get();
+        // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+        return view('backend/stock/import_create',compact('products','suppliers','stocks'));
+    }
+
+     public function import_edit($id) {
+        $products=DB::table('product')->get();
+        $stocks=DB::table('stock')->get();
+        $suppliers=DB::table('supplier')->get();
+        $import=DB::table('import')->where('import_id',$id)->first();
+        $import_products=DB::table('import_product')->where('import_id',$id)->get();
+        // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+        return view('backend/stock/import_edit',compact('products','suppliers','stocks','import','import_products'));
+    }
+
+     public function import_store(Request $request) {
+           $import=array();
+           $import['stock_id']=$request->stock;
+           $import['supplier_id']=$request->supplier;
+           $import['created_at']=Carbon::now('Asia/Ho_Chi_Minh');
+           $import['note']=$request->note;
+           $import['payment_type']=$request->payment_type;
+           $import['discount_type']=$request->discount_type;
+           $import['discount']=$request->discount;
+           $import['total_payment']=$request->total_payment;
+           $import['total']=$request->total;
+           $import['paid']=$request->paid;
+           $import['payment_day']=$request->payment_day;
+           $import['bill_type']=1;
+           $import['created_by']=Auth::user()->id;
+           $id=DB::table('import')->insertGetId($import);
+
+         
+           $product=$request->product;
+           $quantity=$request->quantity;
+           $dvt=$request->dvt;
+           $import_price=$request->import_price;
+           $sub_total=$request->sub_total;
+            for($count=0;$count<count($product);$count++){
+                $products=DB::table('product')->where('id',$product[$count])->first();
+                if($import_price[$count] != $products->price){
+                    DB::table('product')->where('id',$product[$count])->update(['price' => $import_price[$count]]);
+                }
+                $import_product=array(
+                'stock_product_id'=>$request->stock,  
+                'product_id'=>$product[$count],
+                'import_id'=>$id,
+                'dvt'=>$dvt[$count],
+                'quantity'=>$quantity[$count],
+                'import_price'=>$import_price[$count],
+                'sub_total'=>$sub_total[$count]
+                );
+                $insert_data[]=$import_product;
+            }
+            DB::table('import_product')->insert($insert_data);
+             for($count=0;$count<count($product);$count++){
+                $is_exist=DB::table('stock_product')->where('product_id',$product[$count])->where('stock_id',$request->stock)->first();
+                if($is_exist){
+                  $stock_product=array();
+                  $stock_product['stock_product_quantity']=$is_exist->stock_product_quantity + $quantity[$count];
+                  DB::table('stock_product')->where('product_id',$product[$count])->update(['stock_product_quantity'=> $stock_product['stock_product_quantity']]);
+                  }
+                else{
+                  $stock_product=array();
+                  $stock_product['stock_id']=$request->stock;
+                  $stock_product['product_id']=$product[$count];
+                  $stock_product['stock_product_quantity']=$quantity[$count];
+                  DB::table('stock_product')->insert($stock_product);
+                  } 
+                }           
+        return redirect()->route('admin.import.index')->with('success','Thành công');
+    }
+
+         public function import_update(Request $request,$id) {
+           $import=array();
+           $import['stock_id']=$request->stock;
+           $import['supplier_id']=$request->supplier;
+           $import['created_at']=Carbon::now('Asia/Ho_Chi_Minh');
+           $import['note']=$request->note;
+           $import['payment_type']=$request->payment_type;
+           $import['discount_type']=$request->discount_type;
+           $import['discount']=$request->discount;
+           $import['total_payment']=$request->total_payment;
+           $import['total']=$request->total;
+           $import['paid']=$request->paid;
+           $import['payment_day']=$request->payment_day;
+           $import['bill_type']=1;
+           $import['created_by']=Auth::user()->id;
+           DB::table('import')->where('import_id',$id)->update($import);
+           $product=$request->product;
+           $quantity=$request->quantity;
+           $dvt=$request->dvt;
+           $import_price=$request->import_price;
+           $sub_total=$request->sub_total;
+           DB::table('import_product')->where('import_id',$id)->delete();
+            for($count=0;$count<count($product);$count++){
+                $import_product=array(
+                'product_id'=>$product[$count],
+                'import_id'=>$id,
+                'dvt'=>$dvt[$count],
+                'quantity'=>$quantity[$count],
+                'import_price'=>$import_price[$count],
+                'sub_total'=>$sub_total[$count]
+                );
+                $insert_data[]=$import_product;
+            }
+            DB::table('import_product')->insert($insert_data);
+
+            // DB::table('stock_product')->where('stock_id',$id)->delete();
+            // for($count=0;$count<count($product);$count++){
+            //       $stock_product=array();
+            //       $stock_product['stock_id']=$request->stock;
+            //       $stock_product['product_id']=$product[$count];
+            //       $stock_product['stock_product_quantity']=$quantity[$count];
+            //       DB::table('stock_product')->insert($stock_product);
+            //     }  
+           
+        // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+        return redirect()->route('admin.import.index')->with('success','Thành công');
+    }
+
+
+    
+
+    //xuat kho
+    public function export_create($id) {
+        $stock_products=DB::table('stock_product')->get();
+        $stocks=DB::table('stock')->get();
+        $suppliers=DB::table('supplier')->get();
+        // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+        return view('backend/stock/export_create',compact('suppliers','stocks','id','stock_products'));
+    }
+
+
+    //chuyen kho
+
+
 
    
     public function store(Request $request) {
