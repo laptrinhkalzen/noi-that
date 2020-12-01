@@ -70,25 +70,22 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 
     //chuyen kho
 
-    /* Quản lý import-bill */
-    // Route::get('/import-bill', ['as' => 'admin.import_bill.index', 'uses' => 'Backend\ImportBillController@index']);
-    // Route::get('/import-bill/create', ['as' => 'admin.import_bill.create', 'uses' => 'Backend\ImportBillController@create']);
-    // Route::post('/import-bill/store', ['as' => 'admin.import_bill.store', 'uses' => 'Backend\ImportBillController@store']);
-    // Route::get('/import-bill/edit/{id}', ['as' => 'admin.import_bill.edit', 'uses' => 'Backend\ImportBillController@edit']);
-    // Route::post('/import-bill/update/{id}', ['as' => 'admin.import_bill.update', 'uses' => 'Backend\ImportBillController@update']);
-    // Route::delete('/import-bill/delete/{id}', ['as' => 'admin.import_bill.destroy', 'uses' => 'Backend\ImportBillController@destroy']);
+ 
 
     //bill
-    Route::get('/bill', ['as' => 'admin.bill.index', 'uses' => 'Backend\BillController@index']);
-    Route::get('/bill/create', ['as' => 'admin.bill.create', 'uses' => 'Backend\BillController@create']);
-    Route::post('/bill/store', ['as' => 'admin.bill.store', 'uses' => 'Backend\BillController@store']);
+    Route::get('/bill', ['as' => 'admin.bill.index1', 'uses' => 'Backend\BillController@index']);
+    Route::get('/bill/create/{stock_id}', ['as' => 'admin.bill.create', 'uses' => 'Backend\BillController@create']);
+    Route::post('/bill/store/{stock_id}', ['as' => 'admin.bill.store', 'uses' => 'Backend\BillController@store']);
+    Route::get('/bill/edit/{id}/{stock_id}', ['as' => 'admin.bill.edit', 'uses' => 'Backend\billController@edit']);
+    Route::post('/bill/update/{id}/{stock_id}', ['as' => 'admin.bill.update', 'uses' => 'Backend\billController@update']);
+    Route::delete('/bill/delete/{id}', ['as' => 'admin.bill.destroy', 'uses' => 'Backend\billController@destroy']);
 
     /* Quản lý product */
     Route::get('/product', ['as' => 'admin.product.index', 'uses' => 'Backend\ProductController@index']);
     Route::get('/product/create', ['as' => 'admin.product.create', 'uses' => 'Backend\ProductController@create']);
     Route::post('/product/store', ['as' => 'admin.product.store', 'uses' => 'Backend\ProductController@store']);
     Route::get('/product/edit/{id}', ['as' => 'admin.product.edit', 'uses' => 'Backend\ProductController@edit']);
-    Route::post('/product/update/{id}', ['as' => 'admin.product.update', 'uses' => 'Backend\ProductController@update']);
+    Route::post('/product/update/{id}/{stock_id}', ['as' => 'admin.product.update', 'uses' => 'Backend\ProductController@update']);
     Route::delete('/product/delete/{id}', ['as' => 'admin.product.destroy', 'uses' => 'Backend\ProductController@destroy']);
 
      

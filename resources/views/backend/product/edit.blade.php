@@ -96,8 +96,14 @@
                                         <input type="text" name="price" class="form-control touchspin text-center" value="{!!is_null(old('price'))?$record->price:old('price')!!}">
                                     </div>
                                 </div>
+                                 <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Giá bán</label>
+                                    <div class="col-md-7">
+                                        <input type="text" name="sell_price" class="form-control touchspin text-center" value="{!!is_null(old('sell_price'))?$record->sell_price:old('sell_price')!!}">
+                                    </div>
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Giá bán </label>
+                                    <label class="col-form-label col-md-4 text-left">Giá khuyến mại</label>
                                     <div class="col-md-7">
                                         <input type="text" name="sale_price" class="form-control touchspin text-center" value="{!!is_null(old('sale_price'))?$record->sale_price:old('sale_price')!!}">
                                     </div>

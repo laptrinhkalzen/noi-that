@@ -35,6 +35,7 @@
                 @else
                 <a href="{!!route(str_replace('index', 'create', $current_route))!!}" class="btn btn-link btn-float text-default"><i class="icon-googleplus5 text-primary"></i><span>Thêm mới</span></a>
                 @endif
+
                 @endif
                 @else
                 @if(isset($type))
@@ -61,6 +62,8 @@
 
                 <span class="breadcrumb-item active">{{trans('route.'.$method)}}</span>
                 @endif
+                  @if($method == 'index1')
+                  <span class="breadcrumb-item active">{{trans('route.'.$parent_route)}}</span>@endif
             </div>
 
             <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -68,5 +71,6 @@
 
     </div>
 </div>
+
 @endif
 <!-- /page header -->

@@ -98,33 +98,31 @@
                                       <thead>
                                         <tr>
                                           <th scope="col">Sản phẩm</th>
-                                          <th scope="col">ĐVT</th>
                                           <th scope="col">Giá vốn</th>
                                           <th scope="col">Số lượng</th>
                                           <th scope="col">Thành tiền</th>
-                                          <th scope="col"></th>
+                                       
                                         </tr>
                                       </thead>
                                      
 
-                                  
+                              
                                  </table>
                                     <div class="form-row" style="margin-left: 0px; margin-top: 10px;">
                                         
                                             
-                                    <div class="form-group col-md-3" >
-                                        <select class="js-example-basic-single" name="product[]">
-                                            @foreach($products as $product)
-                                              <option  value="{{$product->id}}">{{$product->title}}</option>
+                                    <div class="form-group col-md-3" id="vehicle-type">
+                                      <select class="select2 form-control" name="product[]">
+                                        <option>------Chọn------</option> 
+                                           @foreach($products as $product)
+                                              <option  data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>
                                             @endforeach
-                                        </select>
+                                      </select>
+                                  </div>
 
-                                     </div>
+                                     
                                      <div class="form-group col-md-2" >
-                                     <input  type="text" value="" name="dvt[]"  class="form-control" required="">
-                                     </div>
-                                     <div class="form-group col-md-2" >
-                                     <input  type="text" value="" name="import_price[]" min="1" class="form-control price" required="">
+                                     <input  type="text" value="" name="import_price[]" min="1" class="form-control price-input price" required="">
                                      </div>
                                      <div class="form-group col-md-2">
                               
@@ -156,8 +154,10 @@
                                 e.preventDefault();
                                 if(x < max_fields){ //max input box allowed
                                 x++; //text box increment
-                                $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" ><select class="js-example-basic-single" name="product[]">@foreach($products as $product)<option  value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div><div class="form-group col-md-2" ><input  type="text" value="" name="dvt[]" class="form-control " required=""></div><div class="form-group col-md-2" ><input  type="text" value="" name="import_price[]" min="1" class="form-control price" required=""></div><div class="form-group col-md-2"><input id="quantity"  name="quantity[]" type="number" value="1" min="1" class="form-control" required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info">Xóa</div></div>'); 
-                       
+                                $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" id="vehicle-type" ><select class="select2 form-control js-example-basic-single" name="product[]"><option>------Chọn------</option> @foreach($products as $product)<option  data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div><div class="form-group col-md-2" ><input  type="text" value="" name="import_price[]" min="1" class="form-control price price-input" required=""></div><div class="form-group col-md-2"><input id="quantity"  name="quantity[]" type="number" value="1" min="1" class="form-control" required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info">Xóa</div></div>'); 
+                                      $('.select2').select2({
+     //configuration
+                                     });
                                 }
                                 });
                              
@@ -171,7 +171,7 @@
                 </script>
                                 <script type="text/javascript">
                     $(document).ready(function() {
-                    $('.js-example-basic-single').select2();
+                    $('.select2').select2();
                     });
                 </script>
 
@@ -180,7 +180,7 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Nhà cung cấp</label>
                                     <div class="col-md-7">
-                                         <select class="js-example-basic-single" name="supplier">
+                                         <select class="select2 form-control" name="supplier">
                                             @foreach($suppliers as $supplier)
                                               <option  value="{{$supplier->id}}">{{$supplier->supplier_name}}</option>
                                             @endforeach
@@ -281,6 +281,19 @@
     </form>
 </div>
 </body>
+<script type="text/javascript">
+  
+
+  
+                            $(document).ready(function () {
+                              $('body').delegate('#vehicle-type','change',function (){
+                                 $(this).parents('.form-row').find('.price-input').val(
+                                  $(this).find('.select2').find(":selected").data("price1")
+                                );  
+                              });
+                            });
+</script>
+
 @stop
 @section('script')
 @parent

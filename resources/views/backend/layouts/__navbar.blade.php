@@ -112,7 +112,7 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.bill.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Bán lẻ</a>
+                        <a href="{{route('admin.bill.index1')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Bán lẻ</a>
                   
                     </div>
                 </li>
