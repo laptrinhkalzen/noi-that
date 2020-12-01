@@ -1,5 +1,5 @@
-@extends('backend.layouts.master')
-@section('content')
+@extends('backend.layouts.master1')
+@section('content1')
 <!-- Content area -->
 
 

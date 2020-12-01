@@ -1,5 +1,5 @@
-@extends('backend.layouts.master')
-@section('content')   
+@extends('backend.layouts.master1')
+@section('content1')   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="jquery-3.5.1.min.js"></script>    
 <body>
