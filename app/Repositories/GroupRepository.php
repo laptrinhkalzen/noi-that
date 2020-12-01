@@ -11,29 +11,31 @@ namespace App\Repositories;
 
 use Repositories\Support\AbstractRepository;
 
-class MemberRepository extends AbstractRepository
+class GroupRepository extends AbstractRepository
 {
     public function __construct(\Illuminate\Container\Container $app) {
         parent::__construct($app);
     }
 
     public function model() {
-        return 'App\Member';
+        return 'App\Group';
     }
     public function validateCreate() {
         return $rules = [
-           // 'username' => 'required',
+            'name' => 'required',
            // 'password' => 'required',
         ];
     }
 
     public function validateUpdate($id) {
         return $rules = [
-            //'full_name' => 'required',
+            'name' => 'required',
             //'alias' => 'required',
         ];
     }
-    public function checkactivation($key) {
-        return $this->model->where('activation', $key)->first();
+    public function readGroup(){
+        return $this->model->get();
     }
+    
+    
 }

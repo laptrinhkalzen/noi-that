@@ -46,4 +46,9 @@ return [
     'admin.review.index'=>'Đánh giá',
     'admin.supplier.index'=>'Nhà cung cấp',
     'admin.stock.index'=>'Kho',
+    'admin.group.index'=>'Nhóm khách hàng',
+    'admin.position.index'=>'Chức vụ',
+    'admin.employee.index'=>'Nhân viên',
+
+
 ];

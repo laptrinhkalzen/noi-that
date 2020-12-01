@@ -30,6 +30,7 @@
                     <th>#</th>
                     <th>Tiêu đề</th>
                     <th>Chiết khấu (%)</th>
+                    <th>Điều kiện</th>
                     <th>Thứ tự</th>
                     <th>Tác vụ</th>
                 </tr>
@@ -44,6 +45,7 @@
                                 {{$record->discount_percent}} 
                         </a>
                     </td>
+                    <td>Điểm tích lũy >= {{$record->condition}}</td>
                     <td>{{$record->ordering}}</td>
                     
                     <td class="text-center">

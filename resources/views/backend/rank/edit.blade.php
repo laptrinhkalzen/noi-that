@@ -34,6 +34,13 @@
                                     {!! $errors->first('discount_percent', '<span class="text-danger">:message</span>') !!}
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-right">Điều kiện(Điểm tích lũy) <span class="text-danger">*</span></label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="condition" value="{!!old('condition')?:$record->condition!!}" required="">
+                                    {!! $errors->first('condition', '<span class="text-danger">:message</span>') !!}
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 text-right">Sắp xếp </label>

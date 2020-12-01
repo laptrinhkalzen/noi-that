@@ -17,42 +17,22 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                    <form action="{!!route('admin.rank.store')!!}" method="POST" enctype="multipart/form-data">
+                    <form action="{!!route('admin.group.store')!!}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
                         <fieldset>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label text-right">Tiêu đề <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-form-label text-right">Tên loại khách hàng <span class="text-danger">*</span></label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="title" value="{!!old('title')!!}" required="">
-                                    {!! $errors->first('title', '<span class="text-danger">:message</span>') !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label text-right">Chiết khấu (%) <span class="text-danger">*</span></label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="discount_percent" value="{!!old('discount_percent')!!}" required="">
-                                    {!! $errors->first('discount_percent', '<span class="text-danger">:message</span>') !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label text-right">Điều kiện(Điểm tích lũy) <span class="text-danger">*</span></label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" name="condition" value="{!!old('condition')!!}" required="">
-                                    {!! $errors->first('condition', '<span class="text-danger">:message</span>') !!}
+                                    <input type="text" class="form-control" name="name" value="{!!old('name')!!}" required="">
+                                    {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
                                 </div>
                             </div>
                             
-                            <div class="form-group row">
-
-                                <label class="col-form-label col-md-3 text-right">Sắp xếp </label>
-                                <div class="col-md-2">
-                                    <input type="text" name="ordering" class="form-control touchspin text-center" value="">
-                                </div>
-                            </div>
+                           
 
                         </fieldset>
                         <div class="text-right">
-                            <a type="button" href="{{route('admin.rank.index')}}" class="btn btn-secondary legitRipple">Hủy</a>
+                            <a type="button" href="{{route('admin.group.index')}}" class="btn btn-secondary legitRipple">Hủy</a>
                             <button type="submit" class="btn btn-primary legitRipple">Lưu lại <i class="icon-arrow-right14 position-right"></i></button>
                         </div>
 

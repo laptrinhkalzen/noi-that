@@ -204,7 +204,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     /* Thành viên*/
     Route::get('/member', ['as' => 'admin.member.index', 'uses' => 'Backend\MemberController@index']);
     Route::delete('/member/delete/{id}', ['as' => 'admin.member.destroy', 'uses' => 'Backend\MemberController@destroy']);
-    Route::get('/member/show/{id}', ['as' => 'admin.member.edit', 'uses' => 'Backend\MemberController@show']);
+    Route::get('/member/create', ['as' => 'admin.member.create', 'uses' => 'Backend\MemberController@create']);
+    Route::post('/member/store', ['as' => 'admin.member.store', 'uses' => 'Backend\MemberController@store']);
+    Route::get('/member/edit/{id}', ['as' => 'admin.member.edit', 'uses' => 'Backend\MemberController@edit']);
+    Route::post('/member/update/{id}', ['as' => 'admin.member.update', 'uses' => 'Backend\MemberController@update']);
+    Route::get('/member/show/{id}', ['as' => 'admin.member.show', 'uses' => 'Backend\MemberController@show']);
+    /*Nhóm thành viên*/
+    Route::get('/group', ['as' => 'admin.group.index', 'uses' => 'Backend\GroupController@index']);
+    Route::delete('/group/delete/{id}', ['as' => 'admin.group.destroy', 'uses' => 'Backend\GroupController@destroy']);
+    Route::get('/group/create', ['as' => 'admin.group.create', 'uses' => 'Backend\GroupController@create']);
+    Route::post('/group/store', ['as' => 'admin.group.store', 'uses' => 'Backend\GroupController@store']);
+    Route::get('/group/edit/{id}', ['as' => 'admin.group.edit', 'uses' => 'Backend\GroupController@edit']);
+    Route::post('/group/update/{id}', ['as' => 'admin.group.update', 'uses' => 'Backend\GroupController@update']);
+    
     /* Đơn hàng*/
     Route::get('/order', ['as' => 'admin.order.index', 'uses' => 'Backend\OrderController@index']);
     Route::delete('/order/delete/{id}', ['as' => 'admin.order.destroy', 'uses' => 'Backend\OrderController@destroy']);

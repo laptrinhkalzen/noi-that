@@ -18,6 +18,7 @@ class RankRepository extends AbstractRepository {
         return $rules = [
             'title' => 'required|unique:rank',
             'discount_percent' => 'required',
+            'condition' => 'required',
         ];
     }
 
@@ -25,6 +26,7 @@ class RankRepository extends AbstractRepository {
         return $rules = [
             'title' => 'required|unique:rank,title,'.$id.',id',
             'discount_percent' => 'required',
+            'condition' => 'required',
         ];
     }
 

@@ -54,6 +54,21 @@
                                         {!! $errors->first('password_confirm', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
+                                <div class="form-group col-md-6">
+                                        <label class="required">Email</label>
+                                        <input name="email" type="text" class="form-control" value="{!!!is_null(old('email'))?old('email'):$record->email!!}">
+                                        {!! $errors->first('email', '<span class="text-danger">:message</span>') !!}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="required">Số điện thoại</label>
+                                        <input name="mobile" type="text" class="form-control" value="{!!!is_null(old('mobile'))?old('mobile'):$record->mobile!!}">
+                                        {!! $errors->first('mobile', '<span class="text-danger">:message</span>') !!}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="required">Địa chỉ</label>
+                                        <input name="address" type="text" class="form-control" value="{!!!is_null(old('address'))?old('address'):$record->address!!}">
+                                        {!! $errors->first('address', '<span class="text-danger">:message</span>') !!}
+                                    </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="required">Quyền hạn <span class="text-danger"></span></label>

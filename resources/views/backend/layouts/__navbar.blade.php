@@ -1,4 +1,4 @@
-<!-- Main navbar -->
+<!--Main navbar -->
 <div class="navbar navbar-expand-md navbar-dark">
 
     <div class="d-md-none">
@@ -58,7 +58,7 @@
 
                 <li class="nav-item dropdown">
                     <a href="{{route('admin.config.index')}}" class="navbar-nav-link active" >
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fa fa-atom mr-2"></i>
                         Cấu hình website
                     </a>
 
@@ -67,7 +67,7 @@
 
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fa fa-user mr-2"></i>
                         Người dùng
                     </a>
 
@@ -79,7 +79,7 @@
 
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fa fa-couch mr-2"></i>
                     Sản phẩm
                     </a>
 
@@ -91,7 +91,7 @@
                 </li>
 
 
-                <li class="nav-item dropdown">
+                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-strategy mr-2"></i>
                         Kho
@@ -112,26 +112,29 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.bill.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Bán lẻ</a>
+                        <a href="{{route('admin.bill.index1')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Bán lẻ</a>
                   
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fa fa-head-side mr-2"></i>
                         Khách hàng
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.subscriber.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Người đăng ký</a>
-                        <a href="{{route('admin.contact.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Liên hệ</a>
-                        <a href="{{route('admin.member.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Thành viên</a>
+                        <!-- <a href="{{route('admin.subscriber.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Người đăng ký</a>
+                        <a href="{{route('admin.contact.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Liên hệ</a> -->
+                        <a href="{{route('admin.member.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Khách hàng</a>
+                        <a href="{{route('admin.group.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Loại khách hàng</a>
                         <a href="{{route('admin.order.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Đơn hàng</a>
+                        <a href="{{route('admin.rank.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Danh mục cấp bậc</a> 
+                        
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fa fa-gift mr-2"></i>
                         Mã giảm giá
                     </a>
 
@@ -142,13 +145,13 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fa fa-user mr-2"></i>
                         Nhân viên
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Danh mục</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Bài viết</a>
+                        <a href="{{route('admin.employee.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Nhân viên</a>
+                        <a href="{{route('admin.position.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Chức vụ</a>
                     </div>
                 </li>
             </ul>
@@ -164,36 +167,36 @@
                         <div class="dropdown-content-body p-2">
                             <div class="row no-gutters">
                                 <div class="col-12 col-sm-4">
-                                    <a href="#" class="d-block text-default text-center ripple-dark rounded p-3">
+                                    <a href="https://github.com/" class="d-block text-default text-center ripple-dark rounded p-3">
                                         <i class="icon-github4 icon-2x"></i>
                                         <div class="font-size-sm font-weight-semibold text-uppercase mt-2">Github</div>
                                     </a>
 
-                                    <a href="#" class="d-block text-default text-center ripple-dark rounded p-3">
+                                    <a href="https://www.dropbox.com/?landing=dbv2" class="d-block text-default text-center ripple-dark rounded p-3">
                                         <i class="icon-dropbox text-blue-400 icon-2x"></i>
                                         <div class="font-size-sm font-weight-semibold text-uppercase mt-2">Dropbox</div>
                                     </a>
                                 </div>
                                 
                                 <div class="col-12 col-sm-4">
-                                    <a href="#" class="d-block text-default text-center ripple-dark rounded p-3">
+                                    <a href="https://dribbble.com/" class="d-block text-default text-center ripple-dark rounded p-3">
                                         <i class="icon-dribbble3 text-pink-400 icon-2x"></i>
                                         <div class="font-size-sm font-weight-semibold text-uppercase mt-2">Dribbble</div>
                                     </a>
 
-                                    <a href="#" class="d-block text-default text-center ripple-dark rounded p-3">
+                                    <a href="https://drive.google.com/" class="d-block text-default text-center ripple-dark rounded p-3">
                                         <i class="icon-google-drive text-success-400 icon-2x"></i>
                                         <div class="font-size-sm font-weight-semibold text-uppercase mt-2">Drive</div>
                                     </a>
                                 </div>
 
                                 <div class="col-12 col-sm-4">
-                                    <a href="#" class="d-block text-default text-center ripple-dark rounded p-3">
+                                    <a href="https://twitter.com/?lang=en" class="d-block text-default text-center ripple-dark rounded p-3">
                                         <i class="icon-twitter text-info-400 icon-2x"></i>
                                         <div class="font-size-sm font-weight-semibold text-uppercase mt-2">Twitter</div>
                                     </a>
 
-                                    <a href="#" class="d-block text-default text-center ripple-dark rounded p-3">
+                                    <a href="https://www.youtube.com/" class="d-block text-default text-center ripple-dark rounded p-3">
                                         <i class="icon-youtube text-danger icon-2x"></i>
                                         <div class="font-size-sm font-weight-semibold text-uppercase mt-2">Youtube</div>
                                     </a>
@@ -220,4 +223,4 @@
             </ul>
         </div>
     </div>
-    <!-- /secondary navbar -->
+    <!-- /secondary navbar-nav

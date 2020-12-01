@@ -40,7 +40,7 @@
                  @foreach($suppliers as $key => $supplier)
                  <tr>
                     <th>{{$key+1}}</th>
-                    <th>{{$supplier->name}}</th>
+                    <th>{{$supplier->supplier_name}}</th>
                     <th>{{$supplier->email}}</th>
                     
                     <td class="text-center">

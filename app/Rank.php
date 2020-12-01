@@ -9,6 +9,6 @@ class Rank extends Model {
     //
     protected $table = "rank";
     protected $fillable = [
-        'title', 'ordering', 'discount_percent'
+        'title', 'ordering', 'discount_percent','condition',
     ];
 }

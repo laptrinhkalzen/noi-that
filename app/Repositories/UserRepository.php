@@ -19,7 +19,8 @@ class UserRepository extends AbstractRepository {
             'username' => 'required|unique:user',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
-            'role_id' => 'required'
+            'role_id' => 'required',
+            //'email' => 'required|email',
         ];
     }
     public function validateUpdate($id) {

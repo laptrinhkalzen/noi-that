@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Repositories\MemberRepository;
+use App\Repositories\EmployeeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\GroupRepository;
+use App\Repositories\PositionRepository;
 use DB;
 //use Repositories\GroupRepository;
 
-class MemberController extends Controller
+class EmployeeController extends Controller
 {
-    public function __construct(MemberRepository $memberRepo ,GroupRepository $groupRepo) {
-        $this->memberRepo = $memberRepo;
-        $this->groupRepo = $groupRepo;
+    public function __construct(EmployeeRepository $employeeRepo ,PositionRepository $positionRepo) {
+        $this->employeeRepo = $employeeRepo;
+        $this->positionRepo = $positionRepo;
     }
 
     public function index()
     {
-        $records = $this->memberRepo->all();
-        return view('backend/member/index', compact('records'));
+        $records = $this->employeeRepo->all();
+        return view('backend/employee/index', compact('records'));
     }
  public function create() {
         //
-        $options = DB::table('group')->get();
+        $options = DB::table('position')->get();
         $group_html = \App\Helpers\StringHelper::getSelectRoleOptions($options);
-        return view('backend/member/create',compact('group_html','options'));
+        return view('backend/employee/create',compact('group_html','options'));
     }
 
     /**
@@ -36,15 +36,15 @@ class MemberController extends Controller
      */
     public function store(Request $request) {
         $input = $request->all();
-        $validator = \Validator::make($input, $this->memberRepo->validateCreate());
+        $validator = \Validator::make($input, $this->employeeRepo->validateCreate());
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $member = $this->memberRepo->create($input);
-        if ($member->id) {
-            return redirect()->route('admin.member.index')->with('success', 'Tạo mới thành công');
+        $employee = $this->employeeRepo->create($input);
+        if ($employee->id) {
+            return redirect()->route('admin.employee.index')->with('success', 'Tạo mới thành công');
         } else {
-            return redirect()->route('admin.member.index')->with('error', 'Tạo mới thất bại');
+            return redirect()->route('admin.employee.index')->with('error', 'Tạo mới thất bại');
         }
     }
 
@@ -63,9 +63,9 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $record = $this->memberRepo->find($id);
-        $options = DB::table('group')->get();
-        return view('backend/member/edit', compact('record','options'));
+        $record = $this->employeeRepo->find($id);
+        $options = DB::table('position')->get();
+        return view('backend/employee/edit', compact('record','options'));
     }
 
     /**
@@ -77,26 +77,26 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id) {
         $input = $request->all();
-        $validator = \Validator::make($input, $this->memberRepo->validateUpdate($id));
+        $validator = \Validator::make($input, $this->employeeRepo->validateUpdate($id));
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $res = $this->memberRepo->update($input, $id);
+        $res = $this->employeeRepo->update($input, $id);
         if ($res) {
-            return redirect()->route('admin.member.index')->with('success', 'Cập nhật thành công');
+            return redirect()->route('admin.employee.index')->with('success', 'Cập nhật thành công');
         } else {
-            return redirect()->route('admin.member.index')->with('error', 'Cập nhật thất bại');
+            return redirect()->route('admin.employee.index')->with('error', 'Cập nhật thất bại');
         }
     }
     public function show($id)
     {
-        $record = $this->memberRepo->find($id);
-        return view('backend/member/detail', compact('record'));
+        $record = $this->employeeRepo->find($id);
+        return view('backend/employee/detail', compact('record'));
     }
 
     public function destroy($id)
     {
-        $this->memberRepo->delete($id);
+        $this->employeeRepo->delete($id);
         return redirect()->back()->with('success','Xóa thành công');
     }
 }

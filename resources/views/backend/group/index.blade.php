@@ -5,7 +5,7 @@
         <!-- Table header styling -->
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h5 class="card-title">Khách hàng</h5>
+                <h5 class="card-title">Nhóm khách hàng</h5>
                 <div class="header-elements">
                     <div class="list-icons">
                         <a class="list-icons-item" data-action="collapse"></a>
@@ -28,9 +28,7 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Họ tên</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
+                    <th>Tên loại</th>
                     <th>Ngày tạo</th>
                     <th>Tác vụ</th>
                 </tr>
@@ -39,13 +37,12 @@
                 @foreach($records as $key=>$record)
                     <tr>
                         <td>{{++$key}}</td>
-                        <td>{{$record->full_name}}</td>
-                        <td>{{$record->email}}</td>
-                        <td>{{$record->mobile}}</td>
+                        <td>{{$record->name}}</td>
+                        
                         <td>{{$record->created_at()}}</td>
                         <td class="text-center">
-                            <a href="{{route('admin.member.edit', $record->id)}}" title="{!! trans('base.show') !!}" class="success"><i class="icon-pencil"></i></a>
-                            <form action="{!! route('admin.member.destroy', ['id' => $record->id]) !!}" method="POST" style="display: inline-block">
+                            <a href="{{route('admin.group.edit', $record->id)}}" title="{!! trans('base.show') !!}" class="success"><i class="icon-pencil"></i></a>
+                            <form action="{!! route('admin.group.destroy', ['id' => $record->id]) !!}" method="POST" style="display: inline-block">
                                 {!! method_field('DELETE') !!}
                                 {!! csrf_field() !!}
                                 <a title="{!! trans('base.delete') !!}" class="delete text-danger" data-action="delete">
