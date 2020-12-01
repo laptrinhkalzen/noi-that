@@ -143,17 +143,7 @@
                         <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Bài viết</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-user mr-2"></i>
-                        Nhân viên
-                    </a>
-
-                    <div class="dropdown-menu">
-                        <a href="{{route('admin.employee.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Nhân viên</a>
-                        <a href="{{route('admin.position.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Chức vụ</a>
-                    </div>
-                </li>
+                
             </ul>
 
             <ul class="navbar-nav ml-md-auto">
