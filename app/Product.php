@@ -8,7 +8,7 @@ class Product extends Model {
 
     protected $table = 'product';
     protected $fillable = [
-        'code','created_by', 'is_hot', 'is_new', 'content', 'price', 'sale_price','wholesale_price', 'images', 'title', 'description', 'keywords', 'meta_title', 'meta_description', 'meta_keywords', 'view_count', 'status', 'alias', 'ordering', 'post_schedule'
+        'code','created_by', 'is_hot', 'is_new', 'content', 'price', 'sale_price','wholesale_price', 'images', 'title', 'description', 'keywords', 'meta_title', 'meta_description', 'meta_keywords', 'view_count', 'status', 'alias', 'ordering', 'post_schedule','sell_price'
     ];
 
     public function attributes() {

@@ -73,6 +73,11 @@ class StockController extends Controller {
     }
 
      public function import_store(Request $request) {
+           $product=$request->product;
+           $quantity=$request->quantity;
+           $import_price=$request->import_price;
+           $sub_total=$request->sub_total;
+             
            $import=array();
            $import['stock_id']=$request->stock;
            $import['supplier_id']=$request->supplier;
@@ -84,34 +89,48 @@ class StockController extends Controller {
            $import['total_payment']=$request->total_payment;
            $import['total']=$request->total;
            $import['paid']=$request->paid;
+           $import['payment_remain']=$request->total_payment-$request->paid;
            $import['payment_day']=$request->payment_day;
            $import['bill_type']=1;
            $import['created_by']=Auth::user()->id;
            $id=DB::table('import')->insertGetId($import);
 
          
-           $product=$request->product;
-           $quantity=$request->quantity;
-           $dvt=$request->dvt;
-           $import_price=$request->import_price;
-           $sub_total=$request->sub_total;
+          
             for($count=0;$count<count($product);$count++){
-                $products=DB::table('product')->where('id',$product[$count])->first();
-                if($import_price[$count] != $products->price){
-                    DB::table('product')->where('id',$product[$count])->update(['price' => $import_price[$count]]);
-                }
+                //$products=DB::table('product')->where('id',$product[$count])->first();
+                // if($import_price[$count] != $products->price){
+                //     DB::table('product')->where('id',$product[$count])->update(['price' => $import_price[$count]]);
+                // }
                 $import_product=array(
                 'stock_product_id'=>$request->stock,  
                 'product_id'=>$product[$count],
                 'import_id'=>$id,
-                'dvt'=>$dvt[$count],
                 'quantity'=>$quantity[$count],
                 'import_price'=>$import_price[$count],
                 'sub_total'=>$sub_total[$count]
                 );
                 $insert_data[]=$import_product;
             }
+
             DB::table('import_product')->insert($insert_data);
+             
+              for($count=0;$count<count($product);$count++){
+                 $product_update=DB::table('product')->where('id',$product[$count])->first();
+                 $stock_pro=DB::table('stock_product')->where('product_id',$product[$count])->get();
+                 $sum=0;
+                 foreach($stock_pro as $stock_pro1){
+                    $sum+=$stock_pro1->stock_product_quantity;
+                 }
+                
+                if($product_update->price != $import_price[$count]){
+
+                    $new_price=(($product_update->price*$sum)+($import_price[$count]*$quantity[$count]))/($sum+$quantity[$count]);
+                    
+                    DB::table('product')->where('id',$product[$count])->update(['price'=>$new_price]);
+                }
+            } 
+
              for($count=0;$count<count($product);$count++){
                 $is_exist=DB::table('stock_product')->where('product_id',$product[$count])->where('stock_id',$request->stock)->first();
                 if($is_exist){
@@ -126,11 +145,21 @@ class StockController extends Controller {
                   $stock_product['stock_product_quantity']=$quantity[$count];
                   DB::table('stock_product')->insert($stock_product);
                   } 
-                }           
+                }  
+
+               
+
+               
+                       
         return redirect()->route('admin.import.index')->with('success','Thành công');
     }
 
          public function import_update(Request $request,$id) {
+           $product=$request->product;
+           $quantity=$request->quantity;
+           $import_price=$request->import_price;
+           $sub_total=$request->sub_total;
+             
            $import=array();
            $import['stock_id']=$request->stock;
            $import['supplier_id']=$request->supplier;
@@ -142,21 +171,18 @@ class StockController extends Controller {
            $import['total_payment']=$request->total_payment;
            $import['total']=$request->total;
            $import['paid']=$request->paid;
+           $import['payment_remain']=$request->total_payment-$request->paid;
            $import['payment_day']=$request->payment_day;
-           $import['bill_type']=1;
-           $import['created_by']=Auth::user()->id;
-           DB::table('import')->where('import_id',$id)->update($import);
-           $product=$request->product;
-           $quantity=$request->quantity;
-           $dvt=$request->dvt;
-           $import_price=$request->import_price;
-           $sub_total=$request->sub_total;
+           DB::table('import')->update($import);
+
+         
+          //san pham trong don nhap hang
            DB::table('import_product')->where('import_id',$id)->delete();
             for($count=0;$count<count($product);$count++){
                 $import_product=array(
+                'stock_product_id'=>$request->stock,  
                 'product_id'=>$product[$count],
                 'import_id'=>$id,
-                'dvt'=>$dvt[$count],
                 'quantity'=>$quantity[$count],
                 'import_price'=>$import_price[$count],
                 'sub_total'=>$sub_total[$count]
@@ -164,17 +190,37 @@ class StockController extends Controller {
                 $insert_data[]=$import_product;
             }
             DB::table('import_product')->insert($insert_data);
-
-            // DB::table('stock_product')->where('stock_id',$id)->delete();
-            // for($count=0;$count<count($product);$count++){
-            //       $stock_product=array();
-            //       $stock_product['stock_id']=$request->stock;
-            //       $stock_product['product_id']=$product[$count];
-            //       $stock_product['stock_product_quantity']=$quantity[$count];
-            //       DB::table('stock_product')->insert($stock_product);
-            //     }  
-           
-        // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+             
+             //cap nhat gia nhap
+              for($count=0;$count<count($product);$count++){
+                 $product_update=DB::table('product')->where('id',$product[$count])->first();
+                 $stock_pro=DB::table('stock_product')->where('product_id',$product[$count])->get();
+                 $sum=0;
+                 foreach($stock_pro as $stock_pro1){
+                    $sum+=$stock_pro1->stock_product_quantity;
+                 }
+                if($product_update->price != $import_price[$count]){
+                    $new_price=(($product_update->price*$sum)+($import_price[$count]*$quantity[$count]))/($sum+$quantity[$count]);
+                    DB::table('product')->where('id',$product[$count])->update(['price'=>$new_price]);
+                }
+            } 
+             
+             //them quantity product trong tung kho
+             for($count=0;$count<count($product);$count++){
+                $is_exist=DB::table('stock_product')->where('product_id',$product[$count])->where('stock_id',$request->stock)->first();
+                if($is_exist){
+                  $stock_product=array();
+                  $stock_product['stock_product_quantity']=$is_exist->stock_product_quantity + $quantity[$count];
+                  DB::table('stock_product')->where('product_id',$product[$count])->update(['stock_product_quantity'=> $stock_product['stock_product_quantity']]);
+                  }
+                else{
+                  $stock_product=array();
+                  $stock_product['stock_id']=$request->stock;
+                  $stock_product['product_id']=$product[$count];
+                  $stock_product['stock_product_quantity']=$quantity[$count];
+                  DB::table('stock_product')->insert($stock_product);
+                  } 
+                }  
         return redirect()->route('admin.import.index')->with('success','Thành công');
     }
 

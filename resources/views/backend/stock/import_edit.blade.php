@@ -97,10 +97,9 @@
                                    <table class="table ">
                                       <thead>
                                         <tr>
-                                          <th style="width:25%;" class="">Sản phẩm</th>
-                                          <th style="width:16%;" class="" >ĐVT</th>
-                                          <th style="width:17%;" scope="">Giá vốn</th>
-                                          <th style="width:16.5%;" scope="">Số lượng</th>
+                                          <th style="width:18%;" class="">Sản phẩm</th>
+                                          <th style="width:13%;" scope="">Giá vốn</th>
+                                          <th style="width:11%;" scope="">Số lượng</th>
                                           <th style="width:15%;" scope="">Thành tiền</th>
                                           <th style="width:15%;" scope=""></th>
                                         </tr>
@@ -116,25 +115,23 @@
                                 <hr style="border: 1px solid grey;"> -->
                                   @foreach($import_products as $key => $import_product)
                                     <div class="form-row" style="margin-left: 0px; margin-top: 10px;">   
-                                    <div class="form-group col-md-3" >
-                                        <select class="js-example-basic-single" name="product[]">
+                                    <div class="form-group col-md-3" id="vehicle-type" >
+                                        <select class="form-control" name="product[]">
                                          
                                             @foreach($products as $product)
                                               @if($product->id==$import_product->product_id)
-                                              <option selected value="{{$product->id}}">{{$product->title}}</option>
+                                              <option selected data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>
                                               @else
-                                              <option value="{{$product->id}}">{{$product->title}}</option>
+                                              <option data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>
                                               @endif
                                             @endforeach
                                            
                                         </select>
 
                                      </div>
+                                    
                                      <div class="form-group col-md-2" >
-                                     <input  type="text" name="dvt[]" value="{{$import_product->dvt}}" class="form-control" required="">
-                                     </div>
-                                     <div class="form-group col-md-2" >
-                                     <input  type="text" value="{{$import_product->import_price}}" name="import_price[]" min="1" class="form-control price" required="">
+                                     <input  type="text" value="{{$import_product->import_price}}" name="import_price[]" min="1" class="form-control price price-input" required="">
                                      </div>
                                      <div class="form-group col-md-2">
                               
@@ -164,7 +161,7 @@
                                 e.preventDefault();
                                 if(x < max_fields){ //max input box allowed
                                 x++; //text box increment
-                                $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" ><select class="js-example-basic-single" name="product[]">@foreach($products as $product)<option  value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div><div class="form-group col-md-2" ><input  type="text" value="" name="dvt[]" class="form-control " required=""></div><div class="form-group col-md-2" ><input  type="text" value="" name="import_price[]" min="1" class="form-control price" required=""></div><div class="form-group col-md-2"><input id="quantity"  name="quantity[]" type="number" value="1" min="1" class="form-control" required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info">Xóa</div></div>'); 
+                                $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" id="vehicle-type"><select class="form-control" name="product[]">@foreach($products as $product)<option data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div><div class="form-group col-md-2" ><input  type="text" value="" name="import_price[]" min="1" class="form-control price price-input" required=""></div><div class="form-group col-md-2"><input id="quantity"  name="quantity[]" type="number" value="1" min="1" class="form-control" required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info">Xóa</div></div>'); 
                        
                                 }
                                 });
@@ -266,12 +263,7 @@
                                         <input  type="text" name="paid" value="{{$import->paid}}" class="form-control">
                                     </div>
                                 </div> 
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Còn nợ </label>
-                                    <div class="col-md-7">
-                                        <input type="text" name="still_owe" value="{{(($import->total_payment)-($import->paid))}}" class="form-control" >
-                                    </div>
-                                </div> 
+                             
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Hẹn thanh toán </label>
                                     <div class="col-md-7">
@@ -303,6 +295,23 @@
     </form>
 </div>
 </body>
+<script type="text/javascript">
+
+  
+                            $(document).each(function () {
+                               
+                              $('body').delegate('#vehicle-type','change',function (){
+                                 $(this).parents('.form-row').find('.price-input').val(
+                                  $(this).find(':selected').data('price1')
+                                );
+                                 $(this).parents('.form-row').find('.quantity-input')
+                                .val(
+                                  $(this).find(':selected').data('quantity1')
+                                );
+                                  
+                              });
+                            });
+</script>
 @stop
 @section('script')
 @parent

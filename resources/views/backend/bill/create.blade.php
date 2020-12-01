@@ -1,9 +1,12 @@
 @extends('backend.layouts.master')
-@section('content')       
+@section('content')   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="jquery-3.5.1.min.js"></script>    
 <body>
 
+
 <div class="content">
-    <form action="{!!route('admin.import.store')!!}" method="POST" enctype="multipart/form-data">
+    <form action="{!!route('admin.bill.store',['stock_id' => $stock_id])!!}" method="POST" enctype="multipart/form-data">
                      <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
                           <!-- Modal content-->
@@ -25,7 +28,7 @@
                       </div>
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h6 class="card-title">Tạo mới phiếu nhập</h6>
+                <h6 class="card-title">Lập hóa đơn</h6>
                 <div class="header-elements">
                     <div class="list-icons">
                         <a class="list-icons-item" data-action="collapse"></a>
@@ -37,22 +40,24 @@
 
             <div class="card-body">
                 <ul class="nav nav-tabs nav-tabs-highlight">
-                    <li class="nav-item"><a href="#left-icon-tab1" class="nav-link active" data-toggle="tab">
-                                   <select class="js-example-basic-single" name="stock">
-                                            @foreach($stocks as $stock)
-                                              <option  value="{{$stock->id}}">{{$stock->name}}</option>
-                                            @endforeach
-                                        </select></a></li>
-                   <!--  <li class="nav-item"><a href="#left-icon-tab2" class="nav-link" data-toggle="tab"><i class="icon-stack2 mr-2"></i> Thuộc tính sản phẩm</a></li>
-                    <li class="nav-item"><a href="#left-icon-tab3" class="nav-link" data-toggle="tab"><i class="icon-mention mr-2"></i> Thẻ meta</a></li> -->
-
+                    <li class="nav-item">
+                 
+                       <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Chọn kho
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                             @foreach($stocks as $stock)
+                                <li style="margin-left: 10px;"><a name="{{$stock_id}}" value="{{$stock->id}}" href="{{route('admin.export.create',['id' => $stock->id])}}">{{$stock->name}}</a></li>
+                             @endforeach
+                          </ul>
+                        </div>
+                    </li>
                 </ul>
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-          <script src="jquery-3.5.1.min.js"></script>
+                    
              <script type="text/javascript">
                            $(document).ready(function () {
                                
-                              $('body').delegate('input[name="quantity[]"],#discount,#type,.price','change',function (){
+                              $('body').delegate('input[name="quantity[]"],#discount,#type,.price,.xoa','change',function (){
                            var price=$(this).parent('.form-group').parent('.form-row').find('.price').val();
                                  var quantity=$(this).parent('.form-group').parent('.form-row').find('input[name="quantity[]"]').val();
                                  if(quantity<1){
@@ -84,6 +89,8 @@
                                      }
                               });
                             });
+
+
                          </script> 
                          
                 
@@ -97,9 +104,9 @@
                                    <table class="table ">
                                       <thead>
                                         <tr>
-                                          <th scope="col">Sản phẩm</th>
-                                          <th scope="col">ĐVT</th>
-                                          <th scope="col">Giá vốn</th>
+                                          <th style="width: 24%;">Sản phẩm</th>
+                                          <th style="width: 17%;">Tồn kho</th>
+                                          <th style="width: 17%;" >Giá</th>
                                           <th scope="col">Số lượng</th>
                                           <th scope="col">Thành tiền</th>
                                           <th scope="col"></th>
@@ -110,25 +117,24 @@
                                   
                                  </table>
                                     <div class="form-row" style="margin-left: 0px; margin-top: 10px;">
-                                        
-                                            
-                                    <div class="form-group col-md-3" >
-                                        <select class="js-example-basic-single" name="product[]">
-                                            @foreach($products as $product)
-                                              <option  value="{{$product->id}}">{{$product->title}}</option>
-                                            @endforeach
-                                        </select>
 
+                                   <div class="form-group col-md-3" id="vehicle-type">
+                                      <select class="select2 form-control" name="product[]">
+                                        <option value="">------Chọn------</option> 
+                                           @foreach($products as $product)
+                                              <option data-quantity1="{{$product->stock_product_quantity}}" data-price1="{{$product->sell_price}}" value="{{$product->id}}">{{$product->title}}</option>
+                                            @endforeach
+                                      </select>
+                                  </div> 
+                                     <div class="form-group col-md-2" >
+                                       <input  readonly  type="number"  class="form-control quantity-input" required="">
+                                     </div>
+
+                                     <div class="form-group col-md-2" >
+                                     <input  type="text" readonly  name="price[]" min="1" class="form-control price price-input" required="">
                                      </div>
                                      <div class="form-group col-md-2" >
-                                     <input  type="text" value="" name="dvt[]"  class="form-control" required="">
-                                     </div>
-                                     <div class="form-group col-md-2" >
-                                     <input  type="text" value="" name="import_price[]" min="1" class="form-control price" required="">
-                                     </div>
-                                     <div class="form-group col-md-2">
-                              
-                                       <input id="quantity"  name="quantity[]" type="number" value="1" min="1" class="form-control" required="">
+                                       <input id="quantity"  name="quantity[]" type="number"  min="1" class="form-control " required="">
                                      </div>
 
                                     <div class="form-group col-md-2" >
@@ -139,13 +145,12 @@
                                     </div>
                                       <div class="input_fields_wrap">
                                     </div>
-                                 
-                     
-                                     
-                                   
-                                   
+                               
+
                                 </fieldset>
                             </div>
+                           
+
                                 <script>
                                 $(document).ready(function() {
                                 var max_fields = 15; //maximum input boxes allowed
@@ -156,8 +161,10 @@
                                 e.preventDefault();
                                 if(x < max_fields){ //max input box allowed
                                 x++; //text box increment
-                                $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" ><select class="js-example-basic-single" name="product[]">@foreach($products as $product)<option  value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div><div class="form-group col-md-2" ><input  type="text" value="" name="dvt[]" class="form-control " required=""></div><div class="form-group col-md-2" ><input  type="text" value="" name="import_price[]" min="1" class="form-control price" required=""></div><div class="form-group col-md-2"><input id="quantity"  name="quantity[]" type="number" value="1" min="1" class="form-control" required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info">Xóa</div></div>'); 
-                       
+                                $(wrapper).append('  <div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" id="vehicle-type"><select class="select2 form-control" name="product[]"><option>------Chọn------</option> @foreach($products as $product)<option data-quantity1="{{$product->stock_product_quantity}}" data-price1="{{$product->sell_price}}" value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div> <div class="form-group col-md-2" ><input  readonly  type="number"  class="form-control quantity-input" required=""></div><div class="form-group col-md-2" ><input  type="text" value="" name="price[]" min="1" readonly class="form-control price price-input" required=""></div><div class="form-group col-md-2" ><input id="quantity"  name="quantity[]" type="number"  min="1" class="form-control " required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info xoa">Xóa</div></div>'); 
+                                     $('.select2').select2({
+     //configuration
+                                     });
                                 }
                                 });
                              
@@ -165,18 +172,65 @@
                                 e.preventDefault(); $(this).parent('div').remove(); x--;
                                 })
                                 });
+                              
 
                                
                     
                 </script>
-                                <script type="text/javascript">
-                    $(document).ready(function() {
-                    $('.js-example-basic-single').select2();
-                    });
+                <script type="text/javascript">
+                     $(document).ready(function() {
+                              $('.select2').select2();
+                              });
                 </script>
 
                             <div class="col-md-4">
+                                 <h5 style="text-decoration:underline;">Thông tin đơn hàng</h5>
+                              <!--   <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Nhà cung cấp</label>
+                                    <div class="col-md-7">
+                                         <select class="js-example-basic-single" name="supplier">
+                                            @foreach($suppliers as $supplier)
+                                              <option  value="{{$supplier->id}}">{{$supplier->supplier_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div> -->
+                               <!--  <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Ngày nhập</label>
+                                    <div class="col-md-7">
+                                        <input type="date" name="date_import" class="form-control " >
+                                    </div>
+                                </div> -->
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Nhân viên bán</label>
+                                    <div class="col-md-7">
+                                         <select class="select2 form-control" name="user_id">
+                                        <option value="">------Chọn------</option> 
+                                           @foreach($users as $user)
+                                              <option  value="{{$user->id}}">{{$user->full_name}}</option>
+                                            @endforeach
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Khách hàng </label>
+                                    <div class="col-md-7">
+                                         <select class="select2 form-control" name="customer_id">
+                                        <option value="">------Chọn------</option> 
+                                           @foreach($customers as $customer)
+                                              <option value="{{$customer->id}}">{{$customer->full_name}} ({{$customer->id}})</option>
+                                            @endforeach
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Ghi chú </label>
+                                    <div class="col-md-7">
+                                         <textarea class="form-control" name="note" rows="4" id="comment"></textarea>
+                                    </div>
+                                </div>
                                 
+                              
                                 <h5 style="text-decoration:underline;">Thông tin thanh toán</h5>
                                    
                                 <div class="form-group row">
@@ -200,6 +254,15 @@
                                         <input  type="number" id="discount" name="discount" class="form-control col-md-9">
                                     </div>
                                 </div> 
+                                
+
+                                 <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Mã giảm giá </label>
+
+                                    <div class="col-md-7">
+                                        <input  type="text" id="discount" name="coupon" class="form-control">
+                                    </div>
+                                </div> 
                                
                             
 
@@ -218,19 +281,14 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Đã thanh toán</label>
                                     <div class="col-md-7">
-                                        <input  type="text" name="paid" class="form-control">
+                                        <input  type="text" name="customer_payment" class="form-control">
                                     </div>
-                                </div> 
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Còn nợ </label>
-                                    <div class="col-md-7">
-                                        <input type="text" name="still_owe" class="form-control" >
-                                    </div>
-                                </div> 
+                                </div>  
+                                
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Hẹn thanh toán </label>
                                     <div class="col-md-7">
-                                        <input type="date" name="payment_day" class="form-control " >
+                                        <input type="date" name="payment_appointment" class="form-control " >
                                     </div>
                                 </div> 
                               
@@ -256,7 +314,29 @@
         </div>
     </form>
 </div>
+
+<script type="text/javascript">
+                           
+  
+                            $(document).ready(function () {
+                               
+                              $('body').delegate('#vehicle-type','change',function (){
+                                 $(this).parents('.form-row').find('.price-input').val(
+                                  $(this).find('.select2').find(":selected").data("price1")
+                                );
+                                 $(this).parents('.form-row').find('.quantity-input')
+                                .val(
+                                  $(this).find(":selected").data("quantity1")
+                                );
+                                  
+                              });
+                            });
+</script>
+
 </body>
+
+
+
 @stop
 @section('script')
 @parent

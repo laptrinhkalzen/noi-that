@@ -40,7 +40,40 @@
   </div> -->
   
 
-  
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+            <div class="card-body">
+                <ul class="nav nav-tabs nav-tabs-highlight">
+                    <li class="nav-item">
+                 
+                       <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Chọn kho
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                             @foreach($stocks as $stock1)
+                                <li style="margin-left: 10px;"><a href="{{route('admin.bill.create',['stock_id' => $stock1->id])}}">{{$stock1->name}}</a></li>
+                             @endforeach
+                          </ul>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
   
 
@@ -74,8 +107,8 @@
               <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-plus" aria-hidden="true"> </i>
               <span class="caret">Thêm mới</span></button>
               <ul class="dropdown-menu" >
-                <li style="margin-left: 10px;"><a href="{{route('admin.import.create')}}">Nhập kho</a></li>
-                <li style="margin-left: 10px;"><a href="{{route('admin.export.create',['id' => '0'])}}">Xuất kho</a></li>
+                <li style="margin-left: 10px; color:blue;"><a href="" data-toggle="modal" data-target="#myModal">Lập hóa đơn</a></li>
+                <!-- <li style="margin-left: 10px;"><a  href="{{route('admin.import.create')}}">Lập hóa đơn</a></li> -->
               </ul>
             </div>
 
@@ -108,7 +141,7 @@
                   table: toExcel
                 };
                 var link = document.createElement("a");
-                link.download = "export.xls";
+                link.download = "don_hang.xls";
                 link.href = uri + base64(format(template, ctx))
                 link.click();
               }
@@ -121,13 +154,12 @@
                     <th>Ngày</th>
                     <th>ID</th>
                     <th>Kho hàng</th>
+                    <th>Người bán</th>
                     <th>Khách hàng</th>
-                    <th>Sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
+                    <th>Tổng đơn hàng</th>
                     <th>Chiết khấu</th>
-                    <th>Tổng tiền</th>
-                    <th>Thanh toán</th>
+                    <th>Tổng thanh toán</th>
+                    <th>Đã thanh toán</th>
                     <th>Ghi chú</th>
                     <th>Thao tác</th>
                 </tr>
@@ -157,15 +189,14 @@
                  <tr>
                     <th>{{$record->created_at}}</th>
                     <th>{{$record->bill_id}}</th>
-                    <th>{{$record->stock_name}}</th>
-                    
-                    <th>{{$record->customer_name}}</th>
-                    <th>{{$record->product_name}}</th>
-                    <th>{{$record->price}}</th>
-                    <th>{{$record->quantity}}</th>
+                    <th><a target="_blank" href="{{route('admin.stock.edit',['id'=>$record->stock_id])}}">{{$record->stock_name}}</a></th>
+                    <th><a target="_blank" href="{{route('admin.user.edit',['id'=>$record->user_id])}}">{{$record->user_name}}</a></th>
+                    <th><a target="_blank" href="{{route('admin.member.edit',['id'=>$record->customer_id])}}">{{$record->customer_name}}</a></th>
+                    <th>{{$record->total}}</th>
                     <th>{{$record->discount}}</th>
                     <th>{{$record->total_payment}}</th>
                     <th>{{$record->customer_payment}}</th>
+                    
                     @if($record->note!=null)
                     <th>{{$record->note}}</th>
                     @else
@@ -173,8 +204,8 @@
                     @endif
                     <td class="text-center">
                         <a class="success" data-toggle="modal" data-target="#myModal_{{$key}}"><i class="icon-eye"></i></a>
-                        <a href="{{route('admin.import.edit', $record->import_id)}}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
-                        <form action="{!! route('admin.import.destroy', $record->import_id) !!}" method="POST" style="display: inline-block">
+                        <a href="{!! route('admin.bill.edit', ['id' => $record->bill_id, 'stock_id' => $record->stock_id]) !!}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
+                        <form action="{!! route('admin.bill.destroy', $record->bill_id) !!}" method="POST" style="display: inline-block">
                             {!! method_field('DELETE') !!}
                             {!! csrf_field() !!}
                             <a title="Xóa" class="delete text-danger" data-action="delete">

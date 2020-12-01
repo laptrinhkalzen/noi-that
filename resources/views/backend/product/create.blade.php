@@ -96,7 +96,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Giá bán </label>
+                                    <label class="col-form-label col-md-4 text-left">Giá bán</label>
+                                    <div class="col-md-7">
+                                        <input type="text" name="sell_price" class="form-control touchspin text-center" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Giá khuyến mại</label>
                                     <div class="col-md-7">
                                         <input type="text" name="sale_price" class="form-control touchspin text-center" value="0">
                                     </div>
