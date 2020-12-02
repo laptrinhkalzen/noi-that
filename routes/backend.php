@@ -57,6 +57,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/stock/import_edit/{id}', ['as' => 'admin.import.edit', 'uses' => 'Backend\StockController@import_edit']);
     Route::post('/stock/import_update/{id}', ['as' => 'admin.import.update', 'uses' => 'Backend\StockController@import_update']);
     Route::delete('/stock/import_delete/{id}', ['as' => 'admin.import.destroy', 'uses' => 'Backend\StockController@import_destroy']);
+    Route::get('/print/edit_import/{id}', ['as' => 'admin.print.edit_import', 'uses' => 'Backend\StockController@print']);
 
     //xuatkho
     Route::get('/stock/export_index', ['as' => 'admin.export.index', 'uses' => 'Backend\StockController@export_index']);
@@ -80,6 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/bill/update/{id}/{stock_id}', ['as' => 'admin.bill.update', 'uses' => 'Backend\billController@update']);
     Route::delete('/bill/delete/{id}', ['as' => 'admin.bill.destroy', 'uses' => 'Backend\billController@destroy']);
     Route::get('/print/edit_bill/{id}', ['as' => 'admin.print.edit_bill', 'uses' => 'Backend\billController@print']);
+    
 
     /* Quản lý product */
     Route::get('/product', ['as' => 'admin.product.index', 'uses' => 'Backend\ProductController@index']);
