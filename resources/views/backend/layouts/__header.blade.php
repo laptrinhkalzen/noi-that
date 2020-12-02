@@ -17,7 +17,7 @@
         margin: 0mm;  /* this affects the margin in the printer settings */
     }
 </style>
-
+    
     <div class="page-header page-header-light">
     <div class="page-header-content header-elements-md-inline">
         <div class="page-title d-flex">

@@ -79,13 +79,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/bill/edit/{id}/{stock_id}', ['as' => 'admin.bill.edit', 'uses' => 'Backend\billController@edit']);
     Route::post('/bill/update/{id}/{stock_id}', ['as' => 'admin.bill.update', 'uses' => 'Backend\billController@update']);
     Route::delete('/bill/delete/{id}', ['as' => 'admin.bill.destroy', 'uses' => 'Backend\billController@destroy']);
+    Route::get('/print/edit_bill/{id}', ['as' => 'admin.print.edit_bill', 'uses' => 'Backend\billController@print']);
 
     /* Quản lý product */
     Route::get('/product', ['as' => 'admin.product.index', 'uses' => 'Backend\ProductController@index']);
     Route::get('/product/create', ['as' => 'admin.product.create', 'uses' => 'Backend\ProductController@create']);
     Route::post('/product/store', ['as' => 'admin.product.store', 'uses' => 'Backend\ProductController@store']);
     Route::get('/product/edit/{id}', ['as' => 'admin.product.edit', 'uses' => 'Backend\ProductController@edit']);
-    Route::post('/product/update/{id}/{stock_id}', ['as' => 'admin.product.update', 'uses' => 'Backend\ProductController@update']);
+    Route::post('/product/update/{id}', ['as' => 'admin.product.update', 'uses' => 'Backend\ProductController@update']);
     Route::delete('/product/delete/{id}', ['as' => 'admin.product.destroy', 'uses' => 'Backend\ProductController@destroy']);
 
      

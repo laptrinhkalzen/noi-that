@@ -7,6 +7,17 @@
     </div>
 
 </div>
+<style type="text/css" media="print">
+    @page 
+    {
+        size: auto;   /* auto is the initial value */
+        margin: 0mm;  /* this affects the margin in the printer settings */
+    }
+    @media print {
+     .hide-from-printer {
+          display: none;
+      }
+</style>
 
 
 <script src="{!! asset('assets/global_assets/js/main/jquery.min.js') !!}"></script>

@@ -49,6 +49,7 @@ return [
     'admin.group.index'=>'Nhóm khách hàng',
     'admin.position.index'=>'Chức vụ',
     'admin.employee.index'=>'Nhân viên',
+    'admin.import.index'=>'Phiếu nhập ',
 
 
 ];
