@@ -78,7 +78,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::delete('/stock/delete/{id}', ['as' => 'admin.stock.destroy', 'uses' => 'Backend\StockController@destroy']);
 
     //chuyen kho
-
+    //print
+    Route::get('/print/edit_import/{id}', ['as' => 'admin.print.edit_import', 'uses' => 'Backend\StockController@print']);
+    Route::get('/print/edit_bill/{id}', ['as' => 'admin.print.edit_bill', 'uses' => 'Backend\billController@print']);
  
 
     //bill

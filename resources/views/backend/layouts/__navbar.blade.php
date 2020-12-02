@@ -72,8 +72,8 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.user.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Thành viên hệ thống</a>
-                        <a href="{{route('admin.role.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Quyền</a>
+                        <a href="{{route('admin.user.index')}}" class="dropdown-item"><i class="fa fa-address-card mr-2"></i> Thành viên hệ thống</a>
+                        <a href="{{route('admin.role.index')}}" class="dropdown-item"><i class="fa fa-handshake mr-2"></i> Quyền</a>
                     </div>
                 </li>
 
@@ -84,9 +84,9 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.category.index', \App\Category::TYPE_PRODUCT)}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Danh mục</a>
-                        <a href="{{route('admin.product.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Sản phẩm</a>
-                        <a href="{{route('admin.attribute.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Thuộc tính</a>
+                        <a href="{{route('admin.category.index', \App\Category::TYPE_PRODUCT)}}" class="dropdown-item"><i class="fa fa-list mr-2"></i> Danh mục</a>
+                        <a href="{{route('admin.product.index')}}" class="dropdown-item"><i class="fa fa-couch mr-2"></i> Sản phẩm</a>
+                        <a href="{{route('admin.attribute.index')}}" class="dropdown-item"><i class="fa fa-cube mr-2"></i> Thuộc tính</a>
                     </div>
                 </li>
                 
@@ -98,29 +98,29 @@
                     </a>
                     
                     <ul class="dropdown-menu">
-                        <a href="{{route('admin.stock.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Kho</a>
+                        <a href="{{route('admin.stock.index')}}" class="dropdown-item"><i class="fa fa-home mr-2"></i> Kho</a>
                          <li class="dropdown dropdown-submenu"> <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-align-center-horizontal"></i>
+                        <i class="fa fa-exchange mr-2"></i>
                         Nhập xuất kho
                     </a>
                     <ul class="dropdown-menu">
                          
-                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Phiếu nhập kho</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Danh sách sản phẩm</a>
+                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="fa fa-file mr-2"></i>Phiếu nhập kho</a>
+                        <a href="" class="dropdown-item"><i class="fa fa-list-ul mr-2"></i>Danh sách sản phẩm</a>
                       </ul>
                     </li>
                       <li class="dropdown dropdown-submenu"> <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-align-center-horizontal"></i>
+                        <i class="fa fa-pencil mr-2"></i>
                         Kiểm kho
                     </a>
                     <ul class="dropdown-menu">
                          
-                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Phiếu kiểm kho</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Sản phẩm kiểm kho</a>
+                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="fa fa-file-code mr-2"></i>Phiếu kiểm kho</a>
+                        <a href="" class="dropdown-item"><i class="fa fa-hdd mr-2"></i>Sản phẩm kiểm kho</a>
                       </ul>
                     </li>
                
-                        <a href="{{route('admin.supplier.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Nhà cung cấp</a>
+                        <a href="{{route('admin.supplier.index')}}" class="dropdown-item"><i class="fa fa-spinner mr-2"></i> Nhà cung cấp</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -130,7 +130,7 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.bill.index1')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Bán lẻ</a>
+                        <a href="{{route('admin.bill.index1')}}" class="dropdown-item"><i class="fa fa-bug mr-2"></i>Bán lẻ</a>
                   
                     </div>
                 </li>
@@ -143,10 +143,10 @@
                     <div class="dropdown-menu">
                         <!-- <a href="{{route('admin.subscriber.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Người đăng ký</a>
                         <a href="{{route('admin.contact.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Liên hệ</a> -->
-                        <a href="{{route('admin.member.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Khách hàng</a>
-                        <a href="{{route('admin.group.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Loại khách hàng</a>
-                        <a href="{{route('admin.order.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Đơn hàng</a>
-                        <a href="{{route('admin.rank.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Danh mục cấp bậc</a> 
+                        <a href="{{route('admin.member.index')}}" class="dropdown-item"><i class="fa fa-head-side mr-2"></i> Khách hàng</a>
+                        <a href="{{route('admin.group.index')}}" class="dropdown-item"><i class="fa fa-address-book mr-2"></i> Loại khách hàng</a>
+                        <a href="{{route('admin.order.index')}}" class="dropdown-item"><i class="fa fa-briefcase mr-2"></i> Đơn hàng</a>
+                        <a href="{{route('admin.rank.index')}}" class="dropdown-item"><i class="fa fa-list mr-2"></i> Danh mục cấp bậc</a> 
                         
                     </div>
                 </li>
@@ -157,8 +157,8 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Danh mục</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Bài viết</a>
+                        <a href="" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Danh mục</a>
+                        <a href="" class="dropdown-item"><i class="fa fa-calendar mr-2"></i> Bài viết</a>
                     </div>
                 </li>
                 

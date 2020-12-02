@@ -261,7 +261,12 @@ class StockController extends Controller {
     }
 
 
-    
+    //san pham tr ong kho
+    public function import_product(){
+      $stock=DB::table('stock')->where('id',1)->first();
+      $records=DB::table('import_product')->join('product','product.id','=','import_product.product_id')->join('import','import.import_id','=','import_product.import_id')->where('stock_product_id',1)->orderBy('import.created_at','desc')->get();
+      return view('backend/stock/import_product',compact('records','stock'));
+    }
 
     //xuat kho
     public function export_create($id) {
@@ -273,7 +278,26 @@ class StockController extends Controller {
     }
 
 
-    //chuyen kho
+    //Phieu kiem kho
+    public function inventory_create(){
+       
+    }
+    
+     public function inventory_store(){
+
+    }
+
+     public function inventory_edit(){
+
+    }
+
+    public function inventory_update(){
+
+    }
+
+    public function inventory_destroy(){
+
+    }
 
 
 
