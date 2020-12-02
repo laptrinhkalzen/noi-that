@@ -70,16 +70,16 @@
             </div>
           
             <div class="row">
-             <div class="dropdown" style="margin-left: 20px;">
+             <!-- <div class="dropdown" style="margin-left: 20px;">
               <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-plus" aria-hidden="true"> </i>
               <span class="caret">Thêm mới</span></button>
               <ul class="dropdown-menu" >
                 <li style="margin-left: 10px;"><a href="{{route('admin.import.create')}}">Nhập kho</a></li>
                 <li style="margin-left: 10px;"><a href="{{route('admin.export.create',['id' => '0'])}}">Xuất kho</a></li>
               </ul>
-            </div>
+            </div> -->
 
-            <div class="dropdown" style="margin-left: 10px;">
+            <div class="dropdown" style="margin-left: 25px;">
               <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fas fa-cog"></i>
               <span class="caret"> Thao tác</span></button>
               <ul class="dropdown-menu" >

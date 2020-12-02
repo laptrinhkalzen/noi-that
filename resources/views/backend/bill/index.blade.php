@@ -107,8 +107,8 @@
               <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-plus" aria-hidden="true"> </i>
               <span class="caret">Thêm mới</span></button>
               <ul class="dropdown-menu" >
-                <li style="margin-left: 10px; color:blue;"><a href="" data-toggle="modal" data-target="#myModal">Lập hóa đơn</a></li>
-                <!-- <li style="margin-left: 10px;"><a  href="{{route('admin.import.create')}}">Lập hóa đơn</a></li> -->
+               <!--  <li style="margin-left: 10px; color:blue;"><a href="" data-toggle="modal" data-target="#myModal">Lập hóa đơn</a></li> -->
+               <li style="margin-left: 10px;"><a href="{{route('admin.bill.create',['stock_id' => 1])}}">Thêm mới</a></li>
               </ul>
             </div>
 

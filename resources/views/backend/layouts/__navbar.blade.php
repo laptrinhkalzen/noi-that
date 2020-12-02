@@ -89,25 +89,43 @@
                         <a href="{{route('admin.attribute.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Thuộc tính</a>
                     </div>
                 </li>
-
+                
 
                  <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fas fa-warehouse"></i>
                         Kho
                     </a>
-
-                    <div class="dropdown-menu">
-                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Xuất nhập kho</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Nhập/xuất kho</a>
-                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Kiểm kho</a>
+                    
+                    <ul class="dropdown-menu">
                         <a href="{{route('admin.stock.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Kho</a>
+                         <li class="dropdown dropdown-submenu"> <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-align-center-horizontal"></i>
+                        Nhập xuất kho
+                    </a>
+                    <ul class="dropdown-menu">
+                         
+                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Phiếu nhập kho</a>
+                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Danh sách sản phẩm</a>
+                      </ul>
+                    </li>
+                      <li class="dropdown dropdown-submenu"> <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-align-center-horizontal"></i>
+                        Kiểm kho
+                    </a>
+                    <ul class="dropdown-menu">
+                         
+                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Phiếu kiểm kho</a>
+                        <a href="" class="dropdown-item"><i class="icon-align-center-horizontal"></i>Sản phẩm kiểm kho</a>
+                      </ul>
+                    </li>
+               
                         <a href="{{route('admin.supplier.index')}}" class="dropdown-item"><i class="icon-align-center-horizontal"></i> Nhà cung cấp</a>
-                    </div>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-strategy mr-2"></i>
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         Bán hàng
                     </a>
 
@@ -210,6 +228,7 @@
                         <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
                     </div>
                 </li>
+
             </ul>
         </div>
     </div>

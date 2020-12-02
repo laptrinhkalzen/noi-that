@@ -116,11 +116,11 @@
                                   @foreach($import_products as $key => $import_product)
                                     <div class="form-row" style="margin-left: 0px; margin-top: 10px;">   
                                     <div class="form-group col-md-3" id="vehicle-type" >
-                                        <select class="form-control" name="product[]">
+                                        <select class="select2 form-control" name="product[]">
                                          
                                             @foreach($products as $product)
                                               @if($product->id==$import_product->product_id)
-                                              <option selected data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>
+                                              <option selected data-price1="{{$import_product->import_price}}" value="{{$product->id}}">{{$product->title}}</option>
                                               @else
                                               <option data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>
                                               @endif
@@ -161,8 +161,10 @@
                                 e.preventDefault();
                                 if(x < max_fields){ //max input box allowed
                                 x++; //text box increment
-                                $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" id="vehicle-type"><select class="form-control" name="product[]">@foreach($products as $product)<option data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div><div class="form-group col-md-2" ><input  type="text" value="" name="import_price[]" min="1" class="form-control price price-input" required=""></div><div class="form-group col-md-2"><input id="quantity"  name="quantity[]" type="number" value="1" min="1" class="form-control" required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info">Xóa</div></div>'); 
-                       
+                                  $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" id="vehicle-type" ><select class="select2 form-control js-example-basic-single" name="product[]"><option>------Chọn------</option> @foreach($products as $product)<option  data-price1="{{$product->price}}" value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div><div class="form-group col-md-2" ><input  type="text" value="" name="import_price[]" min="1" class="form-control price price-input" required=""></div><div class="form-group col-md-2"><input id="quantity"  name="quantity[]" type="number"  min="1" class="form-control" required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info">Xóa</div></div>'); 
+                                      $('.select2').select2({
+     //configuration
+                                     });
                                 }
                                 });
                              
@@ -176,7 +178,7 @@
                 </script>
                                 <script type="text/javascript">
                     $(document).ready(function() {
-                    $('.js-example-basic-single').select2();
+                    $('.select2').select2();
                     });
                 </script>
 
@@ -295,20 +297,16 @@
     </form>
 </div>
 </body>
+
 <script type="text/javascript">
+  
 
   
-                            $(document).each(function () {
-                               
+                            $(document).ready(function () {
                               $('body').delegate('#vehicle-type','change',function (){
                                  $(this).parents('.form-row').find('.price-input').val(
-                                  $(this).find(':selected').data('price1')
-                                );
-                                 $(this).parents('.form-row').find('.quantity-input')
-                                .val(
-                                  $(this).find(':selected').data('quantity1')
-                                );
-                                  
+                                  $(this).find('.select2').find(":selected").data("price1")
+                                );  
                               });
                             });
 </script>

@@ -36,17 +36,17 @@
             </div>
 
             <div class="card-body">
-                <ul class="nav nav-tabs nav-tabs-highlight">
+               <!--  <ul class="nav nav-tabs nav-tabs-highlight">
                     <li class="nav-item"><a href="#left-icon-tab1" class="nav-link active" data-toggle="tab">
                                    <select class="js-example-basic-single" name="stock">
                                             @foreach($stocks as $stock)
                                               <option  value="{{$stock->id}}">{{$stock->name}}</option>
                                             @endforeach
-                                        </select></a></li>
+                                        </select></a></li> -->
                    <!--  <li class="nav-item"><a href="#left-icon-tab2" class="nav-link" data-toggle="tab"><i class="icon-stack2 mr-2"></i> Thuộc tính sản phẩm</a></li>
                     <li class="nav-item"><a href="#left-icon-tab3" class="nav-link" data-toggle="tab"><i class="icon-mention mr-2"></i> Thẻ meta</a></li> -->
 
-                </ul>
+                <!-- </ul> -->
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
           <script src="jquery-3.5.1.min.js"></script>
              <script type="text/javascript">

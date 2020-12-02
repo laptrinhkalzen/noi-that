@@ -10,7 +10,7 @@ use TIMESTAMP;
 use DB;
 use Auth;
 
-
+//stock_id=$request->stock_id => stock_id=1
 class StockController extends Controller {
 
     /**
@@ -64,10 +64,12 @@ class StockController extends Controller {
 
      public function import_edit($id) {
         $products=DB::table('product')->get();
+
         $stocks=DB::table('stock')->get();
         $suppliers=DB::table('supplier')->get();
         $import=DB::table('import')->where('import_id',$id)->first();
         $import_products=DB::table('import_product')->where('import_id',$id)->get();
+
         // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
         return view('backend/stock/import_edit',compact('products','suppliers','stocks','import','import_products'));
     }
@@ -79,7 +81,7 @@ class StockController extends Controller {
            $sub_total=$request->sub_total;
              
            $import=array();
-           $import['stock_id']=$request->stock;
+           $import['stock_id']=1;
            $import['supplier_id']=$request->supplier;
            $import['created_at']=Carbon::now('Asia/Ho_Chi_Minh');
            $import['note']=$request->note;
@@ -112,7 +114,6 @@ class StockController extends Controller {
                 );
                 $insert_data[]=$import_product;
             }
-
             DB::table('import_product')->insert($insert_data);
              
               for($count=0;$count<count($product);$count++){
@@ -122,17 +123,36 @@ class StockController extends Controller {
                  foreach($stock_pro as $stock_pro1){
                     $sum+=$stock_pro1->stock_product_quantity;
                  }
-                
+                 
                 if($product_update->price != $import_price[$count]){
 
                     $new_price=(($product_update->price*$sum)+($import_price[$count]*$quantity[$count]))/($sum+$quantity[$count]);
                     
                     DB::table('product')->where('id',$product[$count])->update(['price'=>$new_price]);
                 }
-            } 
+            }
+
+             
+            //   for($count=0;$count<count($product);$count++){
+            //      $product_update=DB::table('product')->where('id',$product[$count])->first();
+            //      $stock_pro=DB::table('stock_product')->where('product_id',$product[$count])->get();
+            //      $sum=0;
+            //      foreach($stock_pro as $stock_pro1){
+            //         $sum+=$stock_pro1->stock_product_quantity;
+            //      }
+                 
+            //     if($product_update->price != $import_price[$count]){
+
+            //         $new_price=(($product_update->price*$sum)+($import_price[$count]*$quantity[$count]))/($sum+$quantity[$count]);
+                    
+            //         DB::table('product')->where('id',$product[$count])->update(['price'=>$new_price]);
+            //     }
+            // }
+
+
 
              for($count=0;$count<count($product);$count++){
-                $is_exist=DB::table('stock_product')->where('product_id',$product[$count])->where('stock_id',$request->stock)->first();
+                $is_exist=DB::table('stock_product')->where('product_id',$product[$count])->where('stock_id',1)->first();
                 if($is_exist){
                   $stock_product=array();
                   $stock_product['stock_product_quantity']=$is_exist->stock_product_quantity + $quantity[$count];
@@ -140,7 +160,7 @@ class StockController extends Controller {
                   }
                 else{
                   $stock_product=array();
-                  $stock_product['stock_id']=$request->stock;
+                  $stock_product['stock_id']=1;
                   $stock_product['product_id']=$product[$count];
                   $stock_product['stock_product_quantity']=$quantity[$count];
                   DB::table('stock_product')->insert($stock_product);
@@ -159,9 +179,25 @@ class StockController extends Controller {
            $quantity=$request->quantity;
            $import_price=$request->import_price;
            $sub_total=$request->sub_total;
-             
+
+               for($count=0;$count<count($product);$count++){
+                $is_exist=DB::table('import_product')->where('import_id',$id)->where('product_id',$product[$count])->first();
+                if($is_exist==null){
+                 $product_update=DB::table('product')->where('id',$product[$count])->first();
+                 $stock_pro=DB::table('stock_product')->where('product_id',$product[$count])->get();
+                 $sum=0;
+                 foreach($stock_pro as $stock_pro1){
+                    $sum+=$stock_pro1->stock_product_quantity;
+                 }
+                if($product_update->price != $import_price[$count]){
+                    $new_price=(($product_update->price*$sum)+($import_price[$count]*$quantity[$count]))/($sum+$quantity[$count]);
+                    DB::table('product')->where('id',$product[$count])->update(['price'=>$new_price]);
+                }
+              }
+            }
+
            $import=array();
-           $import['stock_id']=$request->stock;
+           $import['stock_id']=1;
            $import['supplier_id']=$request->supplier;
            $import['created_at']=Carbon::now('Asia/Ho_Chi_Minh');
            $import['note']=$request->note;
@@ -173,12 +209,23 @@ class StockController extends Controller {
            $import['paid']=$request->paid;
            $import['payment_remain']=$request->total_payment-$request->paid;
            $import['payment_day']=$request->payment_day;
-           DB::table('import')->update($import);
+           DB::table('import')->where('import_id',$id)->update($import);
+          
+          //cap nhat gia nhap
 
          
           //san pham trong don nhap hang
            DB::table('import_product')->where('import_id',$id)->delete();
             for($count=0;$count<count($product);$count++){
+              $is_exist=DB::table('import_product')->where('import_id',$id)->where('product_id',$product[$count])->first();
+              if($is_exist){
+                $update_data=array();
+                $update_data['quantity']=$quantity[$count];
+                $update_data['import_price']=$import_price[$count];
+                $update_data['sub_total']=$sub_total[$count];
+                  DB::table('import_product')->where('import_id',$id)->where('product_id',$product[$count])->update($update_data);
+              }
+              else{
                 $import_product=array(
                 'stock_product_id'=>$request->stock,  
                 'product_id'=>$product[$count],
@@ -187,27 +234,16 @@ class StockController extends Controller {
                 'import_price'=>$import_price[$count],
                 'sub_total'=>$sub_total[$count]
                 );
+
                 $insert_data[]=$import_product;
+                }
             }
             DB::table('import_product')->insert($insert_data);
              
-             //cap nhat gia nhap
-              for($count=0;$count<count($product);$count++){
-                 $product_update=DB::table('product')->where('id',$product[$count])->first();
-                 $stock_pro=DB::table('stock_product')->where('product_id',$product[$count])->get();
-                 $sum=0;
-                 foreach($stock_pro as $stock_pro1){
-                    $sum+=$stock_pro1->stock_product_quantity;
-                 }
-                if($product_update->price != $import_price[$count]){
-                    $new_price=(($product_update->price*$sum)+($import_price[$count]*$quantity[$count]))/($sum+$quantity[$count]);
-                    DB::table('product')->where('id',$product[$count])->update(['price'=>$new_price]);
-                }
-            } 
              
              //them quantity product trong tung kho
              for($count=0;$count<count($product);$count++){
-                $is_exist=DB::table('stock_product')->where('product_id',$product[$count])->where('stock_id',$request->stock)->first();
+                $is_exist=DB::table('stock_product')->where('product_id',$product[$count])->where('stock_id',1)->first();
                 if($is_exist){
                   $stock_product=array();
                   $stock_product['stock_product_quantity']=$is_exist->stock_product_quantity + $quantity[$count];
@@ -215,7 +251,7 @@ class StockController extends Controller {
                   }
                 else{
                   $stock_product=array();
-                  $stock_product['stock_id']=$request->stock;
+                  $stock_product['stock_id']=1;
                   $stock_product['product_id']=$product[$count];
                   $stock_product['stock_product_quantity']=$quantity[$count];
                   DB::table('stock_product')->insert($stock_product);
