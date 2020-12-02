@@ -120,12 +120,16 @@ class BillController extends Controller {
            $import['customer_payment']=$request->customer_payment;
            $import['payment_appointment']=$request->payment_appointment;
            $import['payment_remain']=$request->total_payment-$request->customer_payment;
-            DB::table('bill')->update($import);
+            DB::table('bill')->where('bill_id',$id)->update($import);
+
+            //cap nhat so luong hàng trong kho
             $product_quantity=DB::table('bill_product')->where('bill_id',$id)->get();
             foreach($product_quantity as $value){
                 $quantity_in_stock1=DB::table('stock_product')->where('stock_id',$stock_id)->where('product_id',$value->product_id)->pluck('stock_product_quantity')->first();
                 DB::table('stock_product')->where('stock_id',$stock_id)->where('product_id',$value->product_id)->update(['stock_product_quantity' => ($quantity_in_stock1+$value->quantity)]);
             }
+
+            //cap nhat lại variant
             DB::table('bill_product')->where('bill_id',$id)->delete();
             for($count=0;$count<count($price);$count++){
                  $quantity_in_stock=DB::table('stock_product')->where('stock_id',$stock_id)->where('product_id',$product[$count])->pluck('stock_product_quantity')->first();

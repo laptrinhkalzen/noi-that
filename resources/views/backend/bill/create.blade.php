@@ -6,7 +6,7 @@
 
 
 <div class="content">
-    <form action="{!!route('admin.bill.store',['stock_id' => $stock_id])!!}" method="POST" enctype="multipart/form-data">
+    <form action="{!!route('admin.bill.store',['stock_id' => 1])!!}" method="POST" enctype="multipart/form-data">
                      <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
                           <!-- Modal content-->
@@ -39,7 +39,7 @@
             </div>
 
             <div class="card-body">
-                <ul class="nav nav-tabs nav-tabs-highlight">
+               <!--  <ul class="nav nav-tabs nav-tabs-highlight">
                     <li class="nav-item">
                  
                        <div class="dropdown">
@@ -52,7 +52,7 @@
                           </ul>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
                     
              <script type="text/javascript">
                            $(document).ready(function () {

@@ -165,7 +165,7 @@
                                       <select class=" form-control" name="product[]">
                                         <option>------Chọn------</option> 
                                            @foreach($stock_products as $product)
-                                              <option data-quantity1="{{$product->stock_product_quantity}}" data-price1="10000" value="{{$product->product_id}}">123</option>
+                                              <option data-quantity1="{{$product->stock_product_quantity}}" data-price1="10000" value="{{$product->product_id}}">{{$product->title}}</option>
                                             @endforeach
                                       </select>
                                   </div> 

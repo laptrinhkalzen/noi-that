@@ -85,7 +85,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/product/create', ['as' => 'admin.product.create', 'uses' => 'Backend\ProductController@create']);
     Route::post('/product/store', ['as' => 'admin.product.store', 'uses' => 'Backend\ProductController@store']);
     Route::get('/product/edit/{id}', ['as' => 'admin.product.edit', 'uses' => 'Backend\ProductController@edit']);
-    Route::post('/product/update/{id}/{stock_id}', ['as' => 'admin.product.update', 'uses' => 'Backend\ProductController@update']);
+    Route::post('/product/update/{id}', ['as' => 'admin.product.update', 'uses' => 'Backend\ProductController@update']);
     Route::delete('/product/delete/{id}', ['as' => 'admin.product.destroy', 'uses' => 'Backend\ProductController@destroy']);
 
      
