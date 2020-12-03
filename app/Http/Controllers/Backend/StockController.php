@@ -167,11 +167,13 @@ class StockController extends Controller {
                   } 
                 }  
 
-               
+       if($request->print1!=1){
 
-               
-                       
         return redirect()->route('admin.import.index')->with('success','Thành công');
+      }else
+      {
+        return redirect()->route('admin.print.edit_import',['id'=>$id])->with('success','Thành công');
+      }
     }
 
          public function import_update(Request $request,$id) {
@@ -257,9 +259,31 @@ class StockController extends Controller {
                   DB::table('stock_product')->insert($stock_product);
                   } 
                 }  
+       if($request->print!=1){
+
         return redirect()->route('admin.import.index')->with('success','Thành công');
+      }else
+      {
+        return redirect()->route('admin.print.edit_import',['id'=>$id])->with('success','Thành công');
+      }
     }
 
+     public function print($id){
+      $print_imports=DB::table('import_product')->join('product','product.id','=','import_product.product_id')->where('import_id',$id)->get();
+      $imports=DB::table('import')->where('import_id',$id)->first();
+      
+      $total=0;
+      foreach ($print_imports as $key => $import) {
+        $total=$total+$import->sub_total;
+
+      }
+      
+
+      
+      $stocks=DB::table('stock')->where('id',$imports->stock_id)->first();
+      $suppliers=DB::table('supplier')->where('id',$imports->supplier_id)->first();
+      return view('backend/stock/print_import')->with('print_imports',$print_imports)->with('imports',$imports)->with('stocks',$stocks)->with('total',$total)->with('suppliers',$suppliers);
+    }
 
     
 
@@ -333,6 +357,7 @@ class StockController extends Controller {
         } else {
             return redirect()->route('admin.stock.index')->with('error', 'Cập nhật thất bại');
         }
+        dd($input);
     }
 
     /**

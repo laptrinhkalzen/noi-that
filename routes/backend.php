@@ -57,7 +57,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/stock/import_edit/{id}', ['as' => 'admin.import.edit', 'uses' => 'Backend\StockController@import_edit']);
     Route::post('/stock/import_update/{id}', ['as' => 'admin.import.update', 'uses' => 'Backend\StockController@import_update']);
     Route::delete('/stock/import_delete/{id}', ['as' => 'admin.import.destroy', 'uses' => 'Backend\StockController@import_destroy']);
-    Route::get('/print/edit_import/{id}', ['as' => 'admin.print.edit_import', 'uses' => 'Backend\StockController@print']);
+
+    Route::get('/stock/import_product', ['as' => 'import.product', 'uses' => 'Backend\StockController@import_product']);
+
+    //kiem kho
+    Route::get('/inventory/index', ['as' => 'admin.inventory.index', 'uses' => 'Backend\InventoryController@index']);
+    Route::get('/inventory/create/{type}/{category}', ['as' => 'admin.inventory.create', 'uses' => 'Backend\InventoryController@create']);
+    Route::post('/inventory/store', ['as' => 'admin.inventory.store', 'uses' => 'Backend\InventoryController@store']);
+    Route::get('/inventory/edit/{id}', ['as' => 'admin.inventory.edit', 'uses' => 'Backend\InventoryController@edit']);
+    Route::post('/inventory/update/{id}', ['as' => 'admin.inventory.update', 'uses' => 'Backend\InventoryController@update']);
+    Route::delete('/inventory/delete/{id}', ['as' => 'admin.inventory.destroy', 'uses' => 'Backend\InventoryController@destroy']);
+
 
     //xuatkho
     Route::get('/stock/export_index', ['as' => 'admin.export.index', 'uses' => 'Backend\StockController@export_index']);
@@ -70,7 +80,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::delete('/stock/delete/{id}', ['as' => 'admin.stock.destroy', 'uses' => 'Backend\StockController@destroy']);
 
     //chuyen kho
-
+    //print
+    Route::get('/print/edit_import/{id}', ['as' => 'admin.print.edit_import', 'uses' => 'Backend\StockController@print']);
+    Route::get('/print/edit_bill/{id}', ['as' => 'admin.print.edit_bill', 'uses' => 'Backend\billController@print']);
  
 
     //bill

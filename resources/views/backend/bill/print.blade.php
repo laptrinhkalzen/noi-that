@@ -27,9 +27,9 @@
                     <div class="row">
                       <div class="col-xs-6">
                         
-                        <address>
+                        <address style="margin-left: 20px;">
                         
-                          ID: {{$bills->bill_id}}<br>
+                          ID hóa đơn: {{$bills->bill_id}}<br>
                           Khách hàng: {{$bills->customer_name}}<br>
                           Thời gian lập: {{$bills->created_at}}<br>
                           Người lập:<br>
@@ -56,7 +56,7 @@
                                   <td><strong>Sản phẩm</strong></td>
                                   <td class="text-center"><strong>Giá</strong></td>
                                   <td class="text-center"><strong>Số lượng</strong></td>
-                                  <td class="text-right"><strong>Tổng tiền</strong></td>
+                                  <td class="text-right"><strong>Thành tiền</strong></td>
                                 </tr>
                                             
                             </thead>
@@ -76,8 +76,26 @@
                               <tr>
                                 <td class="thick-line"></td>
                                 <td class="thick-line"></td>
-                                <td class="thick-line text-center"></td>
+                                <td class="thick-line text-center"><strong>Tổng cộng</strong></td>
                                 <td class="thick-line text-right"><strong>{{$total}} đ</strong> </td>
+                              </tr>
+
+                              <tr>
+                                <td class="thick-line"></td>
+                                <td class="thick-line"></td>
+                                <td class="thick-line text-center"><strong>Chiết khấu</strong></td>
+                                @if($bills->discount_type==1)
+                                <td class="thick-line text-right"><strong>{{$bills->discount}} đ</strong> </td>
+                                @else
+                                <td class="thick-line text-right"><strong>{{$bills->discount}} %</strong> </td>
+                                @endif
+                              </tr>
+
+                              <tr>
+                                <td class="thick-line"></td>
+                                <td class="thick-line"></td>
+                                <td class="thick-line text-center"><strong>Cần thanh toán</strong></td>
+                                <td class="thick-line text-right"><strong>{{$bills->total_payment}} đ</strong> </td>
                               </tr>
                             </tbody>
                           </table>
@@ -88,7 +106,7 @@
                 </div>
                 
             </div>
-            <div style="display: flex;">
+            <div style="display: flex;text-align: center;">
                     <div style="margin-left: 250px;">
                         <strong>Người lập phiếu</strong><br>
                         (Ký, họ tên)
@@ -99,7 +117,7 @@
                     </div>
                 </div>
 
-            <div  class="hide-from-printer" style="text-align: center;"><button  onclick="window.print()" type="submit" class="btn btn-info">Lưu và in</button></div>
+            <div   class="hide-from-printer" style="text-align: center;margin-top: 100px;"><button  onclick="window.print()" type="submit" style=" width: 70px;" class="btn btn-info">In</button></div>
                                         
 
 

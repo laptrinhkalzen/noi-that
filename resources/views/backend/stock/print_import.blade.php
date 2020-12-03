@@ -177,4 +177,8 @@
 <script src="{!! asset('assets/backend/ckeditor/ckeditor.js') !!}"></script>
 <script src="{!! asset('assets/backend/js/custom.js') !!}"></script>
 
+<<<<<<< HEAD
 @stop
+=======
+@stop
+>>>>>>> origin/main

@@ -48,7 +48,7 @@
     <!-- Table header styling -->
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h5 class="card-title">Nhập xuất kho</h5>
+            <h5 class="card-title">Danh sách sản phẩm trong kho</h5>
             <div class="header-elements">
                 <div class="list-icons">
                     <a class="list-icons-item" data-action="collapse"></a>
@@ -108,7 +108,7 @@
                   table: toExcel
                 };
                 var link = document.createElement("a");
-                link.download = "export.xls";
+                link.download = "sanpham_nhapkho.xls";
                 link.href = uri + base64(format(template, ctx))
                 link.click();
               }
@@ -120,45 +120,24 @@
                 <tr>
                     <th>ID | Ngày</th>
                     <th>Kho hàng</th>
-                    <th>NCC</th>
-                    <th>Tổng gốc</th>
-                    <th>Chiết khấu</th>
-                    <th>Tổng sau chiết khấu</th>
-                    <th>Người lập phiếu</th>
-                    <th>Ghi chú</th>
+                    <th>Sản phẩm</th>
+                    <th>Giá nhập</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
              <tbody>
                  @foreach($records as $key => $record)
-                  
                  <tr>
-                    <th>{{$record->import_id}}<br>{{$record->created_at}}</th>
-                    <th>{{$record->name}}</th>
-                    <th>{{$record->supplier_name}}</th>
-                    <th>{{$record->total}}</th>
-                    @if($record->discount_type==1)
-                    @if($record->discount!=null)
-                    <th>{{$record->discount}} VNĐ</th>
-                    @else
-                    <th></th>
-                    @endif
-                    @else
-                    @if($record->discount!=null)
-                    <th>{{$record->discount}}%</th>
-                    @else
-                    <th></th>
-                    @endif
-                    @endif
-                    <th>{{$record->total_payment}}</th>
-                    <th>{{$record->username}}</th>
-                    @if($record->note!=null)
-                    <th>{{$record->note}}</th>
-                    @else
-                    <th></th>
-                    @endif
+                    <td>{{$record->import_id}}<br><p style="color:#00BFFF;">{{$record->created_at}}</p></td>
+                    <td><a href="{{route('admin.stock.edit',['id'=>1])}}">{{$stock->name}}</a></td>
+                    <td>{{$record->title}}</td>
+                    <td>{{$record->import_price}}</td>
+                    <td>{{$record->quantity}}</td>
+                    <td>{{$record->sub_total}}</td>
                     <td class="text-center">
-                        <a  href="{!! route('admin.print.edit_import', ['id' => $record->import_id, 'stock_id' => $record->stock_id]) !!}" class="success"><i class="fa fa-print"></i></a>
+                        <a class="success" data-toggle="modal" data-target="#myModal_{{$key}}"><i class="icon-eye"></i></a>
                         <a href="{{route('admin.import.edit', $record->import_id)}}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
                         <form action="{!! route('admin.import.destroy', $record->import_id) !!}" method="POST" style="display: inline-block">
                             {!! method_field('DELETE') !!}

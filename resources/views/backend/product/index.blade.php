@@ -29,7 +29,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Mã</th>
+           
                     <th>Tên sảm phẩm</th>
                     <th>Ngày tạo</th>
                     <th>Trạng thái</th>
@@ -40,7 +40,7 @@
                 @foreach($records as $key=>$record)
                 <tr>
                     <td>{{++$key}}</td>
-                    <td>{{$record->code}}</td>
+                   
                     <td>{{$record->title}}</td>
                     <td>{{$record->created_at}}</td>
                     <td>

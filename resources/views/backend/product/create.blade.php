@@ -28,17 +28,11 @@
                             <div class="col-md-8">
                                 <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
                                 <fieldset>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label text-right">Mã <span class="text-danger">*</span></label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="code" value="{!!old('code')!!}" ="">
-                                            {!! $errors->first('code', '<span class="text-danger">:message</span>') !!}
-                                        </div>
-                                    </div>
+                                    
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label text-right">Tên sản phẩm <span class="text-danger">*</span></label>
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" name="title" value="{!!old('title')!!}" ="">
+                                            <input type="text" class="form-control" name="title" value="{!!old('title')!!}" required="">
                                             {!! $errors->first('title', '<span class="text-danger">:message</span>') !!}
                                         </div>
                                     </div>
