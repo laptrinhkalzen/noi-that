@@ -65,11 +65,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/stock/import_edit/{id}', ['as' => 'admin.import.edit', 'uses' => 'Backend\StockController@import_edit']);
     Route::post('/stock/import_update/{id}', ['as' => 'admin.import.update', 'uses' => 'Backend\StockController@import_update']);
     Route::delete('/stock/import_delete/{id}', ['as' => 'admin.import.destroy', 'uses' => 'Backend\StockController@import_destroy']);
-
+    Route::get('/stock/product', ['as' => 'admin.stock.product', 'uses' => 'Backend\StockController@stock_product']);
     Route::get('/stock/import_product', ['as' => 'import.product', 'uses' => 'Backend\StockController@import_product']);
 
     //kiem kho
     Route::get('/inventory/index', ['as' => 'admin.inventory.index', 'uses' => 'Backend\InventoryController@index']);
+    Route::get('/inventory/product', ['as' => 'admin.inventory.product', 'uses' => 'Backend\InventoryController@inventory_product']);
     Route::get('/inventory/create/{type}/{category}', ['as' => 'admin.inventory.create', 'uses' => 'Backend\InventoryController@create']);
     Route::post('/inventory/store', ['as' => 'admin.inventory.store', 'uses' => 'Backend\InventoryController@store']);
     Route::get('/inventory/edit/{id}', ['as' => 'admin.inventory.edit', 'uses' => 'Backend\InventoryController@edit']);

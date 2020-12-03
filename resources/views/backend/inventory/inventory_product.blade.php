@@ -118,28 +118,32 @@
            <table id="toExcel" class="table datatable-basic table-bordered">
             <thead>
                 <tr>
-                    <th>Import ID</th>
-                     <th>Ngày</th>
+                    <th>Inventory ID</th>
                     <th>Sản phẩm</th>
-                    <th>Giá nhập</th>
-                    <th>Số lượng</th>
-                    <th>Tổng</th>
+                    <th>Tồn kho</th>
+                    <th>Thực kiểm</th>
+                    <th>Chênh lệch</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
              <tbody>
                  @foreach($records as $key => $record)
                  <tr>
-                    <td>{{$record->import_id}}</td>
-                    <td>{{$record->created_at}}</td>
+                    <td>{{$record->inventory_id}}</td>
                     <td>{{$record->title}}</td>
-                    <td>{{$record->import_price}}</td>
-                    <td>{{$record->quantity}}</td>
-                    <td>{{$record->sub_total}}</td>
+                    <td>{{$record->exist}}</td>
+                    <td>{{$record->real}}</td>
+                    @if($record->difference >0)
+                    <td>Thiếu {{$record->difference}}</td>
+                    @elseif($record->difference <0)
+                    <td>Thừa {{str_replace( array('-') , '', $record->difference )}} </td> 
+                    @elseif($record->difference ==0)
+                    <td>Khớp</td>
+                    @endif
                     <td class="text-center">
                         
-                        <a href="{{route('admin.import.edit', $record->import_id)}}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
-                        <form action="{!! route('admin.import.destroy', $record->import_id) !!}" method="POST" style="display: inline-block">
+                        <a href="{{route('admin.inventory.edit', $record->inventory_id)}}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
+                        <form action="{!! route('admin.inventory.destroy', $record->inventory_id) !!}" method="POST" style="display: inline-block">
                             {!! method_field('DELETE') !!}
                             {!! csrf_field() !!}
                             <a title="Xóa" class="delete text-danger" data-action="delete">

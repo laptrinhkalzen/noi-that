@@ -97,10 +97,11 @@
                                    <table class="table ">
                                       <thead>
                                         <tr>
-                                          <th scope="col">Sản phẩm</th>
-                                          <th scope="col">Giá vốn</th>
-                                          <th scope="col">Số lượng</th>
-                                          <th scope="col">Thành tiền</th>
+                                          <th style="width:18%;" class="">Sản phẩm</th>
+                                          <th style="width:13%;" scope="">Giá vốn</th>
+                                          <th style="width:11%;" scope="">Số lượng</th>
+                                          <th style="width:15%;" scope="">Thành tiền</th>
+                                          <th style="width:15%;" scope=""></th>
                                        
                                         </tr>
                                       </thead>

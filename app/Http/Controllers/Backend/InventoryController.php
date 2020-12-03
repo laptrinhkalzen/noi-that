@@ -115,10 +115,21 @@ class InventoryController extends Controller {
          return redirect()->route('admin.inventory.index')->with('success','Thành công');
     }
 
+     public function inventory_product(){
+       $records=DB::table('inventory_product')->join('product','inventory_product.product_id','=','product.id')->get();
+
+       return view('backend/inventory/inventory_product',compact('records'));
+     }
+    
+     public function import_destroy($id) {
+        DB::table('import')->where('import_id',$id)->delete();
+        DB::table('import_product')->where('import_id',$id)->delete();
+        return redirect()->back()->with('success', 'Xóa thành công');
+    }
     
     public function destroy($id) {
-        $inventory = $this->inventoryRepo->find($id);
-        $this->inventoryRepo->delete($id);
+          DB::table('inventory')->where('inventory_id',$id)->delete();
+        DB::table('inventory_product')->where('inventory_id',$id)->delete();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 

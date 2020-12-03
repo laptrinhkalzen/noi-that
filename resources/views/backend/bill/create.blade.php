@@ -212,6 +212,7 @@
                                       </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Khách hàng </label>
                                     <div class="col-md-7">
@@ -223,6 +224,45 @@
                                       </select>
                                     </div>
                                 </div>
+                         <!--      <div class="form-group row">
+        <label class="col-form-label col-md-4 text-left">Khách hàng </label>
+
+        <div class="col-md-7">
+          <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#citizen">Chọn</button>
+          <div id="citizen" class="collapse">
+         
+                                    
+                                         <select class="select2 form-control" name="customer_id">
+                                        <option value="">------Chọn------</option> 
+                                           @foreach($customers as $customer)
+                                              <option value="{{$customer->id}}">{{$customer->full_name}} ({{$customer->id}})</option>
+                                            @endforeach
+                                      </select>
+                                  
+        </div>
+      </div>
+      <div class="col-md-9">
+        <p style="margin-left: 320px;">or</p>
+      </div>
+  
+        <div style="margin-left:181px;" class="col-md-7">
+          <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#organisation">Thêm mới
+          </button>
+          <div id="organisation" class="collapse">
+         
+                                
+                                         <select class="select2 form-control" name="customer_id">
+                                        <option value="">------Chọn------</option> 
+                                           @foreach($customers as $customer)
+                                              <option value="{{$customer->id}}">{{$customer->full_name}} ({{$customer->id}})</option>
+                                            @endforeach
+                                      </select>
+                                 
+          </div>
+        </div>
+     
+        
+      </div>  -->
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Ghi chú </label>
                                     <div class="col-md-7">
@@ -331,6 +371,11 @@
                                   
                               });
                             });
+                            // $(document).ready(function(){
+                            //     $(".btn").click(function(){
+                            //       $('.collapse.in').collapse('hide');
+                            //     });
+                            //   });
 </script>
 
 </body>
