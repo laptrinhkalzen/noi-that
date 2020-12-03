@@ -131,26 +131,7 @@
             </thead>
              <tbody>
                  @foreach($records as $key => $record)
-                   <div class="modal fade" id="myModal_{{$key}}" role="dialog">
-                        <div class="modal-dialog">
-                        
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title"></h4>
-                            </div>
-                            <div id="printSection" class="modal-body">
-                            1233
-                            </div>
-                            <div class="modal-footer">
-                              <button onclick="window.print()" type="button" class="btn btn-info">In</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                            </div>
-                          </div>
-                          
-                        </div>
-                      </div>
+                  
                  <tr>
                     <th>{{$record->import_id}}<br>{{$record->created_at}}</th>
                     <th>{{$record->name}}</th>
@@ -177,7 +158,7 @@
                     <th></th>
                     @endif
                     <td class="text-center">
-                        <a class="success" data-toggle="modal" data-target="#myModal_{{$key}}"><i class="icon-eye"></i></a>
+                        <a  href="{!! route('admin.print.edit_import', ['id' => $record->import_id, 'stock_id' => $record->stock_id]) !!}" class="success"><i class="fa fa-print"></i></a>
                         <a href="{{route('admin.import.edit', $record->import_id)}}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
                         <form action="{!! route('admin.import.destroy', $record->import_id) !!}" method="POST" style="display: inline-block">
                             {!! method_field('DELETE') !!}

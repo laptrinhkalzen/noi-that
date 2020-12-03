@@ -115,7 +115,7 @@
                     </a>
                     <ul class="dropdown-menu">
                          
-                        <a href="{{route('admin.import.index')}}" class="dropdown-item"><i class="fa fa-file-code mr-2"></i>Phiếu kiểm kho</a>
+                        <a href="{{route('admin.inventory.index')}}" class="dropdown-item"><i class="fa fa-file-code mr-2"></i>Phiếu kiểm kho</a>
                         <a href="" class="dropdown-item"><i class="fa fa-hdd mr-2"></i>Sản phẩm kiểm kho</a>
                       </ul>
                     </li>

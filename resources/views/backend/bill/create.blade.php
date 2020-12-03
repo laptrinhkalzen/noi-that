@@ -305,8 +305,8 @@
                     <div class="col-md-12">
                         <div class="text-center">
                             <a type="button" href="{{route('admin.import.index')}}" class="btn btn-secondary legitRipple">Hủy</a>
-                            <button type="submit" class="btn btn-primary legitRipple">Lưu lại <i class="icon-arrow-right14 position-right"></i></button>
-                            <a  class="btn btn-light legitRipple" data-toggle="modal" data-target="#myModal">Lưu và in <i class="icon-arrow-right14 position-right"></i></a>
+                            <button type="submit" class="btn btn-primary legitRipple">Lưu lại <i class=""></i></button>
+                             <button style="background-color: MediumSeaGreen;" type="submit" name="print1" value="1" class="btn btn-primary legitRipple">Lưu lại và in <i class="icon-arrow-right14 position-right"></i></button>
                         </div>
                     </div>
                 </div>

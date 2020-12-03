@@ -88,13 +88,20 @@ class BillController extends Controller {
             DB::table('bill_product')->insert($insert_data);
 
         // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+        if($request->print1!=1){
+
         return redirect()->route('admin.bill.index1')->with('success','Thành công');
+      }else
+      {
+        return redirect()->route('admin.print.edit_bill',['id'=>$bill_id])->with('success','Thành công');
+      }
     }
      public function edit($id,$stock_id){
         $bill=DB::table('bill')->where('bill_id',$id)->first();
         $customers=DB::table('member')->get();
         $users=DB::table('user')->get();
-        $bill_products=DB::table('product')->join('bill_product','bill_product.product_id','=','product.id')->where('bill_id',$id)->get();
+         $bill_products=DB::table('product')->join('bill_product','bill_product.product_id','=','product.id')->where('bill_id',$id)->get();
+        //$print_products=DB::table('product')->join('bill_product','bill_product.product_id','=','product.id')->where('bill_id',$id)->get();
         $stock_products=DB::table('stock_product')->where('stock_id',$stock_id)->get();
         $products=DB::table('product')->join('stock_product','product.id','=','stock_product.product_id')->where('stock_id',$stock_id)->get();
         // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
@@ -146,12 +153,31 @@ class BillController extends Controller {
             DB::table('bill_product')->insert($insert_data);
 
         // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
+            if($request->print!=1){
+
         return redirect()->route('admin.bill.index1')->with('success','Thành công');
+      }else
+      {
+        return redirect()->route('admin.print.edit_bill',['id'=>$id])->with('success','Thành công');
+      }
     }
 
     public function destroy($id) {
         DB::table('bill')->where('bill_id',$id)->delete();
         DB::table('bill_product')->where('bill_id',$id)->delete();
         return redirect()->back()->with('success', 'Xóa thành công');
+    }
+    public function print($id){
+      $print_products=DB::table('bill_product')->join('product','product.id','=','bill_product.product_id')->where('bill_id',$id)->get();
+      $bills=DB::table('bill')->where('bill_id',$id)->first();
+      $total=0;
+      foreach ($print_products as $key => $product) {
+        $total=$total+$product->sub_total;
+       
+      }
+
+      $customers=DB::table('member')->where('id',$bills->customer_id)->first();
+      
+      return view('backend/bill/print')->with('print_products',$print_products)->with('bills',$bills)->with('customers',$customers)->with('total',$total);
     }
 }

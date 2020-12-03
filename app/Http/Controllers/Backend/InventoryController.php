@@ -34,7 +34,7 @@ class InventoryController extends Controller {
           if($type==2){  
             $users=DB::table('user')->get();
              $products=DB::table('stock_product')->join('product','product.id','=','stock_product.product_id')->where('stock_id',1)->orderBy('stock_product_id','desc')->get();
-            return view('backend/inventory/create',compact('records'));
+            return view('backend/inventory/create',compact('users','products'));
           }
           if($type==3){
             $records=DB::table('stock_product')->join('product_category','product_category.product_id','=','stock_product.')->where('stock_product_id',1)->where('stock_product_id',1)->orderBy('stock_product_id','desc')->get();
@@ -44,7 +44,8 @@ class InventoryController extends Controller {
     }
 
     public function store(Request $request)
-    {
+    {   
+
          $data=array();
          $data['user_id']=$request->user_id;
          $data['created_at']=Carbon::now('Asia/Ho_Chi_Minh');
@@ -83,19 +84,19 @@ class InventoryController extends Controller {
   
      
     public function update(Request $request, $id) {
-
+         
+         
       $data=array();
          $data['user_id']=$request->user_id;
          $data['user_name']=DB::table('user')->where('id',$request->user_id)->pluck('full_name')->first();
          $data['inventory_note']=$request->note;
-         $id=DB::table('inventory')->update($data);
+         DB::table('inventory')->where('inventory_id',$id)->update($data);
 
          $product=$request->product;
          $exist=$request->exist;
          $real=$request->real;
          $difference=$request->difference;
-
-         DB::table('inventory_product')->where('inventory_id',$id)->delete();
+        DB::table('inventory_product')->where('inventory_id',$id)->delete();
          $insert_data=array();
          for($count=0;$count<count($exist);$count++){
              
@@ -109,6 +110,7 @@ class InventoryController extends Controller {
             DB::table('inventory_product')->insert($insert_data);
   
          }
+         
  
          return redirect()->route('admin.inventory.index')->with('success','Thành công');
     }

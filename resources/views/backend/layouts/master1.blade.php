@@ -15,7 +15,7 @@
             <!-- Main content -->
             <div class="content-wrapper">
 
-            
+
                 @yield('content1')
                 <!-- Footer -->
                 @include('backend/layouts/__footer')
