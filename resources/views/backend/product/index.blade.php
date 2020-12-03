@@ -30,7 +30,7 @@
                 <tr>
                     <th>#</th>
            
-                    <th>Tên sảm phẩm</th>
+                    <th>Tên sản phẩm</th>
                     <th>Ngày tạo</th>
                     <th>Trạng thái</th>
                     <th>Tác vụ</th>

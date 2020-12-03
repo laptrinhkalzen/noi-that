@@ -50,6 +50,7 @@ return [
     'admin.position.index'=>'Chức vụ',
     'admin.employee.index'=>'Nhân viên',
     'admin.import.index'=>'Phiếu nhập ',
+    'admin.coupon.index'=>'Mã giảm giá ',
 
 
 ];

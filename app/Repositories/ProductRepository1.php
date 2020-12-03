@@ -24,7 +24,7 @@ class ProductRepository extends AbstractRepository {
 
     public function validateCreate() {
         return $rules = [
-            'code'=> 'required|unique:product',
+            
             'title' => 'required|unique:product',
             'alias' => 'required',
             'category_id' => 'required',
@@ -35,7 +35,7 @@ class ProductRepository extends AbstractRepository {
 
     public function validateUpdate($id) {
         return $rules = [
-            'code'=> 'required',
+            
             'title' => 'required|unique:product,title,' . $id . ',id',
             'alias' => 'required',
             'category_id' => 'required',

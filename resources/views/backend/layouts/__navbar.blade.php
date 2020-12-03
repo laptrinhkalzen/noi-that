@@ -157,8 +157,8 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Danh mục</a>
-                        <a href="" class="dropdown-item"><i class="fa fa-calendar mr-2"></i> Bài viết</a>
+                        <a href="{{route('admin.coupon.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Mã giảm giá</a>
+                        <a href="" class="dropdown-item"><i class="fa fa-calendar mr-2"></i> Chiết khấu</a>
                     </div>
                 </li>
                 

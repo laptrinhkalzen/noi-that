@@ -37,6 +37,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/news/update/{id}', ['as' => 'admin.news.update', 'uses' => 'Backend\NewsController@update']);
     Route::delete('/news/delete/{id}', ['as' => 'admin.news.destroy', 'uses' => 'Backend\NewsController@destroy']);
 
+    /* Quản lý coupon */
+    Route::get('/coupon', ['as' => 'admin.coupon.index', 'uses' => 'Backend\CouponController@index']);
+    Route::get('/coupon/create', ['as' => 'admin.coupon.create', 'uses' => 'Backend\CouponController@create']);
+    Route::post('/coupon/store', ['as' => 'admin.coupon.store', 'uses' => 'Backend\CouponController@store']);
+    Route::get('/coupon/edit/{id}', ['as' => 'admin.coupon.edit', 'uses' => 'Backend\CouponController@edit']);
+    Route::post('/coupon/update/{id}', ['as' => 'admin.coupon.update', 'uses' => 'Backend\CouponController@update']);
+    Route::delete('/coupon/delete/{id}', ['as' => 'admin.coupon.destroy', 'uses' => 'Backend\CouponController@destroy']);
+
     /* Quản lý supplier */
     Route::get('/supplier', ['as' => 'admin.supplier.index', 'uses' => 'Backend\SupplierController@index']);
     Route::get('/supplier/create', ['as' => 'admin.supplier.create', 'uses' => 'Backend\SupplierController@create']);

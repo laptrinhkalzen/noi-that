@@ -259,7 +259,7 @@ class StockController extends Controller {
                   DB::table('stock_product')->insert($stock_product);
                   } 
                 }  
-       if($request->print1!=1){
+       if($request->print1!=1){ 
 
         return redirect()->route('admin.import.index')->with('success','Thành công');
       }else
