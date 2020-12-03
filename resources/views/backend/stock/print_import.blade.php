@@ -139,7 +139,7 @@
                     </div>
                 </div>
 
-             <div   class="hide-from-printer" style="text-align: center;margin-top: 100px;"><button  onclick="window.print()" type="submit" style=" width: 70px;" class="btn btn-info">In</button></div>
+             <div   class="hide-from-printer" style="text-align: center;margin-top: 100px;"><a href="{{route('admin.import.index')}}" onclick="window.print()" type="submit" style=" width: 70px;" class="btn btn-info">In</a></div>
                                         
 
 
@@ -177,8 +177,6 @@
 <script src="{!! asset('assets/backend/ckeditor/ckeditor.js') !!}"></script>
 <script src="{!! asset('assets/backend/js/custom.js') !!}"></script>
 
-<<<<<<< HEAD
+
 @stop
-=======
-@stop
->>>>>>> origin/main
+
