@@ -31,7 +31,10 @@
                     <th>#</th>
            
                     <th>Tên sản phẩm</th>
-                    <th>Ngày tạo</th>
+                    <th>Giá nhập</th>
+                    <th>Giá bán lẻ</th>
+                    <th>Giá bán buôn</th>
+                    <th>Số lượng</th>
                     <th>Trạng thái</th>
                     <th>Tác vụ</th>
                 </tr>
@@ -42,7 +45,10 @@
                     <td>{{++$key}}</td>
                    
                     <td>{{$record->title}}</td>
-                    <td>{{$record->created_at}}</td>
+                    <td>{{$record->price}}</td>
+                    <td>{{$record->sell_price}}</td>
+                    <td>{{$record->wholesale_price}}</td>
+                    <td>{{$record->stock_product_quantity}}</td>
                     <td>
                         @if($record->status == 1)
                         <span class="badge bg-success-400">Hiển thị</span>
@@ -51,8 +57,8 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{route('admin.product.edit', $record->id)}}" title="{!! trans('base.edit') !!}" class="success"><i class="icon-pencil"></i></a>
-                        <form action="{!! route('admin.product.destroy', ['id' => $record->id]) !!}" method="POST" style="display: inline-block">
+                        <a href="{{route('admin.product.edit', $record->product_id)}}" title="{!! trans('base.edit') !!}" class="success"><i class="icon-pencil"></i></a>
+                        <form action="{!! route('admin.product.destroy', ['id' => $record->product_id]) !!}" method="POST" style="display: inline-block">
                             {!! method_field('DELETE') !!}
                             {!! csrf_field() !!}
                             <a title="{!! trans('base.delete') !!}" class="delete text-danger" data-action="delete">

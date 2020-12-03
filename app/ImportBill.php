@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model {
+class ImportBill extends Model {
 
     protected $table = 'import_bill';
     protected $fillable = [

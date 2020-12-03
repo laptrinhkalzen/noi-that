@@ -117,7 +117,7 @@
                     </div>
                 </div>
 
-            <div   class="hide-from-printer" style="text-align: center;margin-top: 100px;"><a href="{{route('admin.bill.index')}}"  onclick="window.print()" type="submit" style=" width: 70px;" class="btn btn-info">In</a></div>
+            <div   class="hide-from-printer" style="text-align: center;margin-top: 100px;"><a href="{{route('admin.bill.index1')}}"  onclick="window.print()" type="submit" style=" width: 70px;" class="btn btn-info">In</a></div>
                                         
 
 

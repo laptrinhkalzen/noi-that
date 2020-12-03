@@ -136,7 +136,8 @@
                       </div>
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h6 class="card-title">Lập hóa đơn</h6>
+                <h6 class="card-title">Chi tiết hóa đơn</h6>
+
                 <div class="header-elements">
                     <div class="list-icons">
                         <a class="list-icons-item" data-action="collapse"></a>
@@ -144,7 +145,15 @@
                         <a class="list-icons-item" data-action="remove"></a>
                     </div>
                 </div>
+
+              </div>
+              
+  
+                              
+                             
             </div>
+           
+
 
             <div class="card-body">
              <script type="text/javascript">
@@ -280,10 +289,32 @@
                 </script>
 
                             <div class="col-md-4">
-                                 <h5 style="text-decoration:underline;">Thông tin đơn hàng</h5>
-                            
+                                 
+                                  
+                             <div class="form-group row">
+                                    <h5 class=" col-md-4 text-left" style="text-decoration:underline;">Thông tin đơn hàng</h5>
+                                    <div class="col-md-7">
+                                          <div  class="btn-group justify-content-center">
+                            <a href="#" class="btn bg-indigo-400 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Tác vụ</a>
+                            <div class="dropdown-menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);">
+                              <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="1" class="status1">Đang xử lý</a>
+                              <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="1" class="status1">Đang vận chuyển</a>
+                                <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="2" class="status2">Xác nhận</a>
+                                <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="3" class="status3">Từ chối</a>
+                               
+                            </div>
+                             </div>
+                                    </div>
+                                </div>
+                                  <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">Trạng thái</label>
+                                    <div class="col-md-7">
+                                        
+                                       <span>123</span>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Nhân viên bán</label>
+                                    <label class="col-form-label col-md-4 text-left">Nhân viên bán <a target="_blank" href="{{route('admin.user.edit',['id'=>$bill->user_id])}}">(Xem)</a></label>
                                     <div class="col-md-7">
                                          <select class="select2 form-control" name="user_id">
                                         <option value="">------Chọn------</option> 
@@ -298,7 +329,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Khách hàng </label>
+                                    <label class="col-form-label col-md-4 text-left">Khách hàng <a target="_blank" href="{{route('admin.member.edit',['id'=>$bill->customer_id])}}">(Xem)</a> </label>
                                     <div class="col-md-7">
                                          <select class="select2 form-control" name="customer_id">
                                         <option value="">------Chọn------</option> 

@@ -73,7 +73,7 @@ class StockController extends Controller {
         // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
         return view('backend/stock/import_edit',compact('products','suppliers','stocks','import','import_products'));
     }
-
+    
      public function import_store(Request $request) {
            $product=$request->product;
            $quantity=$request->quantity;
@@ -285,7 +285,12 @@ class StockController extends Controller {
       return view('backend/stock/print_import')->with('print_imports',$print_imports)->with('imports',$imports)->with('stocks',$stocks)->with('total',$total)->with('suppliers',$suppliers);
     }
 
-    
+     
+     public function import_product(){
+       $records=DB::table('import_product')->join('product','import_product.product_id','=','product.id')->get();
+
+       return view('backend/stock/import_product',compact('records'));
+     }
 
     //xuat kho
     public function export_create($id) {
@@ -297,8 +302,11 @@ class StockController extends Controller {
     }
 
 
-    //chuyen kho
-
+    public function stock_product(){
+        $records=DB::table('stock_product')->join('product','product.id','=','stock_product.product_id')->where('stock_id',1)->get();
+        return view('backend/stock/stock_product',compact('records'));
+    }
+     
 
 
    
@@ -366,6 +374,12 @@ class StockController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function import_destroy($id) {
+        DB::table('import')->where('import_id',$id)->delete();
+        DB::table('import_product')->where('import_id',$id)->delete();
+        return redirect()->back()->with('success', 'Xóa thành công');
+    }
+
     public function destroy($id) {
         $stock = $this->stockRepo->find($id);
         $this->stockRepo->delete($id);
