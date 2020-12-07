@@ -49,11 +49,17 @@
                                 <div class="col-md-9">
                                      <select name="coupon_type" class="form-control ">
                                              @if($record->coupon_type==1)
-                                            <option selected="" value="1">Giảm theo phần trăm</option>
+                                            <option selected value="1">Giảm theo phần trăm</option>
+                                             <option  value="2">Giảm theo tiền</option>
                                             @elseif($record->coupon_type==2)
-                                            <option selected="" value="2">Giảm theo tiền</option>
+                                            <option selected value="2">Giảm theo tiền</option>
+                                             <option value="1">Giảm theo phần trăm</option>
                                             @else
-                                             <option selected="" value="0">----Chọn-----</option>
+                                             <option selected value="0">----Chọn-----</option>
+                                             <option value="1">Giảm theo phần trăm</option>
+                                             <option value="2">Giảm theo tiền</option>
+                                             @endif
+                                             
                                             
                                  </select>
                                  {!! $errors->first('coupon_type', '<span class="text-danger">:message</span>') !!}
