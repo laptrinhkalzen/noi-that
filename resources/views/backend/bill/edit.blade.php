@@ -284,7 +284,7 @@
                               
                 <script type="text/javascript">
                      $(document).ready(function() {
-                              $('.select2').select2();
+                              $('.select2x').select2();
                               });
                 </script>
 
@@ -297,10 +297,10 @@
                                           <div  class="btn-group justify-content-center">
                             <a href="#" class="btn bg-indigo-400 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Tác vụ</a>
                             <div class="dropdown-menu" x-placement="top-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -183px, 0px);">
-                              <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="1" class="status1">Đang xử lý</a>
-                              <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="1" class="status1">Đang vận chuyển</a>
-                                <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="2" class="status2">Xác nhận</a>
-                                <a href="javascript:void(0)" class="dropdown-item" data-order_id="{{$bill->status}}" data-action="change-status" data-status="3" class="status3">Từ chối</a>
+                              <a href="{{route('admin.bill.update_status',['id'=>$bill->bill_id,'status'=>1])}}" class="dropdown-item"  class="status1">Đang xử lý</a>
+                              <a href="{{route('admin.bill.update_status',['id'=>$bill->bill_id,'status'=>2])}}" class="dropdown-item"  class="status1">Đang vận chuyển</a>
+                               <a href="{{route('admin.bill.update_status',['id'=>$bill->bill_id,'status'=>3])}}" class="dropdown-item"  class="status1">Hoàn thành</a>
+                                <a href="{{route('admin.bill.update_status',['id'=>$bill->bill_id,'status'=>4])}}" class="dropdown-item"  class="status1">Hủy</a>
                                
                             </div>
                              </div>
@@ -310,7 +310,15 @@
                                     <label class="col-form-label col-md-4 text-left">Trạng thái</label>
                                     <div class="col-md-7">
                                         
-                                       <span>123</span>
+                                        @if($bill->status==1)
+                                          <span class="badge bg-primary-400" >Đang xử lý </span>
+                                      @elseif($bill->status==2)
+                                          <span class="badge bg-warning-400">Đang vận chuyển</span>
+                                      @elseif($bill->status==3)
+                                          <span class="badge bg-success-400">Hoàn thành</span>
+                                      @elseif($bill->status==4)
+                                          <span class="badge bg-danger-400">Từ chối</span>
+                                @endif
                                     </div>
                                 </div>
                                 <div class="form-group row">

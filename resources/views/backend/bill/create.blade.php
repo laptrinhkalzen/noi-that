@@ -6,7 +6,9 @@
 
 
 <div class="content">
+
     <form action="{!!route('admin.bill.store',['stock_id' => 1])!!}" method="POST" enctype="multipart/form-data">
+
                      <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
                           <!-- Modal content-->
@@ -56,8 +58,23 @@
                     
              <script type="text/javascript">
                            $(document).ready(function () {
-                               
+                                $('#apply_coupon').click(function(){
+                            
+                                 
+                                      var coupon_code=$('#coupon').val();
+                                    //alert(coupon_code);
+                                    $.ajax({
+                                          url:'{{route("api.change_status")}}',
+                                          data:{coupon_code:coupon_code},
+                                          success:function(res){
+                                              var after_apply=$('#result').val()-res.coupon_code;
+                                              $('#total_price').val(after_apply);
+                                          }
+                                    });
+                              });
+                              
                               $('body').delegate('input[name="quantity[]"],#discount,#type,.price,.xoa','change',function (){
+
                            var price=$(this).parent('.form-group').parent('.form-row').find('.price').val();
                                  var quantity=$(this).parent('.form-group').parent('.form-row').find('input[name="quantity[]"]').val();
                                  if(quantity<1){
@@ -87,6 +104,19 @@
                                      else{
                                         $("#result").val(sum-(sum/100*disc));
                                      }
+
+                                     var coupon_code=$('#coupon').val();
+                                      console.log(coupon_code);
+                                     if(coupon_code!=''){
+                                 $.ajax({
+                                          url:'{{route("api.change_status")}}',
+                                          data:{coupon_code:coupon_code},
+                                          success:function(res){
+                                              var after_apply=$('#result').val()-res.coupon_code;
+                                              $('#total_price').val(after_apply);
+                                          }
+                                    });
+                                 }
                               });
                             });
 
@@ -141,7 +171,7 @@
                                
                                        <input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true">
                                     </div>
-                                    <button class="add_field_button btn btn-info active" style="height: 35px;">Thêm</button>
+                                    
                                     </div>
                                       <div class="input_fields_wrap">
                                     </div>
@@ -181,6 +211,8 @@
                      $(document).ready(function() {
                               $('.select2').select2();
                               });
+
+
                 </script>
 
                             <div class="col-md-4">
@@ -292,15 +324,17 @@
                                             <option value="2" data-type="2">%</option>  
                                           </select>
                                         <input  type="number" id="discount" name="discount" class="form-control col-md-9">
+                                        
                                     </div>
                                 </div> 
                                 
 
                                  <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Mã giảm giá </label>
-
-                                    <div class="col-md-7">
-                                        <input  type="text" id="discount" name="coupon" class="form-control">
+                                    
+                                    <div class="col-md-6 ">
+                                        <input  type="text" id="coupon" name="coupon" class="form-control">
+                                         <input id="apply_coupon" type="button" value="check"  class="btn btn-success">
                                     </div>
                                 </div> 
                                
@@ -316,6 +350,12 @@
                                     <label class="col-form-label col-md-4 text-left">Cần thanh toán</label>
                                     <div class="col-md-7">
                                         <input id="result" name="total_payment" class="form-control" readonly="true">
+                                    </div>
+                                </div> 
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-4 text-left">sau giảm giá</label>
+                                    <div class="col-md-7">
+                                        <input id="total_price" name="" class="form-control" readonly="true">
                                     </div>
                                 </div> 
                                 <div class="form-group row">
@@ -370,12 +410,18 @@
                                 );
                                   
                               });
+                          
                             });
                             // $(document).ready(function(){
                             //     $(".btn").click(function(){
                             //       $('.collapse.in').collapse('hide');
                             //     });
                             //   });
+</script>
+<script type="text/javascript">
+
+    
+  
 </script>
 
 </body>

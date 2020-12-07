@@ -96,6 +96,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 
     //bill
     Route::get('/bill', ['as' => 'admin.bill.index1', 'uses' => 'Backend\BillController@index']);
+    Route::get('/bill/update_status/{id}/{status}', ['as' => 'admin.bill.update_status', 'uses' => 'Backend\BillController@update_status']);
     Route::get('/bill/create/{stock_id}', ['as' => 'admin.bill.create', 'uses' => 'Backend\BillController@create']);
     Route::post('/bill/store/{stock_id}', ['as' => 'admin.bill.store', 'uses' => 'Backend\BillController@store']);
     Route::get('/bill/edit/{id}/{stock_id}', ['as' => 'admin.bill.edit', 'uses' => 'Backend\billController@edit']);

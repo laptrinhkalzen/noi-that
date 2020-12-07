@@ -56,14 +56,14 @@
                     </a>
                 </li>
 
-                <li class="nav-item dropdown">
+               <!--  <li class="nav-item dropdown">
                     <a href="{{route('admin.config.index')}}" class="navbar-nav-link active" >
                         <i class="fa fa-atom mr-2"></i>
                         Cấu hình website
                     </a>
 
                     
-                </li>
+                </li> -->
 
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">

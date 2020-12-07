@@ -61,6 +61,7 @@ class BillController extends Controller {
            $import['total']=$request->total;
            $import['created_at']=Carbon::now('Asia/Ho_Chi_Minh');
            $import['note']=$request->note;
+           $import['status']=1;
            $import['total_payment']=$request->total_payment;
            $import['user_id']=$request->user_id;
            $import['customer_id']=$request->customer_id;
@@ -160,6 +161,11 @@ class BillController extends Controller {
       {
         return redirect()->route('admin.print.edit_bill',['id'=>$id])->with('success','Thành công');
       }
+    }
+
+    public function update_status($id,$status){
+      DB::table('bill')->where('bill_id',$id)->update(['status'=>$status]);
+      return redirect()->back()->with('success','Thành công');
     }
 
     public function destroy($id) {
