@@ -99,7 +99,7 @@
                     
                     <ul class="dropdown-menu">
                         <a href="{{route('admin.stock.index')}}" class="dropdown-item"><i class="fa fa-home mr-2"></i> Kho</a>
-                        <a href="{{route('admin.stock.product')}}" class="dropdown-item"><i class="fa fa-home mr-2"></i>Danh sách sản phẩm</a>
+                        <a href="{{route('admin.stock.product')}}" class="dropdown-item"><i class="fa fa-list mr-2"></i>Danh sách sản phẩm</a>
                          <li class="dropdown dropdown-submenu"> <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-exchange mr-2"></i>
                         Nhập xuất kho

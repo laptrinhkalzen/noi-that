@@ -80,7 +80,8 @@ class CouponController extends Controller {
      */
     public function edit($id) {
          $record = $this->couponRepo->find($id);
-        return view('backend/coupon/edit')->with('record',$record);
+         $coupon_end=DB::table('coupon')->where('id',$id)->get('coupon_end');
+        return view('backend/coupon/edit')->with('record',$record)->with('coupon_end',$coupon_end);
     }
 
     /**

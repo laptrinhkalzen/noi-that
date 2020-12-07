@@ -20,7 +20,7 @@ class Coupon extends Model
     public function updated_at() {
         return date("d/m/Y", strtotime($this->updated_at));
     }
-    public function getPostSchedule() {
-        return date('d/m/Y', strtotime($this->coupon_end != 'Y-m-d H:i:s.u' ?: $this->coupon_end));
+    public function coupon_end() {
+        return date("d/m/Y", strtotime($this->coupon_end));
     }
 }

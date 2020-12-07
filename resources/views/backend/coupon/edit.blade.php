@@ -72,9 +72,15 @@
                                    
                                 </div>
                               </div>
-                               
+                               <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-right">Hạn dùng <span class="text-danger">*</span></label>
+                                <div class="col-md-9">
+                                    <input type="date" class="form-control" name="coupon_end" value="{{ date('Y-m-d', strtotime($coupon_end)) }}">
+                                    
+                                </div>
+                            </div>
                             
-                             
+
                             <div class="form-group row" style="float: right;"> 
                                     <div class="form-check col-md-6 form-check-right">
                                         <label class="form-check-label float-right">
