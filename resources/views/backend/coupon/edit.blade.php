@@ -31,7 +31,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label text-right">Mã code <span class="text-danger">*</span></label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="coupon_name" value="{!!is_null(old('coupon_name'))?$record->coupon_name:old('coupon_name')!!}" >
+                                    <input type="text" class="form-control" name="coupon_code" value="{!!is_null(old('coupon_code'))?$record->coupon_code:old('coupon_code')!!}" >
                                     {!! $errors->first('coupon_code', '<span class="text-danger">:message</span>') !!}
                                 </div>
                             </div>
@@ -73,12 +73,14 @@
                                 </div>
                               </div>
                                <div class="form-group row">
-                                <label class="col-md-3 col-form-label text-right">Hạn dùng <span class="text-danger">*</span></label>
+                                <label for="example-datetime-local-input" class="col-md-3 col-form-label text-right">Hạn dùng <span class="text-danger">*</span></label>
                                 <div class="col-md-9">
-                                    <input type="date" class="form-control" name="coupon_end" value="{{ date('Y-m-d', strtotime($coupon_end)) }}">
+                                    <input type="date" class="form-control" name="coupon_end" value="{{ date('Y-m-d', strtotime($record->coupon_end)) }}">
                                     
                                 </div>
                             </div>
+
+                           
                             
 
                             <div class="form-group row" style="float: right;"> 

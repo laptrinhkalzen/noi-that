@@ -54,7 +54,9 @@ class CouponController extends Controller {
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $input['coupon_status'] = isset($input['coupon_status']) ? 1 : 0;
-          $coupon = $this->couponRepo->create($input);
+        
+        $coupon = $this->couponRepo->create($input);
+        
         if ($coupon) {
             return redirect()->route('admin.coupon.index')->with('success', 'Tạo mới thành công');
         } else {

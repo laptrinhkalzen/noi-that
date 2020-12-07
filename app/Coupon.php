@@ -20,7 +20,5 @@ class Coupon extends Model
     public function updated_at() {
         return date("d/m/Y", strtotime($this->updated_at));
     }
-    public function coupon_end() {
-        return date("d/m/Y", strtotime($this->coupon_end));
-    }
+  
 }
