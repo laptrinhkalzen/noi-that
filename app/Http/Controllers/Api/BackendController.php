@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\StringHelper;
 use App\Repositories\OrderRepository;
 use DB;
+use Carbon\Carbon;
 
 class BackendController extends Controller {
 
@@ -19,19 +20,26 @@ class BackendController extends Controller {
     }
 
     public function changeStatus(Request $request) {
-       // $coupon_code=$request->coupon_code;
-       //      $query=DB::table('coupon')->where('coupon_code',$coupon_code)->first();
+       $coupon_code=$request->coupon_code;
+            $query=DB::table('coupon')->where('coupon_code',$coupon_code)->first();
+
             
-       //      if ($query){
-       //          return response()->json(array('success' => true,"statusCode"=>200,"value"=>$query->coupon_value));
-       //      }
-       //      else{
-       //            return response()->json(array("statusCode"=>201));
+            if ($query){
+                if($query->coupon_number>0 && $query->coupon_end>Carbon::now('Asia/Ho_Chi_Minh')){
+                DB::table('coupon')->update(['coupon_number'=>$query->coupon_number-1]);
+                return response()->json(array('statusCode' => 200,"statusCode"=>200,"value"=>$query->coupon_value));
+                }
+                else{
+                    return response()->json(array("statusCode"=>201));
+                }
+            }
+            else{
+                  return response()->json(array("statusCode"=>201));
                
-       //      }
-        $coupon_code=$request->coupon_code;
-        $check=DB::table('coupon')->where('coupon_code',$coupon_code)->first();
-        return response()->json(['success'=>true,'coupon_code'=>$check->coupon_value]);
+            }
+       
+    
+        
       
     }
 
