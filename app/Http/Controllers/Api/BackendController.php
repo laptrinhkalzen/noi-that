@@ -26,8 +26,8 @@ class BackendController extends Controller {
             
             if ($query){
                 if($query->coupon_number>0 && $query->coupon_end>Carbon::now('Asia/Ho_Chi_Minh')){
-                DB::table('coupon')->update(['coupon_number'=>$query->coupon_number-1]);
-                return response()->json(array('statusCode' => 200,"statusCode"=>200,"value"=>$query->coupon_value));
+          
+                return response()->json(array('statusCode' => 200,"statusCode"=>200,"value"=>$query->coupon_value,'condition'=>$query->coupon_condition));
                 }
                 else{
                     return response()->json(array("statusCode"=>201));
