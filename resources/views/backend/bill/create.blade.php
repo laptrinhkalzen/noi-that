@@ -58,15 +58,29 @@
                            $(document).ready(function () {
                                 $('#apply_coupon').click(function(){
                             
-                                 
+                                        
                                       var coupon_code=$('#coupon').val();
                                     //alert(coupon_code);
                                     $.ajax({
                                           url:'{{route("api.change_status")}}',
                                           data:{coupon_code:coupon_code},
                                           success:function(res){
-                                              var after_apply=$('#result').val()-res.coupon_code;
+                                            if(res.statusCode==200){
+                                            
+                                              if(($('#result').val()) > res.condition){
+                                              var after_apply=$('#result').val()-res.value;
                                               $('#total_price').val(after_apply);
+                                              $('#available').show();
+                                              $('#not_available').hide();
+                                              }
+                                              else{
+                                                alert('Đơn hàng cần có giá trị tối thiểu ' +res.condition+ ' để sử dụng mã này');
+                                              }
+                                              }
+                                             else{
+                                              $('#not_available').show();
+                                              $('#available').hide();
+                                             } 
                                           }
                                     });
                               });
@@ -110,8 +124,13 @@
                                           url:'{{route("api.change_status")}}',
                                           data:{coupon_code:coupon_code},
                                           success:function(res){
-                                              var after_apply=$('#result').val()-res.coupon_code;
+                                               if($('#result').val() > res.condition){
+                                              var after_apply=$('#result').val()-res.value;;
                                               $('#total_price').val(after_apply);
+                                            }
+                                              else{
+                                                  alert('Đơn hàng cần có giá trị tối thiểu ' +res.condition+ ' để sử dụng mã này');
+                                              }
                                           }
                                     });
                                  }
@@ -158,7 +177,7 @@
                                      </div>
 
                                      <div class="form-group col-md-2" >
-                                     <input  type="text" readonly  name="price[]" min="1" class="form-control price price-input" required="">
+                                     <input  type="text"   name="price[]" min="1" class="form-control price price-input" required="">
                                      </div>
                                      <div class="form-group col-md-2" >
                                        <input id="quantity"  name="quantity[]" type="number"  min="1" class="form-control " required="">
@@ -328,6 +347,8 @@
                                     
                                     <div class="col-md-6 ">
                                         <input  type="text" id="coupon" name="coupon" class="form-control">
+                                         <div id="available"  style="color:#00BFFF; display: none;">Áp dụng mã giả giá thành công</div>
+                                         <div id="not_available" style="color:red; display: none;">Mã giả giá hết hiệu lực</div>
                                          <input id="apply_coupon" type="button" value="check"  class="btn btn-success">
                                     </div>
                                 </div>                                

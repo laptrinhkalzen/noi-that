@@ -9,6 +9,7 @@ use Repositories\CategoryRepository;
 use Repositories\AttributeRepository;
 use Repositories\PostHistoryRepository;
 
+
 class ProductController extends Controller {
 
     /**
