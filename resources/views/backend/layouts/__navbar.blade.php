@@ -132,6 +132,7 @@
 
                     <div class="dropdown-menu">
                         <a href="{{route('admin.bill.index1')}}" class="dropdown-item"><i class="fa fa-bug mr-2"></i>Đơn hàng</a>
+                        <a href="" class="dropdown-item"><i class="fa fa-truck mr-2"></i>Đơn vị vận chuyển</a>
                   
                     </div>
                 </li>

@@ -27,7 +27,38 @@
                 @endif
             </div>
 
-     @yield('filter')
+        <table class="table datatable-basic">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Kho</th>
+                    <th>Địa chỉ</th>
+                    <th>Thao tác</th>
+                    
+                </tr>
+            </thead>
+                 @foreach($stocks as $key => $stock)
+                 <tr>
+                    <th>{{$key+1}}</th>
+                    <th>{{$stock->name}}</th>
+                    <th>{{$stock->address}}</th>
+                    
+                    <td class="text-center">
+                        <a href="{{route('admin.stock.edit', $stock->id)}}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
+                        <form action="{!! route('admin.stock.destroy', $stock->id) !!}" method="POST" style="display: inline-block">
+                            {!! method_field('DELETE') !!}
+                            {!! csrf_field() !!}
+                            <a title="Xóa" class="delete text-danger" data-action="delete">
+                                <i class="icon-close2"></i>
+                            </a>              
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            <tbody>
+            
+            </tbody>
+        </table>
     </div>
     <!-- /table header styling -->
     
