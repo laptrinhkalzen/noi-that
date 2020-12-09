@@ -66,10 +66,16 @@
                                           data:{coupon_code:coupon_code},
                                           success:function(res){
                                             if(res.statusCode==200){
+                                            
+                                              if(($('#result').val()) > res.condition){
                                               var after_apply=$('#result').val()-res.value;
                                               $('#total_price').val(after_apply);
                                               $('#available').show();
                                               $('#not_available').hide();
+                                              }
+                                              else{
+                                                alert('Đơn hàng cần có giá trị tối thiểu ' +res.condition+ ' để sử dụng mã này');
+                                              }
                                               }
                                              else{
                                               $('#not_available').show();
@@ -118,8 +124,13 @@
                                           url:'{{route("api.change_status")}}',
                                           data:{coupon_code:coupon_code},
                                           success:function(res){
+                                               if($('#result').val() > res.condition){
                                               var after_apply=$('#result').val()-res.value;;
                                               $('#total_price').val(after_apply);
+                                            }
+                                              else{
+                                                  alert('Đơn hàng cần có giá trị tối thiểu ' +res.condition+ ' để sử dụng mã này');
+                                              }
                                           }
                                     });
                                  }
