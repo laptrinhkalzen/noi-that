@@ -35,3 +35,6 @@
 <script src="{!! asset('assets/backend/js/common.js') !!}"></script>
 <script src="{!! asset('assets/js/app.js') !!}"></script>
 <script src="{!! asset('assets/global_assets/js/demo_pages/dashboard.js') !!}"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

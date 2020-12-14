@@ -182,6 +182,7 @@ class BillController extends Controller {
            $import['stock_name']=DB::table('stock')->where('id',$stock_id)->pluck('name')->first();
            $import['total']=$request->total;
            $import['created_at']=Carbon::now('Asia/Ho_Chi_Minh');
+           $import['order_date']=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
            $import['note']=$request->note;
            $import['status']=1;
            $import['total_payment']=$request->total_payment;
@@ -262,6 +263,7 @@ class BillController extends Controller {
            $import['customer_payment']=$request->customer_payment;
            $import['payment_appointment']=$request->payment_appointment;
            $import['payment_remain']=$request->total_payment-$request->customer_payment;
+           $import['order_date']=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
             DB::table('bill')->where('bill_id',$id)->update($import);
 
             //cap nhat so luong hàng trong kho

@@ -132,7 +132,7 @@
 
                     <div class="dropdown-menu">
                         <a href="{{route('admin.bill.index1')}}" class="dropdown-item"><i class="fa fa-bug mr-2"></i>Đơn hàng</a>
-                        <a href="" class="dropdown-item"><i class="fa fa-truck mr-2"></i>Đơn vị vận chuyển</a>
+                        <a href="{{route('admin.transport.index')}}" class="dropdown-item"><i class="fa fa-truck mr-2"></i>Đơn vị vận chuyển</a>
                   
                     </div>
                 </li>
@@ -161,6 +161,20 @@
                         <a href="{{route('admin.coupon.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Mã giảm giá</a>
                         <a href="" class="dropdown-item"><i class="fa fa-calendar mr-2"></i> Chiết khấu</a>
                     </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-gift mr-2"></i>
+                        Thống kê
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <a href="{{route('admin.statistic.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê doanh số</a>
+                        <a href="{{route('admin.statistic.inventory')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê tổn kho</a>
+                        
+                    </div>
+
+                   
                 </li>
                 
             </ul>

@@ -51,6 +51,8 @@ return [
     'admin.employee.index'=>'Nhân viên',
     'admin.import.index'=>'Phiếu nhập ',
     'admin.coupon.index'=>'Mã giảm giá ',
+    'admin.statistic.index'=>'Thống kê doanh số',
+    'admin.statistic.inventory'=>'Thống kê sản phẩm tồn kho',
 
 
 ];

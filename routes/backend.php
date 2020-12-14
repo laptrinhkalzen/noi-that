@@ -29,6 +29,22 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/video/update/{id}', ['as' => 'admin.video.update', 'uses' => 'Backend\VideoController@update']);
     Route::delete('/video/delete/{id}', ['as' => 'admin.video.destroy', 'uses' => 'Backend\VideoController@destroy']);
 
+    /* Quản lý transport */
+    Route::get('/transport', ['as' => 'admin.transport.index', 'uses' => 'Backend\TransportController@index']);
+    Route::get('/transport/create', ['as' => 'admin.transport.create', 'uses' => 'Backend\TransportController@create']);
+    Route::post('/transport/store', ['as' => 'admin.transport.store', 'uses' => 'Backend\TransportController@store']);
+    Route::get('/transport/edit/{id}', ['as' => 'admin.transport.edit', 'uses' => 'Backend\TransportController@edit']);
+    Route::post('/transport/update/{id}', ['as' => 'admin.transport.update', 'uses' => 'Backend\TransportController@update']);
+    Route::delete('/transport/delete/{id}', ['as' => 'admin.transport.destroy', 'uses' => 'Backend\TransportController@destroy']);
+
+    /* Báo cáo thống kê doanh số*/
+    Route::get('/statistic', ['as' => 'admin.statistic.index', 'uses' => 'Backend\StatisticController@index']);
+    Route::post('/filter-by-date', ['as' => 'admin.statistic.filter', 'uses' => 'Backend\StatisticController@filter_by_date']);
+    Route::post('/filter-fixed-filter', ['as' => 'admin.fixed.filter', 'uses' => 'Backend\StatisticController@fixed_filter']);
+
+    /* Báo cáo thống kê hàng tồn*/
+    Route::get('/statistic-inventory', ['as' => 'admin.statistic.inventory', 'uses' => 'Backend\StatisticController@inventory']);
+
     /* Quản lý news */
     Route::get('/news', ['as' => 'admin.news.index', 'uses' => 'Backend\NewsController@index']);
     Route::get('/news/create', ['as' => 'admin.news.create', 'uses' => 'Backend\NewsController@create']);
