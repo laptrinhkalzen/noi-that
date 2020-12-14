@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/statistic', ['as' => 'admin.statistic.index', 'uses' => 'Backend\StatisticController@index']);
     Route::post('/filter-by-date', ['as' => 'admin.statistic.filter', 'uses' => 'Backend\StatisticController@filter_by_date']);
     Route::post('/filter-fixed-filter', ['as' => 'admin.fixed.filter', 'uses' => 'Backend\StatisticController@fixed_filter']);
-
+    Route::post('/filter-fixed-table', ['as' => 'admin.fixed.table', 'uses' => 'Backend\StatisticController@fixed_table']);
     /* Báo cáo thống kê hàng tồn*/
     Route::get('/statistic-inventory', ['as' => 'admin.statistic.inventory', 'uses' => 'Backend\StatisticController@inventory']);
 

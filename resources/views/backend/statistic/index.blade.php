@@ -8,6 +8,8 @@
         font-weight: bold;
     }
 </style>
+
+
 <head>
     <script src="{!! asset('assets/global_assets/js/plugins/tables/datatables/datatables.min.js') !!}"></script>
     <script src="{!! asset('assets/global_assets/js/plugins/forms/selects/select2.min.js') !!}"></script>
@@ -57,8 +59,29 @@
                     data:{dashboard_value:dashboard_value, _token:_token},
                     
                     success:function(data){
-                        $('#loading').hide();  
+                        $('#loading').hide();
                         chart.setData(data);
+                        var trHTML = '';
+                        $.each(data, function (i, item) {
+                            trHTML += '<tr><td>' + i + '</td><td>' + item.period + '</td><td>' + item.sales + '</td><td>' + item.profit + '</td><td>' + item.order + '</td><td>' + item.quantity + '</td></tr>';
+                        });
+                       
+                        $('#show_data').append(trHTML);
+                        $("#show_data").dataTable();
+                      
+                    }
+
+
+                });
+                 $.ajax({
+                    url:'{{route("admin.fixed.table")}}',
+                    method:"POST",
+                    data:{dashboard_value:dashboard_value, _token:_token},
+                    
+                    success:function(res){
+                        
+                         $("#result").html(res);
+                        
                       
                     }
 
@@ -95,57 +118,7 @@
     
 </script>
 
-<script type="text/javascript">
-        
-        $( document ).ready(function() {
 
-            $('#btn-dashboard-filter').click(function()
-    {
-        var _token = $('input[name="_token"]').val();
-        var from_date = $('#datepicker').val();
-        var to_date = $('#datepicker2').val();
-        
-        $.ajax({
-            url:'{{route("admin.statistic.filter")}}',
-            method: "POST",
-            dataType: "JSON",
-            data:{from_date:from_date,_token:_token,to_date:to_date},
-            success:function(data){
-                chart.setData(data);
-
-            }
-        });
-    });
-
-            $('.dashboard-filter').change(function(){
-
-                var dashboard_value = $(this).val();
-                var _token = $('input[name = "_token"]').val();
-                $('#loading').show();
-                $.ajax({
-                    url:'{{route("admin.fixed.filter")}}',
-                    method:"POST",
-                    dataType: "JSON",
-                    data:{dashboard_value:dashboard_value, _token:_token},
-                    
-                    success:function(data){
-                        $('#loading').hide();  
-                        chart.setData(data);
-                      
-                    }
-
-
-                });
-            });
-
-
-            //chart30daysorder();
-
-           
-
-
-           
-   
     
 </script>
 
@@ -212,6 +185,9 @@
 
 </script>
 </head>
+
+
+<div id="result"></div>
 <div class="content"> 
     <!-- Table header styling -->
     <div class="card">
@@ -286,9 +262,27 @@
                 
                 <div id="donut"  style="height: 250px;"></div>
             </div>
-        
-        
-    </div>
+            
+            
+        <table style="text-align: center;" class="table datatable-basic" id="show_table">
+                <thead>
+            <tr >
+                <th>ID</th>
+                <th>Ngày </th>
+                <th>Doanh thu</th>
+                <th>Lợi nhuận</th>
+                <th>Số đơn hàng</th>
+                <th>Số lượng sản phẩm</th>
+            </tr>
+                </thead>
+                <tbody id="show_data">
+               
+                    
+                </tbody>
+            </table>
+        <!-- Content area -->
+   
+  </div>
     <!-- /table header styling -->
     
 </div>
@@ -297,5 +291,6 @@
 @stop
 @section('script')
 @parent
+@stop
   
   

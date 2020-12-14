@@ -170,7 +170,6 @@
 
                     <div class="dropdown-menu">
                         <a href="{{route('admin.statistic.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê doanh số</a>
-                        <a href="{{route('admin.statistic.inventory')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê tổn kho</a>
                         
                     </div>
 
