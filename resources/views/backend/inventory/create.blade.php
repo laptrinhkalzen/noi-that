@@ -28,7 +28,7 @@
                       </div>
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h6 class="card-title">Lập hóa đơn</h6>
+                <h6 class="card-title">Lập phiếu kiểm</h6>
                 <div class="header-elements">
                     <div class="list-icons">
                         <a class="list-icons-item" data-action="collapse"></a>
@@ -114,10 +114,10 @@
                 </script>
 
                             <div class="col-md-4">
-                                 <h5 style="text-decoration:underline;">Thông tin đơn hàng</h5>
+                                 <h5 style="text-decoration:underline;">Thông tin thêm</h5>
                             
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Người kiếm</label>
+                                    <label class="col-form-label col-md-4 text-left">Người kiểm</label>
                                     <div class="col-md-7">
                                          <select class="select2 form-control" name="user_id">
                                        
@@ -152,9 +152,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="text-center">
-                            <a type="button" href="{{route('admin.import.index')}}" class="btn btn-secondary legitRipple">Hủy</a>
+                            <a type="button" href="{{route('admin.inventory.index')}}" class="btn btn-secondary legitRipple">Hủy</a>
                             <button type="submit" class="btn btn-primary legitRipple">Lưu lại <i class="icon-arrow-right14 position-right"></i></button>
-                            <a  class="btn btn-light legitRipple" data-toggle="modal" data-target="#myModal">Lưu và in <i class="icon-arrow-right14 position-right"></i></a>
+                            <button style="background-color: MediumSeaGreen;" type="submit" name="print1" value="1" class="btn btn-primary legitRipple">Lưu lại và in <i class="icon-arrow-right14 position-right"></i></button>
                         </div>
                     </div>
                 </div>

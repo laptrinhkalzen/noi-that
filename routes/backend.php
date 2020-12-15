@@ -44,6 +44,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/filter-fixed-table', ['as' => 'admin.fixed.table', 'uses' => 'Backend\StatisticController@fixed_table']);
     /* Báo cáo thống kê hàng tồn*/
     Route::get('/statistic-inventory', ['as' => 'admin.statistic.inventory', 'uses' => 'Backend\StatisticController@inventory']);
+    Route::post('/days-order', ['as' => 'admin.statistic.days_order', 'uses' => 'Backend\StatisticController@days_order']);
+
+    /* Dashboard*/
+    Route::get('/statistic1', ['as' => 'admin.statistic.index1', 'uses' => 'Backend\BackendController@index']);
+    Route::post('/filter-by-date1', ['as' => 'admin.statistic.filter1', 'uses' => 'Backend\BackendController@filter_by_date']);
+    Route::post('/filter-fixed-filter1', ['as' => 'admin.fixed.filter1', 'uses' => 'Backend\BackendController@fixed_filter']);
+    Route::post('/filter-fixed-table1', ['as' => 'admin.fixed.table1', 'uses' => 'Backend\BackendController@fixed_table']);
+    /* Báo cáo thống kê hàng tồn*/
+    
+    Route::post('/days-order1', ['as' => 'admin.statistic.days_order1', 'uses' => 'Backend\BackendController@days_order']);
 
     /* Quản lý news */
     Route::get('/news', ['as' => 'admin.news.index', 'uses' => 'Backend\NewsController@index']);
@@ -92,6 +102,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/inventory/edit/{id}', ['as' => 'admin.inventory.edit', 'uses' => 'Backend\InventoryController@edit']);
     Route::post('/inventory/update/{id}', ['as' => 'admin.inventory.update', 'uses' => 'Backend\InventoryController@update']);
     Route::delete('/inventory/delete/{id}', ['as' => 'admin.inventory.destroy', 'uses' => 'Backend\InventoryController@destroy']);
+    
 
 
     //xuatkho
@@ -108,8 +119,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     //print
     Route::get('/print/edit_import/{id}', ['as' => 'admin.print.edit_import', 'uses' => 'Backend\StockController@print']);
     Route::get('/print/edit_bill/{id}', ['as' => 'admin.print.edit_bill', 'uses' => 'Backend\billController@print']);
+    Route::get('/print/edit_inventory/{id}', ['as' => 'admin.print.edit_inventory', 'uses' => 'Backend\InventoryController@print']);
  
-
     //bill
     Route::get('/bill', ['as' => 'admin.bill.index1', 'uses' => 'Backend\BillController@index']);
     Route::get('/bill/update_status/{id}/{status}', ['as' => 'admin.bill.update_status', 'uses' => 'Backend\BillController@update_status']);
@@ -118,8 +129,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/bill/edit/{id}/{stock_id}', ['as' => 'admin.bill.edit', 'uses' => 'Backend\billController@edit']);
     Route::post('/bill/update/{id}/{stock_id}', ['as' => 'admin.bill.update', 'uses' => 'Backend\billController@update']);
     Route::delete('/bill/delete/{id}', ['as' => 'admin.bill.destroy', 'uses' => 'Backend\billController@destroy']);
-    Route::get('/print/edit_bill/{id}', ['as' => 'admin.print.edit_bill', 'uses' => 'Backend\billController@print']);
-    
+   
 
     /* Quản lý product */
     Route::get('/product', ['as' => 'admin.product.index', 'uses' => 'Backend\ProductController@index']);

@@ -130,7 +130,7 @@
             </div>
             <div style="display: flex;text-align: center;">
                     <div style="margin-left: 250px;">
-                        <strong>Người lập phiếu</strong><br>
+                        <strong>Nhân viên kho</strong><br>
                         (Ký, họ tên)
                     </div>
                     <div style="margin-left: 300px;">

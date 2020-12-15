@@ -81,7 +81,7 @@
     <!-- Table header styling -->
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h5 class="card-title">Đơn bán hàng</h5>
+            <h5 class="card-title">Phiếu kiểm hàng</h5>
             <div class="header-elements">
                 <div class="list-icons">
                     <a class="list-icons-item" data-action="collapse"></a>
@@ -173,6 +173,7 @@
                     <th></th>
                     @endif
                     <td class="text-center">
+                      <a  href="{!! route('admin.print.edit_inventory', ['id' => $record->inventory_id])!!}" class="success"><i class="fa fa-print"></i></a>
                         <a href="{!! route('admin.inventory.edit', ['id' => $record->inventory_id]) !!}" title="Chỉnh sửa" class="success"><i class="icon-pencil"></i></a>   
                         <form action="{!! route('admin.inventory.destroy', $record->inventory_id) !!}" method="POST" style="display: inline-block">
                             {!! method_field('DELETE') !!}

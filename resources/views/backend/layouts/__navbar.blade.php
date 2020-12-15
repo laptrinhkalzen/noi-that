@@ -171,6 +171,7 @@
                     <div class="dropdown-menu">
                         <a href="{{route('admin.statistic.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê doanh số</a>
                         
+                        
                     </div>
 
                    

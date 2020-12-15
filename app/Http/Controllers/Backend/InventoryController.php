@@ -68,7 +68,13 @@ class InventoryController extends Controller {
              $inventory_product[]=$insert_data;
          }
          DB::table('inventory_product')->insert($inventory_product);
-         return redirect()->route('admin.inventory.index')->with('success','Thành công');
+         if($request->print1!=1){
+
+        return redirect()->route('admin.inventory.index')->with('success','Thành công');
+      }else
+      {
+        return redirect()->route('admin.print.edit_inventory',['id'=>$id])->with('success','Thành công');
+      }
     }
 
     
@@ -112,7 +118,13 @@ class InventoryController extends Controller {
          }
          
  
-         return redirect()->route('admin.inventory.index')->with('success','Thành công');
+         if($request->print!=1){
+
+        return redirect()->route('admin.inventory.index')->with('success','Thành công');
+      }else
+      {
+        return redirect()->route('admin.print.edit_inventory',['id'=>$id])->with('success','Thành công');
+      }
     }
 
      public function inventory_product(){
@@ -131,6 +143,25 @@ class InventoryController extends Controller {
           DB::table('inventory')->where('inventory_id',$id)->delete();
         DB::table('inventory_product')->where('inventory_id',$id)->delete();
         return redirect()->back()->with('success', 'Xóa thành công');
+    }
+    public function print($id){
+      $print_inventorys=DB::table('inventory_product')->join('inventory','inventory.inventory_id','=','inventory_product.inventory_id')->join('product','inventory_product.product_id','=','product.id')->where('inventory_product.inventory_id',$id)->get();
+       $inventorys=DB::table('inventory')->where('inventory_id',$id)->first();
+       $total_exist=0;
+       $total_real=0;
+       $total_difference=0;
+       foreach ($print_inventorys as $key => $print) {
+           
+               $total_exist=$total_exist+$print->exist;
+               $total_real=$total_real+$print->real;
+               $total_difference=$total_difference+$print->difference;
+           
+       }
+      
+
+      // $customers=DB::table('member')->where('id',$bills->customer_id)->first();
+      
+      return view('backend/inventory/print')->with('print_inventorys',$print_inventorys)->with('inventorys',$inventorys)->with('total_exist',$total_exist)->with('total_real',$total_real)->with('total_difference',$total_difference);
     }
 
 }

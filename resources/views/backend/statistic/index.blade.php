@@ -43,6 +43,14 @@
             success:function(data){
                 chart.setData(data);
 
+                var trHTML = '';
+                        $.each(data, function (i, item) {
+                            trHTML += '<tr><td>' + i + '</td><td>' + item.period + '</td><td>' + item.sales + '</td><td>' + item.profit + '</td><td>' + item.order + '</td><td>' + item.quantity + '</td></tr>';
+                        });
+                        
+                        $('#show_data').html(trHTML);
+                        $("#show_data").dataTable();
+
             }
         });
     });
@@ -66,28 +74,34 @@
                             trHTML += '<tr><td>' + i + '</td><td>' + item.period + '</td><td>' + item.sales + '</td><td>' + item.profit + '</td><td>' + item.order + '</td><td>' + item.quantity + '</td></tr>';
                         });
                        
-                        $('#show_data').append(trHTML);
+                        $('#show_data').html(trHTML);
                         $("#show_data").dataTable();
                       
                     }
 
 
                 });
-                 $.ajax({
-                    url:'{{route("admin.fixed.table")}}',
+
+                 
+            });
+            chart60daysorder();
+
+            function chart60daysorder(){
+                var _token = $('input[name = "_token"]').val();
+                $.ajax({
+                    url:'{{route("admin.statistic.days_order")}}',
                     method:"POST",
-                    data:{dashboard_value:dashboard_value, _token:_token},
+                    dataType: "JSON",
+                    data:{_token:_token},
                     
-                    success:function(res){
-                        
-                         $("#result").html(res);
-                        
-                      
+                    success:function(data){
+
+                        chart.setData(data);
                     }
 
 
                 });
-            });
+            }
 
 
             //chart30daysorder();
@@ -96,7 +110,7 @@
           
           element: 'chart',
           
-          lineColors: ['#819C79','#fc8710','#FF6541','#A4ADD3','#766B56'],
+          lineColors: ['#819C79','#fc8710','#9332a8','#A4ADD3','#766B56'],
           pointFillColors: ['#ffffff'],
           pointStrokeColors:['black'],
             fillOpacity:0.3,

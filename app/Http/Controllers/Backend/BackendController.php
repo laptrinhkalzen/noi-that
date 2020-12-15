@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Repositories\ProductRepository;
-use Repositories\NewsRepository;
-use App\Repositories\ContactRepository;
-use Repositories\ConfigRepository;
+use Carbon\Carbon;
+use App\Statistic;
+use TIMESTAMP;
+use DB;
+use App\Product;
+use App\Supplier;
+use App\Member;
 
 
 
@@ -17,24 +18,176 @@ class BackendController  extends Controller
 {
     
 
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct(ProductRepository $productRepo, NewsRepository $newRepo, ContactRepository $contactRepo, \Repositories\ConfigRepository $configRepo) {
-        $this->productRepo = $productRepo;
-        $this->newsRepo = $newRepo;
-        $this->contactRepo = $contactRepo;
-        $this->configRepo = $configRepo;
+       public function index() {
+        //$coupons = $this->couponRepo->all();
+            $product = Product::all()->count();
+            $bill = DB::table('bill')->count();
+            $supplier = Supplier::all()->count();
+            $member = Member::all()->count();
+        return view('backend/index',compact('product','bill','supplier','member'));
     }
-    public function index()
-    {
-        $product_count = $this->productRepo->all()->count();
-        $news_count = $this->newsRepo->all()->count();
-        $contact_count = $this->contactRepo->all()->count();
-        return view('backend/index', compact('product_count', 'news_count', 'contact_count'));
+
+
+    public function filter_by_date(Request $request) {
+        $data = $request->all();
+        $from_date = $data['from_date'];
+        $to_date = $data['to_date'];
+
+        $get = Statistic::whereBetween('order_date',[$from_date, $to_date])->orderBy('order_date','ASC')->get();
+    if(count($get)>1){
+
+
+        foreach ($get as $key => $val) {
+            $chart_data[] = array(
+                'period'=>$val->order_date,
+                'order'=>$val->total_order,
+                'sales'=>$val->sales,
+                'profit'=>$val->profit,
+                'quantity'=>$val->quantity,
+            );
+        }
+        echo $data =json_encode($chart_data);
+        
     }
+    else{
+        return response()->json(['status'=>201]);
+    }
+}
+
+    
+    public function fixed_filter(Request $request) {
+        $data = $request->all();
+
+        $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+
+        $dauthangnay= Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString(); 
+        $dauthangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+        $cuoithangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+
+        $sub7days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
+        $sub365days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
+        if($data['dashboard_value'] == '7ngay'){
+            $get = Statistic::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date','ASC')->get();
+        }
+        elseif($data['dashboard_value'] == 'thangtruoc'){
+            $get = Statistic::whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->orderBy('order_date','ASC')->get();
+        }
+        elseif($data['dashboard_value'] == 'thangnay'){
+            $get = Statistic::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
+        }
+        else{
+            $get = Statistic::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
+        }
+
+        
+
+        
+    if(count($get)>1){
+
+
+        foreach ($get as $key => $val) {
+            $chart_data[] = array(
+                'period'=>$val->order_date,
+                'order'=>$val->total_order,
+                'sales'=>$val->sales,
+                'profit'=>$val->profit,
+                'quantity'=>$val->quantity,
+            );
+        }
+        echo $data =json_encode($chart_data);
+    }
+    else{
+        return response()->json(['status'=>201]);
+    }
+}
+
+public function fixed_table(Request $request) {
+        $data = $request->all();
+
+        $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+
+        $dauthangnay= Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString(); 
+        $dauthangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+        $cuoithangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+
+        $sub7days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
+        $sub365days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
+        if($data['dashboard_value'] == '7ngay'){
+            $get = Statistic::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date','ASC')->get();
+        }
+        elseif($data['dashboard_value'] == 'thangtruoc'){
+            $get = Statistic::whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->orderBy('order_date','ASC')->get();
+        }
+        elseif($data['dashboard_value'] == 'thangnay'){
+            $get = Statistic::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
+        }
+        else{
+            $get = Statistic::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
+        }
+
+        
+
+        
+    if(count($get)>1){
+
+
+        foreach ($get as $key => $val) {
+            $chart_data[] = array(
+                'period'=>$val->order_date,
+                'order'=>$val->total_order,
+                'sales'=>$val->sales,
+                'profit'=>$val->profit,
+                'quantity'=>$val->quantity,
+            );
+        }
+        
+           
+        return $chart_data;
+    }
+    else{
+        return response()->json(['status'=>201]);
+    }
+}
+
+
+    
+     
+      public function days_order(Request $request) {
+        $data = $request->all();
+
+        
+        $sub60days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(60)->toDateString();
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
+        
+        $get = Statistic::whereBetween('order_date',[$sub60days,$now])->orderBy('order_date','ASC')->get();
+  
+        
+    if(count($get)>1){
+
+
+        foreach ($get as $key => $val) {
+            $chart_data[] = array(
+                'period'=>$val->order_date,
+                'order'=>$val->total_order,
+                'sales'=>$val->sales,
+                'profit'=>$val->profit,
+                'quantity'=>$val->quantity,
+            );
+        }
+        echo $data =json_encode($chart_data);
+    }
+    else{
+        return response()->json(['status'=>201]);
+    }
+}
 
 
 }
