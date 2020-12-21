@@ -159,8 +159,7 @@
 
                     <div class="dropdown-menu">
                         <a href="{{route('admin.coupon.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Mã giảm giá</a>
-                        <a href="" class="dropdown-item"><i class="fa fa-calendar mr-2"></i> Chiết khấu</a>
-                    </div>
+                        
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
@@ -169,7 +168,8 @@
                     </a>
 
                     <div class="dropdown-menu">
-                        <a href="{{route('admin.statistic.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê doanh số</a>
+                        <a href="{{route('admin.statistic.index')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê phiếu kiểm kho</a>
+                        <a href="{{route('admin.statistic.inventory')}}" class="dropdown-item"><i class="fa fa-gift mr-2"></i> Thống kê doanh số</a>
                         
                         
                     </div>

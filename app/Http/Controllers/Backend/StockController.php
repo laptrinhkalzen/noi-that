@@ -94,6 +94,7 @@ class StockController extends Controller {
            $import['payment_remain']=$request->total_payment-$request->paid;
            $import['payment_day']=$request->payment_day;
            $import['bill_type']=1;
+           $import['order_date']=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
            $import['created_by']=Auth::user()->id;
            $id=DB::table('import')->insertGetId($import);
 
@@ -210,6 +211,7 @@ class StockController extends Controller {
            $import['total']=$request->total;
            $import['paid']=$request->paid;
            $import['payment_remain']=$request->total_payment-$request->paid;
+           $import['order_date']=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
            $import['payment_day']=$request->payment_day;
            DB::table('import')->where('import_id',$id)->update($import);
           

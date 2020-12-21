@@ -11,26 +11,24 @@ use DB;
 use App\Product;
 use App\Supplier;
 use App\Member;
+use App\Coupon;
 
 
 
-class StatisticController extends Controller {
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   
+class StatisticController  extends Controller
+{
     
 
-    public function index() {
+       public function index() {
         //$coupons = $this->couponRepo->all();
             $product = Product::all()->count();
             $bill = DB::table('bill')->count();
             $supplier = Supplier::all()->count();
             $member = Member::all()->count();
-        return view('backend/statistic/index',compact('product','bill','supplier','member'));
+            $coupon = Coupon::all()->count();
+            $import = DB::table('import')->count();
+            $inventory = DB::table('inventory')->count();
+        return view('backend/statistic/index',compact('product','bill','supplier','member','coupon','import','inventory'));
     }
 
 
@@ -162,12 +160,7 @@ public function fixed_table(Request $request) {
 }
 
 
-    public function inventory() {
-            //$coupons = $this->couponRepo->all();
-            $inventory_products = DB::table('inventory_product')->join('inventory','inventory.inventory_id','=','inventory_product.inventory_id')->get();
-            $products = DB::table('product')->get();
-            return view('backend/statistic/inventory',compact('products','inventory_products'));
-        }
+    
      
       public function days_order(Request $request) {
         $data = $request->all();
@@ -179,8 +172,10 @@ public function fixed_table(Request $request) {
 
         
         $get = Statistic::whereBetween('order_date',[$sub60days,$now])->orderBy('order_date','ASC')->get();
-  
+        $get1 = Statistic::whereBetween('order_date',[$sub60days,$now])->orderBy('order_date','ASC')->limit(10)->get();
+        $count = $get->count()%10;
         
+
     if(count($get)>1){
 
 
@@ -192,20 +187,60 @@ public function fixed_table(Request $request) {
                 'profit'=>$val->profit,
                 'quantity'=>$val->quantity,
             );
+           
+
         }
-        echo $data =json_encode($chart_data);
+        foreach ($get1 as $key => $val) {
+            $panigate[] = array(
+                'period'=>$val->order_date,
+                'order'=>$val->total_order,
+                'sales'=>$val->sales,
+                'profit'=>$val->profit,
+                'quantity'=>$val->quantity,
+            );
+           
+
+        }
+         $limit = 10;
+         $data= DB::table('import')->count();
+         $total_page = ceil($data/$limit);    
+         return response()->json(array("chart_data"=>$chart_data,'total_page'=>$total_page,'panigate'=>$panigate));
+        
     }
     else{
         return response()->json(['status'=>201]);
     }
 }
-    // public function addPostHistory($product) {
+    
+       public function panigate(Request $request){
+         $curent_page = $request->page;
+         $limit = 10;
+         $data= DB::table('import')->count();
+         $total_page = ceil($data/$limit);    
+          
+          if($curent_page>$total_page){
+            $curent_page = $total_page;
+          }
+          elseif ($curent_page<1) {
+            $curent_page = 1;
+          }
+          $start = ($curent_page-1)*$limit;
+          $import=DB::table('import')->limit($limit)->offset($start)->get();
+           foreach ($import as $key => $val) {
+            $panigate[] = array(
+                'period'=>$val->order_date,
+                'order'=>$val->total_order,
+                'sales'=>$val->sales,
+                'profit'=>$val->profit,
+                'quantity'=>$val->quantity,
+            );
+           
 
-    //     $post_history['item_id'] = $product->id;
-    //     $post_history['created_at'] = $product->created_at;
-    //     $post_history['updated_at'] = $product->post_schedule ?: $product->updated_at;
-    //     $post_history['module'] = 'product';
-    //     $this->postHistoryRepo->create($post_history);
-    // }
+        }
+          return response()->json(array("panigate"=>$panigate,'total_page'=>$total_page));
+         
+    }
+
+
 
 }

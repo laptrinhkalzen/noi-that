@@ -7,10 +7,20 @@
         font-size: 20px;
         font-weight: bold;
     }
+    p.title_donut{
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+    }
 </style>
 
 
 <head>
+    <link href='http://fonts.googleapis.com/css?family=Dosis:300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
     <script src="{!! asset('assets/global_assets/js/plugins/tables/datatables/datatables.min.js') !!}"></script>
     <script src="{!! asset('assets/global_assets/js/plugins/forms/selects/select2.min.js') !!}"></script>
     <script src="{!! asset('assets/global_assets/js/demo_pages/datatables_basic.js') !!}"></script>
@@ -29,6 +39,12 @@
         
         $( document ).ready(function() {
 
+
+
+
+
+
+
             $('#btn-dashboard-filter').click(function()
     {
         var _token = $('input[name="_token"]').val();
@@ -43,17 +59,18 @@
             success:function(data){
                 chart.setData(data);
 
-                var trHTML = '';
-                        $.each(data, function (i, item) {
-                            trHTML += '<tr><td>' + i + '</td><td>' + item.period + '</td><td>' + item.sales + '</td><td>' + item.profit + '</td><td>' + item.order + '</td><td>' + item.quantity + '</td></tr>';
-                        });
+                // var trHTML = '';
+                //         $.each(data, function (i, item) {
+                //             trHTML += '<tr><td>' + i + '</td><td>' + item.period + '</td><td>' + item.sales + '</td><td>' + item.profit + '</td><td>' + item.order + '</td><td>' + item.quantity + '</td></tr>';
+                //         });
                         
-                        $('#show_data').html(trHTML);
-                        $("#show_data").dataTable();
+                //         $('#show_data').html(trHTML);
+                        
 
             }
         });
     });
+
 
             $('.dashboard-filter').change(function(){
 
@@ -69,13 +86,11 @@
                     success:function(data){
                         $('#loading').hide();
                         chart.setData(data);
-                        var trHTML = '';
-                        $.each(data, function (i, item) {
-                            trHTML += '<tr><td>' + i + '</td><td>' + item.period + '</td><td>' + item.sales + '</td><td>' + item.profit + '</td><td>' + item.order + '</td><td>' + item.quantity + '</td></tr>';
-                        });
-                       
+                        
+                        
                         $('#show_data').html(trHTML);
-                        $("#show_data").dataTable();
+                        
+                        
                       
                     }
 
@@ -84,31 +99,37 @@
 
                  
             });
+            $('.pagination a').unbind('click').on('click', function(e) {
+             e.preventDefault();
+             var page = $(this).attr('href').split('page=')[1];
+             getPosts(page);
+       });
+       
             chart60daysorder();
 
             function chart60daysorder(){
                 var _token = $('input[name = "_token"]').val();
                 $.ajax({
-                    url:'{{route("admin.statistic.days_order")}}',
+
+                    url:'{{route("admin.statistic.days_order1")}}',
                     method:"POST",
                     dataType: "JSON",
                     data:{_token:_token},
                     
                     success:function(data){
-
-                        chart.setData(data);
-                        var trHTML = '';
-                        $.each(data, function (i, item) {
-                            trHTML += '<tr><td>' + i + '</td><td>' + item.period + '</td><td>' + item.sales + '</td><td>' + item.profit + '</td><td>' + item.order + '</td><td>' + item.quantity + '</td></tr>';
-                        });
-                       
-                        $('#show_data').html(trHTML);
-                        $("#show_data").dataTable();
+                        chart.setData(data.chart_data);
+                        
                     }
 
 
                 });
-            }
+             
+            
+                
+           
+          
+        }
+                         
 
 
             //chart30daysorder();
@@ -134,14 +155,11 @@
         });
 
 
-           
-   
-    
 </script>
 
-
+    </script>
     
-</script>
+
 
 <script type="text/javascript">
         
@@ -154,8 +172,8 @@
               colors: [
                 '#E0F7FA',
                 '#a86f32',
-                '#96a832',
-                '#325ba8',
+                '#3440eb',
+                '#e67e1e',
                 '#26C6DA',
                 '#00BCD4',
                 '#00ACC1',
@@ -168,8 +186,35 @@
               data: [
                 {label:"Sản phẩm", value:<?php echo $product ?>, color:colorDanger},
                 {label:"Đơn hàng", value:<?php echo $bill ?>},
+                {label:"Phiếu nhập", value:<?php echo $import ?>},
                 {label:"Khách hàng", value:<?php echo $member ?>},
                 {label:"Nhà cung cấp", value:<?php echo $supplier ?>},
+                
+              ]
+            });
+           var chart = new Morris.Donut({
+              element: 'donut1',
+              resize: true,
+              colors: [
+                '#E0F7FA',
+                '#a86f32',
+                '#3440eb',
+                '#34eb56',
+                '#b51ee3',
+                '#00BCD4',
+                '#00ACC1',
+                '#0097A7',
+                '#00838F',
+                '#006064'
+              ],
+              //labelColor:"#cccccc", // text color
+              //backgroundColor: '#333333', // border color
+              data: [
+                {label:"Sản phẩm", value:<?php echo $product ?>, color:colorDanger},
+                {label:"Đơn hàng", value:<?php echo $bill ?>},
+                {label:"Phiếu nhập", value:<?php echo $import ?>},
+                {label:"Mã giảm giá", value:<?php echo $coupon ?>},
+                {label:"Phiếu kiểm kho", value:<?php echo $inventory ?>},
                 
               ]
             });
@@ -189,7 +234,7 @@
     $( function() {
         $( "#datepicker" ).datepicker({
             prevText:"Tháng trước",
-            NextText:"Tháng sau",
+            nextText:"Tháng sau",
             dateFormat:"yy-mm-dd",
             dayNamesMin:["Thứ 2", "Thứ 3","Thứ 4","Thứ 5", "Thứ 6","Thứ 7","Chủ nhật"],
             duration:"slow",
@@ -197,7 +242,7 @@
 
         $( "#datepicker2" ).datepicker({
             prevText:"Tháng trước",
-            NextText:"Tháng sau",
+            nextText:"Tháng sau",
             dateFormat:"yy-mm-dd",
             dayNamesMin:["Thứ 2", "Thứ 3","Thứ 4","Thứ 5", "Thứ 6","Thứ 7","Chủ nhật"],
             duration:"slow",
@@ -213,7 +258,7 @@
     <!-- Table header styling -->
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h5 class="card-title">Thống kê</h5>
+            <h5 class="card-title">Thống kê</h5>.
             <div class="header-elements">
                 <div class="list-icons">
                     <a class="list-icons-item" data-action="collapse"></a>
@@ -242,7 +287,7 @@
             <form autocomplete="off">
                 @csrf
             <div class="row">
-                <div class="col-md-2">
+                <div style="margin-left: 10px;" class="col-md-2">
                     <p>Từ ngày: <input type="text" id="datepicker" class="form-control"></p>
                     
 
@@ -250,11 +295,13 @@
 
                 <div class="col-md-2" >
                     <p>Đến ngày: <input type="text" id="datepicker2" class="form-control"></p>
-                    <input type="button" id="btn-dashboard-filter" class="btn btn-primary btn-sm" value="Lọc kết quả">
+                   
                 </div>
 
                 
-                <div  class="col-md-1">Hoặc</div>
+                <div style="margin-top: 23px;" class="col-md-1"><input type="button" id="btn-dashboard-filter" class="btn btn-primary btn-sm" value="Lọc kết quả"></div>
+                <div style="margin-top: 27px;" class="col-md-1">Hoặc</div>
+                
                 <div class="col-md-2" >
                     <p>
                         Lọc theo: 
@@ -281,30 +328,30 @@
             </div>
 
 
-            <br><br><p class="title_thongke">Thống kê sản phẩm, đơn hàng, khách hàng, nhà cung cấp</p>
-            <div class="col-md-12" >
-                
+            <br><br>
+        <div class="row">
+            <div class="col-md-6" >
+                <p class="title_thongke">Thống kê phiếu nhập, sản phẩm, đơn hàng, khách hàng, nhà cung cấp</p>
                 <div id="donut"  style="height: 250px;"></div>
             </div>
+            <div class="col-md-6" >
+                <p class="title_thongke">Thống kê sản phẩm, đơn hàng, phiếu nhập, mã giảm giá</p>
+                <div id="donut1"  style="height: 250px;"></div>
+            </div>
+        </div>
             
             
-        <table style="text-align: center;" class="table datatable-basic" id="show_table">
-                <thead>
-            <tr >
-                <th>ID</th>
-                <th>Ngày </th>
-                <th>Doanh thu</th>
-                <th>Lợi nhuận</th>
-                <th>Số đơn hàng</th>
-                <th>Số lượng sản phẩm</th>
-            </tr>
-                </thead>
-                <tbody id="show_data">
-               
-                    
-                </tbody>
-            </table>
-        <!-- Content area -->
+       
+            
+        <!-- Content area -->   
+          
+            <div id="panigate">
+            </div>
+
+             
+          
+         
+    
    
   </div>
     <!-- /table header styling -->

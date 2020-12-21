@@ -55,6 +55,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     
     Route::post('/days-order1', ['as' => 'admin.statistic.days_order1', 'uses' => 'Backend\BackendController@days_order']);
 
+    /* Export*/
+    Route::get('/import/export/',['as' => 'admin.import.export', 'uses' => 'Backend\ExportController@import_export']);
+    Route::get('/inventory/export/',['as' => 'admin.inventory.export', 'uses' => 'Backend\ExportController@inventory_export']);
+
     /* Quản lý news */
     Route::get('/news', ['as' => 'admin.news.index', 'uses' => 'Backend\NewsController@index']);
     Route::get('/news/create', ['as' => 'admin.news.create', 'uses' => 'Backend\NewsController@create']);

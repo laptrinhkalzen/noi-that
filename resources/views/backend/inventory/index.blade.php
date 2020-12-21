@@ -118,7 +118,7 @@
               <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fas fa-cog"></i>
               <span class="caret"> Thao tác</span></button>
               <ul class="dropdown-menu" >
-                <li style="margin-left: 10px;"><a href="" onclick="exceller()">Xuất excel</a></li>
+                <li style="margin-left: 10px;"><a href="{{route('admin.inventory.export')}}" onclick="">Xuất excel</a></li>
               </ul>
             </div>
             </div>

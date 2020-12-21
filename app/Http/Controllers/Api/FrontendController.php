@@ -19,6 +19,7 @@ use Repositories\ReviewPersonRepository;
 use App\Repositories\MemberRepository;
 use Mail;
 use Illuminate\Support\Facades\File; 
+use DB;
 
 class FrontendController extends Controller {
 
@@ -469,6 +470,23 @@ class FrontendController extends Controller {
     }
     public function delete_image(Request $request){
          File::delete('..'.$request->get('link'));
+    }
+    public function panigate(Request $request){
+         $curent_page = $request->page;
+         $limit = 10;
+         $data= DB::table('import')->count();
+         $total_page = ceil($data/$limit);    
+          
+          if($curent_page>$total_page){
+            $curent_page = $total_page;
+          }
+          elseif ($curent_page<1) {
+            $curent_page = 1;
+          }
+          $start = ($curent_page-1)*$limit;
+          $import=DB::table('import')->limit($limit)->offset($start)->get();
+          return response()->json(array("import"=>$import,'total_page'=>$total_page));
+          
     }
 
 }
