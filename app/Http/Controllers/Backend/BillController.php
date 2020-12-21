@@ -157,19 +157,16 @@ class BillController extends Controller {
         return $returnData;
     }
     public function create($stock_id){
-      
-      
-      
-   
-
         $customers=DB::table('member')->get();
         $users=DB::table('user')->get();
-
+        $city=DB::table('city')->get();
+        $district=DB::table('district')->get();
+        $wards=DB::table('wards')->get();
         $products=DB::table('product')->join('stock_product','product.id','=','stock_product.product_id')->where('stock_id',$stock_id)->get();
         $stocks=DB::table('stock')->get();
         $suppliers=DB::table('supplier')->get();
         // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
-        return view('backend/bill/create',compact('products','suppliers','stocks','users','customers','stock_id'));
+        return view('backend/bill/create',compact('products','suppliers','stocks','users','customers','stock_id','city','district','wards'));
     }
 
     public function store($stock_id, Request $request){
@@ -195,6 +192,12 @@ class BillController extends Controller {
            $import['customer_payment']=$request->customer_payment;
            $import['payment_appointment']=$request->payment_appointment;
            $import['payment_remain']=$request->total_payment-$request->customer_payment;
+           $import['city']=$request->city;
+           $import['district']=$request->district;
+           $import['wards']=$request->wards;
+           $import['address']=$request->address;
+           $import['type_payment']=$request->type_payment;
+           $import['shipping']=$request->shipping;
            $bill_id=DB::table('bill')->insertGetId($import);
 
             for($count=0;$count<count($product);$count++){
@@ -210,19 +213,19 @@ class BillController extends Controller {
                 $insert_data[]=$import_product;
             }
             DB::table('bill_product')->insert($insert_data);
-               $extraInfo                         = array();
-        $extraInfo['title']                = 'iphone6';
-        $extraInfo['logistics_channel']   = '4PX挂号小包';
-        $extraInfo['customer_name']        = 'charse chen';
-        $extraInfo['customer_email']       = 'chasechen@gmail.com';
-        $extraInfo['order_id']             = '8988787987';
-        $extraInfo['customer_phone']       = '86 13873399982';
-        $extraInfo['order_create_time']    = '2018-05-11 12:00';
-        $extraInfo['destination_code']     = 'VN';
-        $extraInfo['tracking_ship_date']   = time();
-        $extraInfo['tracking_postal_code'] = '13ES21';
-        $extraInfo['lang']                 = 'vn';
-        $track =$this->createTracking('viettelpost','RM1215122167N',$extraInfo);
+                $extraInfo                         = array();
+                $extraInfo['title']                = 'iphone6';
+                $extraInfo['logistics_channel']   = '4PX挂号小包';
+                $extraInfo['customer_name']        = 'charse chen';
+                $extraInfo['customer_email']       = 'chasechen@gmail.com';
+                $extraInfo['order_id']             = '8988787987';
+                $extraInfo['customer_phone']       = '86 13873399982';
+                $extraInfo['order_create_time']    = '2018-05-11 12:00';
+                $extraInfo['destination_code']     = 'VN';
+                $extraInfo['tracking_ship_date']   = time();
+                $extraInfo['tracking_postal_code'] = '13ES21';
+                $extraInfo['lang']                 = 'vn';
+                $track =$this->createTracking('viettelpost','RM1215122167N',$extraInfo);
         // $members=DB::table('member')->orderBy('created_at', 'desc')->get();
         if($request->print1!=1){
 

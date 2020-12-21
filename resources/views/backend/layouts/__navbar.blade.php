@@ -1,6 +1,6 @@
 <!--Main navbar -->
 <div class="navbar navbar-expand-md navbar-dark">
-
+  <script type="text/javascript" src="//s.trackingmore.com/plugins/v1/buttonCurrent.js"></script>
     <div class="d-md-none">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
             <i class="icon-tree5"></i>
@@ -64,6 +64,19 @@
 
                     
                 </li> -->
+                <div style="width: 100%;margin:0 auto;text-align:center;">
+   <form role="form" action="//track.trackingmore.com" method="get" onsubmit="return false">
+       <div class="TM_input-group">
+           <input type="text" class="TM_my_search_input_style " id="button_tracking_number" placeholder="Tracking Number" name="button_tracking_number" value="" autocomplete="off" maxlength="100" style="border-color: #0099CC">
+           <span class="TM_input-group-btn">
+               <button class="TM_my_search_button_style " id="query" type="button" onclick="return doTrack()" style="background-color: #0099CC">Track</button>
+           </span>
+       </div>
+       <input type="hidden" name="lang" value="en" />
+       <input id="button_express_code" type="hidden" name="lang" value="iceland-post" />
+   </form>
+   <div id="TRNum"></div>
+</div>
 
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
