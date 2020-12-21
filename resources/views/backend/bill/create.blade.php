@@ -67,8 +67,15 @@
                                           success:function(res){
                                             if(res.statusCode==200){
                                             
-                                              if(($('#result').val()) > res.condition){
-                                              var after_apply=$('#result').val()-res.value;
+                                              if((parseInt($('#result_total').val())) >= parseInt(res.condition)){
+                                                if(res.type_coupon==1){
+                                                  var after_apply=$('#result').val()-($('#result').val()/100*res.value); 
+                                               
+                                              }
+                                              else{
+                                                    var after_apply=$('#result').val()-res.value;
+                                              }
+                                             
                                               $('#total_price').val(after_apply);
                                               $('#available').show();
                                               $('#not_available').hide();
@@ -124,13 +131,20 @@
                                           url:'{{route("api.change_status")}}',
                                           data:{coupon_code:coupon_code},
                                           success:function(res){
-                                               if($('#result').val() > res.condition){
-                                              var after_apply=$('#result').val()-res.value;;
-                                              $('#total_price').val(after_apply);
-                                            }
-                                              else{
-                                                  alert('Đơn hàng cần có giá trị tối thiểu ' +res.condition+ ' để sử dụng mã này');
+                                               if((parseInt($('#result_total').val())) >= parseInt(res.condition)){
+                                       if(res.type_coupon==1){
+                                                  var after_apply=$('#result').val()-($('#result').val()/100*res.value); 
+                                               
                                               }
+                                              else{
+                                                    var after_apply=$('#result').val()-res.value;
+                                              }
+                                             
+                                              $('#total_price').val(after_apply);
+                                              $('#available').show();
+                                              $('#not_available').hide();
+                                            }
+                                              
                                           }
                                     });
                                  }
@@ -192,7 +206,7 @@
                                       <div class="input_fields_wrap">
                                     </div>
                                
-
+                                 
                                 </fieldset>
                             </div>
                            
@@ -207,7 +221,7 @@
                                 e.preventDefault();
                                 if(x < max_fields){ //max input box allowed
                                 x++; //text box increment
-                                $(wrapper).append('  <div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" id="vehicle-type"><select class="select2 form-control" name="product[]"><option>------Chọn------</option> @foreach($products as $product)<option data-quantity1="{{$product->stock_product_quantity}}" data-price1="{{$product->sell_price}}" value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div> <div class="form-group col-md-2" ><input  readonly  type="number"  class="form-control quantity-input" required=""></div><div class="form-group col-md-2" ><input  type="text" value="" name="price[]" min="1" readonly class="form-control price price-input" required=""></div><div class="form-group col-md-2" ><input id="quantity"  name="quantity[]" type="number"  min="1" class="form-control " required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info xoa">Xóa</div></div>'); 
+                                $(wrapper).append('<div class="form-row" style="margin-left: 0px; margin-top: 10px;"><div class="form-group col-md-3" id="vehicle-type"><select class="select2 form-control" name="product[]"><option>------Chọn------</option> @foreach($products as $product)<option data-quantity1="{{$product->stock_product_quantity}}" data-price1="{{$product->sell_price}}" value="{{$product->id}}">{{$product->title}}</option>@endforeach</select></div> <div class="form-group col-md-2" ><input  readonly  type="number"  class="form-control quantity-input" required=""></div><div class="form-group col-md-2" ><input  type="text" value="" name="price[]" min="1" readonly class="form-control price price-input" required=""></div><div class="form-group col-md-2" ><input id="quantity"  name="quantity[]" type="number"  min="1" class="form-control " required=""></div><div class="form-group col-md-2" ><input id="total" name="sub_total[]" class="form-control qty1" value="" readonly="true"></div><div style="cursor:pointer; background-color:red; height:35px;" class="remove_field btn btn-info xoa">Xóa</div></div>'); 
                                      $('.select2').select2({
      //configuration
                                      });
@@ -247,144 +261,149 @@
                                         <input type="date" name="date_import" class="form-control " >
                                     </div>
                                 </div> -->
+
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Nhân viên bán</label>
-                                    <div class="col-md-7">
-                                         <select class="select2 form-control" name="user_id">
-                                        <option value="">------Chọn------</option> 
+                                  
+                                    <div class="col-md-6">
+                                         <select class="select2 form-control" name="user_id" required="">
+                                        <option value="">Người bán</option> 
                                            @foreach($users as $user)
                                               <option  value="{{$user->id}}">{{$user->full_name}}</option>
                                             @endforeach
                                       </select>
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Khách hàng </label>
-                                    <div class="col-md-7">
-                                         <select class="select2 form-control" name="customer_id">
-                                        <option value="">------Chọn------</option> 
+                                    <div class="col-md-6">
+                                         <select class="select2 form-control" name="customer_id" required="true">
+                                        <option value="">Khách hàng</option> 
                                            @foreach($customers as $customer)
                                               <option value="{{$customer->id}}">{{$customer->full_name}} ({{$customer->id}})</option>
                                             @endforeach
                                       </select>
                                     </div>
                                 </div>
-                         <!--      <div class="form-group row">
-        <label class="col-form-label col-md-4 text-left">Khách hàng </label>
 
-        <div class="col-md-7">
-          <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#citizen">Chọn</button>
-          <div id="citizen" class="collapse">
-         
-                                    
-                                         <select class="select2 form-control" name="customer_id">
-                                        <option value="">------Chọn------</option> 
-                                           @foreach($customers as $customer)
-                                              <option value="{{$customer->id}}">{{$customer->full_name}} ({{$customer->id}})</option>
-                                            @endforeach
-                                      </select>
-                                  
-        </div>
-      </div>
-      <div class="col-md-9">
-        <p style="margin-left: 320px;">or</p>
-      </div>
-  
-        <div style="margin-left:181px;" class="col-md-7">
-          <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#organisation">Thêm mới
-          </button>
-          <div id="organisation" class="collapse">
-         
-                                
-                                         <select class="select2 form-control" name="customer_id">
-                                        <option value="">------Chọn------</option> 
-                                           @foreach($customers as $customer)
-                                              <option value="{{$customer->id}}">{{$customer->full_name}} ({{$customer->id}})</option>
-                                            @endforeach
-                                      </select>
-                                 
-          </div>
-        </div>
-     
-        
-      </div>  -->
+                           
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Ghi chú </label>
-                                    <div class="col-md-7">
-                                         <textarea class="form-control" name="note" rows="4" id="comment"></textarea>
-                                    </div>
-                                </div>
-                                
-                              
-                                <h5 style="text-decoration:underline;">Thông tin thanh toán</h5>
                                    
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Hình thức thanh toán </label>
-                                    <div class="col-md-7">
-                                        <select class="form-control" name="payment_type" id="sel1">
-                                            <option value="tienmat">Tiền mặt</option>
-                                            <option value="chuyenkhoan">Chuyển khoản</option>
-                                            <option value="the">Thẻ</option>  
-                                          </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Chiết khấu </label>
+                                    <div class=" row col-md-6">
+                                        
 
-                                    <div class="row" style="margin-left: 9px;">
-                                        <select name="discount_type" class="form-control col-md-3" id="type">
+                                      <div class="col-md-8">
+                                        <input placeholder="Điền mã giảm giá" type="text" id="coupon" name="coupon" class="form-control">
+                                         <div id="available"  style="color:#00BFFF; display: none;">Áp mã thành công</div>
+                                         <div id="not_available" style="color:red; display: none;">Mã này không có sẵn</div>
+                                    </div>
+                                    <div class="col-md-3">
+                                         <input id="apply_coupon" type="button" value="Check"  name="coupon" class="btn btn-success">
+                                    </div>
+                                    
+                                    </div>
+                                      <div style="margin-left: 20px;" class="row col-md-6" >
+                                        <select name="discount_type" class="form-control col-md-4" id="type">
                                             <option value="1" data-type="1">$</option>
                                             <option value="2" data-type="2">%</option>  
                                           </select>
-                                        <input  type="number" id="discount" name="discount" class="form-control col-md-9">
+                                        <input placeholder="Chiết khấu"  type="number" id="discount" name="discount" class="form-control col-md-8">
                                     </div>
-                                </div> 
-                                
 
-                                  <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Mã giảm giá </label>
-                                    
-                                    <div class="col-md-6 ">
-                                        <input  type="text" id="coupon" name="coupon" class="form-control">
-                                         <div id="available"  style="color:#00BFFF; display: none;">Áp dụng mã giả giá thành công</div>
-                                         <div id="not_available" style="color:red; display: none;">Mã giả giá hết hiệu lực</div>
-                                         <input id="apply_coupon" type="button" value="check"  class="btn btn-success">
-                                    </div>
-                                </div>                                
-                            
-
+                                </div>
                                  <div class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Tổng</label>
                                     <div class="col-md-7">
                                         <input id="result_total" name="total" class="form-control" readonly="true">
                                     </div>
                                 </div> 
-                                <div class="form-group row">
+                                <div style="display:none;" class="form-group row">
                                     <label class="col-form-label col-md-4 text-left">Cần thanh toán</label>
                                     <div class="col-md-7">
-                                        <input id="result" name="total_payment" class="form-control" readonly="true">
+                                        <input id="result" name="" class="form-control" readonly="true">
                                     </div>
                                 </div> 
-                                  <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">sau giảm giá</label>
+                                 
+                                   <div class="form-group row">
+                
+                                    <label class="col-form-label col-md-4 text-left">Cần thanh toán</label>
+                                
                                     <div class="col-md-7">
-                                        <input id="total_price" name="" class="form-control" readonly="true">
+                                      <input style="color: red;" id="total_price" name="total_payment" class="form-control" readonly="true">
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                   
+                                    <div class="col-md-12">
+                                         <textarea placeholder="Ghi chú" class="form-control" name="note" rows="3" id="comment"></textarea>
+                                    </div>
+                                </div>
+                                <h5 style="text-decoration:underline;">Thông tin đơn hàng</h5>
+
+                                <div class="form-group row">
+                                  <div class="col-md-6">
+                                    <select class="form-control" name="type_payment" id="sel1">
+                                        <option value="tienmat">Hình thức thanh toán</option>
+                                        <option value="tienmat">Tiền mặt</option>
+                                        <option value="chuyenkhoan">Chuyển khoản</option> 
+                                    </select>
+                                  </div>
+                                  <div class="col-md-6">
+                                         <select class="form-control" name="shipping" id="sel1">
+                                              <option value="tienmat">Đơn vị vận chuyển</option>
+                                              <option value="tienmat">Viettel Post</option>
+                                              <option value="chuyenkhoan">Giao hàng nhanh</option>  
+                                          </select>
+                                    </div>
+                                </div>                                
+                            
+
+                                
+                                 <div class="form-group row">
+                                  
+                                    <div class="col-md-6">
+                                         
+                                        <select id="city" class="select2 form-control choose" name="city">
+                                          <option value="">Thành phố</option> 
+                                             @foreach($city as $city)
+                                                <option value="{{$city->id_tp}}">{{$city->name_tp}} </option>
+                                              @endforeach
+                                        </select>
+                                    </div>
+                                     <div class="col-md-6">
+                                          <select id="district" class="select2 form-control choose" name="district">
+                                                      <option value="">Quận huyện</option> 
+                                                         @foreach($district as $district)
+                                                            <option value="{{$district->id_qh}}">{{$district->name_qh}} </option>
+                                                          @endforeach
+                                                    </select> 
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                  
+                                   
+                                    <div class="col-md-6">
+                                           <select id="wards" class="select2 form-control choose" name="wards">
+                                                      <option value="">Xã phường</option> 
+                                                         @foreach($wards as $wards)
+                                                            <option value="{{$wards->id_xp}}">{{$wards->name_xp}} </option>
+                                                          @endforeach
+                                                    </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Đã thanh toán</label>
-                                    <div class="col-md-7">
-                                        <input  type="text" name="customer_payment" class="form-control">
+                                   
+                                    <div class="col-md-12">
+                                         <textarea placeholder="Địa chỉ cụ thể" class="form-control" name="address" rows="3" id="comment"></textarea>
                                     </div>
-                                </div>  
+                                </div>
+                                <!-- <div class="form-group row">
+                                  
+                                    <div class="col-md-6">
+                                        <input placeholder="Đã thanh toán" type="text" name="customer_payment" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input placeholder="Hẹn thanh  toán" type="date" name="payment_appointment" class="form-control " >
+                                    </div>
+                                </div>   -->
                                 
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4 text-left">Hẹn thanh toán </label>
-                                    <div class="col-md-7">
-                                        <input type="date" name="payment_appointment" class="form-control " >
-                                    </div>
-                                </div> 
+                               
                               
                             </div>
 

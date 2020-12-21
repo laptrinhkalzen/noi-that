@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Province extends Model
+class Wards extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'name_qh', 'type', 'city_id'
+    	'name_xp', 'type', 'district_id'
     ];
-    protected $primaryKey = 'id_qh';
- 	protected $table = 'district';
+    protected $primaryKey = 'id_xp';
+ 	protected $table = 'wards';
 }
