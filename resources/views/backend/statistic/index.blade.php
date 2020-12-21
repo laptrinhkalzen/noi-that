@@ -235,6 +235,7 @@
 
 <div id="result"></div>
 <div class="content"> 
+    
     <!-- Table header styling -->
     <div class="card">
         <div class="card-header header-elements-inline">

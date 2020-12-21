@@ -13,6 +13,8 @@ use App\Supplier;
 use App\Member;
 use App\Coupon;
 use App\Import;
+use App\Contact;
+use App\News;
 
 
 
@@ -23,13 +25,15 @@ class BackendController  extends Controller
        public function index() {
         //$coupons = $this->couponRepo->all();
             $product = Product::all()->count();
+            $news = News::all()->count();
+            $contact = Contact::all()->count();
             $bill = DB::table('bill')->count();
             $supplier = Supplier::all()->count();
             $member = Member::all()->count();
             $coupon = Coupon::all()->count();
             $import = DB::table('import')->count();
             $inventory = DB::table('inventory')->count();
-        return view('backend/index',compact('product','bill','supplier','member','coupon','import','inventory'));
+        return view('backend/index',compact('product','bill','supplier','member','coupon','import','inventory','news','contact'));
     }
 
 
@@ -71,33 +75,31 @@ class BackendController  extends Controller
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
         if($data['dashboard_value'] == '7ngay'){
-            $get = Import::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date','ASC')->get();
-        }
-        elseif($data['dashboard_value'] == 'thangtruoc'){
-            $get1 = Import::whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->orderBy('order_date','ASC')->get();
-        }
-        elseif($data['dashboard_value'] == 'thangnay'){
-            $get2 = Import::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
-        }
-        else{
-            $get3 = Import::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
-        }
-
-        
-
-        
-    if(count($get)>1){
-        $start = 0;
-        $limit = 10;
-        $import=DB::table('import')->whereBetween('order_date',[$from_date, $to_date])->limit($limit)->offset($start)->get();   
-         $data= $import->count();
-         $total_page = ceil($data/$limit);    
+            $start = 0;
+            $limit = 10;
+            $import=DB::table('import')->whereBetween('order_date',[$from_date, $to_date])->limit($limit)->offset($start)->get();   
+             $data= $import->count();
+             $total_page = ceil($data/$limit);    
 
          return response()->json(array('total_page'=>$total_page,'import'=>$import));
-    }
-    else{
+        }
+        elseif($data['dashboard_value'] == 'thangtruoc'){
+            $get = Import::whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->orderBy('order_date','ASC')->get();
+        }
+        elseif($data['dashboard_value'] == 'thangnay'){
+            $get = Import::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
+        }
+        elseif($data['dashboard_value'] == '365ngayqua'){
+            $get = Import::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
+        }else{
         return response()->json(['status'=>201]);
     }
+
+        
+
+        
+    
+    
 }
 
 public function fixed_table(Request $request) {
