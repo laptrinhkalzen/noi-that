@@ -60,6 +60,7 @@ Route::get('/test', ['as' => 'admin.test.index', 'uses' => 'Backend\StatisticCon
     /* Export*/
     Route::get('/import/export/',['as' => 'admin.import.export', 'uses' => 'Backend\ExportController@import_export']);
     Route::get('/inventory/export/',['as' => 'admin.inventory.export', 'uses' => 'Backend\ExportController@inventory_export']);
+    Route::get('/bill/export/',['as' => 'admin.bill.export', 'uses' => 'Backend\ExportController@bill_export']);
 
     /* Quản lý news */
     Route::get('/news', ['as' => 'admin.news.index', 'uses' => 'Backend\NewsController@index']);

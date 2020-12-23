@@ -11,6 +11,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use App\Exports\ImportExport;
 use App\Exports\InventoryExport;
+use App\Exports\BillExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Artisan;
 
@@ -27,6 +28,12 @@ class ExportController extends Controller
     {
         Session::put('message','Xuất dữ liệu thành công');
         return Excel::download(new InventoryExport, 'phieukiemkho.xlsx');
+        
+    }
+    public function bill_export() 
+    {
+        Session::put('message','Xuất dữ liệu thành công');
+        return Excel::download(new BillExport, 'hoadon.xlsx');
         
     }
     // public function import() 
