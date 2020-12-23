@@ -37,6 +37,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/transport/update/{id}', ['as' => 'admin.transport.update', 'uses' => 'Backend\TransportController@update']);
     Route::delete('/transport/delete/{id}', ['as' => 'admin.transport.destroy', 'uses' => 'Backend\TransportController@destroy']);
 
+Route::get('/test', ['as' => 'admin.test.index', 'uses' => 'Backend\StatisticController@test']);
+
     /* Báo cáo thống kê doanh số*/
     Route::get('/statistic', ['as' => 'admin.statistic.index', 'uses' => 'Backend\StatisticController@index']);
     Route::post('/filter-by-date', ['as' => 'admin.statistic.filter', 'uses' => 'Backend\StatisticController@filter_by_date']);

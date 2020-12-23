@@ -12,6 +12,27 @@
         font-size: 14px;
         font-weight: bold;
     }
+    #panigate {
+        text-align: center;
+      display: inline-block;
+    }
+    #panigate a:focus {
+      background-color: #2196f3;
+    }
+    #panigate a:visited {
+      background-color: red;
+    }
+    #panigate a:hover {
+      background-color: #DCDCDC;
+    }
+    
+    #panigate a {
+      border-radius: 5px;
+      color: black;
+      padding: 8px 16px;
+      text-decoration: none;
+      float: left;
+    }
 </style>
 
 
@@ -62,12 +83,15 @@
                 $.each(data.import, function (i, item) {
                     trHTML += '<tr><td>' + i + '</td><td>' + item.import_id + '</td><td>' + item.payment_type + '</td><td>' + item.total + '</td><td>' + item.discount + '</td><td>' + item.total_payment + '</td><td>' + item.paid + '</td><td>' + item.payment_day + '</td></tr>';
                 });
-                for (var i = 1; i <= data.total_page; i++) {
-                    trHTML1 += '<button class="panigate" type="button" value="'+i+'">'+i+'</button>'
-                }
+                        trHTML1 += '<a class="panigate "  href="javascript:void(0)" at="'+data.curent_page+'"><</a>';
+                     for (var i = 1; i <= data.total_page; i++) {
+                           trHTML1 += '<a class="panigate "  href="javascript:void(0)" at="'+i+'">'+i+'</a>';
+                        }
+                           trHTML1 += '<a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">></span>';
                     
                 $('#show_data').html(trHTML);
                 $('#panigate').html(trHTML1);
+                
                         
 
             }
@@ -76,7 +100,7 @@
 
 
             $('.dashboard-filter').change(function(){
-
+                
                 var dashboard_value = $(this).val();
                 var _token = $('input[name = "_token"]').val();
                 $('#loading').show();
@@ -94,9 +118,11 @@
                         $.each(data.import, function (i, item) {
                             trHTML += '<tr><td>' + i + '</td><td>' + item.import_id + '</td><td>' + item.payment_type + '</td><td>' + item.total + '</td><td>' + item.discount + '</td><td>' + item.total_payment + '</td><td>' + item.paid + '</td><td>' + item.payment_day + '</td></tr>';
                         });
+                        trHTML1 += '<a class="panigate "  href="javascript:void(0)" at="'+data.curent_page+'"><</a>';
                         for (var i = 1; i <= data.total_page; i++) {
-                            trHTML1 += '<button class="panigate" type="button" value="'+i+'">'+i+'</button>'
+                           trHTML1 += '<a class="panigate "  href="javascript:void(0)" at="'+i+'">'+i+'</a>';
                         }
+                           trHTML1 += '<a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">></span>';
                             
                         $('#show_data').html(trHTML);
                         $('#panigate').html(trHTML1);
@@ -110,16 +136,13 @@
 
                  
             });
-            $('.pagination a').unbind('click').on('click', function(e) {
-             e.preventDefault();
-             var page = $(this).attr('href').split('page=')[1];
-             getPosts(page);
-       });
+            
        
             chart60daysorder();
 
             function chart60daysorder(){
                 var _token = $('input[name = "_token"]').val();
+                
                 $.ajax({
 
                     url:'{{route("admin.statistic.days_order1")}}',
@@ -147,25 +170,23 @@
                         $.each(data.import, function (i, item) {
                             trHTML += '<tr><td>' + i + '</td><td>' + item.import_id + '</td><td>' + item.payment_type + '</td><td>' + item.total + '</td><td>' + item.discount + '</td><td>' + item.total_payment + '</td><td>' + item.paid + '</td><td>' + item.payment_day + '</td></tr>';
                         });
-
-                     for (var i = 1; i <= data.total_page; i++) {
-                            trHTML1 += '<button class="panigate" type="button" value="'+i+'">'+i+'</button>'
+                           trHTML1 += '<a class="panigate "  href="javascript:void(0)" at="'+data.curent_page+'"><</a>';
+                        for (var i = 1; i <= data.total_page; i++) {
+                           trHTML1 += '<a class="panigate "  href="javascript:void(0)" at="'+i+'">'+i+'</a>';
                         }
+                           trHTML1 += '<a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">></span>';
                             
                         $('#show_data').html(trHTML);
                         $('#panigate').html(trHTML1);
                     }
-                        
-                    
-
-
+ 
                 });
            
           
         }
                           $(document).on("click",".panigate",function()
     {          
-                var page = $(this).val();
+                var page = $(this).attr('at');
                 var _token = $('input[name = "_token"]').val();
               
                 $.ajax({
@@ -181,12 +202,10 @@
                         $.each(data.import, function (i, item) {
                             trHTML += '<tr><td>' + i + '</td><td>' + item.import_id + '</td><td>' + item.payment_type + '</td><td>' + item.total + '</td><td>' + item.discount + '</td><td>' + item.total_payment + '</td><td>' + item.paid + '</td><td>' + item.payment_day + '</td></tr>';
                         });
-                        for (var i = 1; i <= data.total_page; i++) {
-                            trHTML1 += '<button class="panigate" type="button" value="'+i+'">'+i+'</button>'
-                        }
+                       
                             
                         $('#show_data').html(trHTML);
-                        $('#panigate').html(trHTML1);
+                        
                     }
 
 
@@ -202,11 +221,28 @@
 
 
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+  var pageItem = $(".pagination li").not(".prev,.next");
+  var prev = $(".pagination li.prev");
+  var next = $(".pagination li.next");
+
+  pageItem.click(function() {
+    pageItem.removeClass("active");
+    $(this).not(".prev,.next").addClass("active");
+  });
+
+  next.click(function() {
+    $('li.active').removeClass('active').next().addClass('active');
+  });
+
+  prev.click(function() {
+    $('li.active').removeClass('active').prev().addClass('active');
+  });
 
 
-    
-
-
+});
+</script>
 
 
 
@@ -235,7 +271,7 @@
 
 <div id="result"></div>
 <div class="content"> 
-    
+
     <!-- Table header styling -->
     <div class="card">
         <div class="card-header header-elements-inline">
@@ -331,7 +367,7 @@
             
         <!-- Content area -->   
           
-            <div id="panigate">
+            <div  id="panigate">
             </div>
 
              

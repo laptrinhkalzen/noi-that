@@ -483,9 +483,10 @@ class FrontendController extends Controller {
           elseif ($curent_page<1) {
             $curent_page = 1;
           }
+
           $start = ($curent_page-1)*$limit;
           $import=DB::table('import')->limit($limit)->offset($start)->get();
-          return response()->json(array("import"=>$import,'total_page'=>$total_page));
+          return response()->json(array("import"=>$import,'total_page'=>$total_page,'curent_page',$curent_page));
           
     }
 

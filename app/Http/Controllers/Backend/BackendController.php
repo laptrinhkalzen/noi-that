@@ -48,7 +48,7 @@ class BackendController  extends Controller
         $start = 0;
         $limit = 10;
         $import=DB::table('import')->whereBetween('order_date',[$from_date, $to_date])->limit($limit)->offset($start)->get();   
-         $data= $import->count();
+         $data= DB::table('import')->whereBetween('order_date',[$from_date, $to_date])->count();
          $total_page = ceil($data/$limit);    
 
          return response()->json(array('total_page'=>$total_page,'import'=>$import));
@@ -77,87 +77,48 @@ class BackendController  extends Controller
         if($data['dashboard_value'] == '7ngay'){
             $start = 0;
             $limit = 10;
-            $import=DB::table('import')->whereBetween('order_date',[$from_date, $to_date])->limit($limit)->offset($start)->get();   
-             $data= $import->count();
+            $import=DB::table('import')->whereBetween('order_date',[$sub7days,$now])->limit($limit)->offset($start)->get();   
+             $data= DB::table('import')->whereBetween('order_date',[$sub7days,$now])->count();
              $total_page = ceil($data/$limit);    
 
          return response()->json(array('total_page'=>$total_page,'import'=>$import));
         }
         elseif($data['dashboard_value'] == 'thangtruoc'){
-            $get = Import::whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->orderBy('order_date','ASC')->get();
+            
+            $start = 0;
+            $limit = 10;
+            $import=DB::table('import')->whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->limit($limit)->offset($start)->get();   
+             $data= DB::table('import')->whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->count();
+             $total_page = ceil($data/$limit);    
+
+         return response()->json(array('total_page'=>$total_page,'import'=>$import));
         }
         elseif($data['dashboard_value'] == 'thangnay'){
-            $get = Import::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
+            
+            $start = 0;
+            $limit = 10;
+            $import=DB::table('import')->whereBetween('order_date',[$dauthangnay,$now])->limit($limit)->offset($start)->get();   
+             $data= DB::table('import')->whereBetween('order_date',[$dauthangnay,$now])->count();
+             $total_page = ceil($data/$limit);  
+             return response()->json(array('total_page'=>$total_page,'import'=>$import));
         }
         elseif($data['dashboard_value'] == '365ngayqua'){
-            $get = Import::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
+            
+            $start = 0;
+            $limit = 10;
+            $import=DB::table('import')->whereBetween('order_date',[$sub365days,$now])->limit($limit)->offset($start)->get();   
+             $data= DB::table('import')->whereBetween('order_date',[$sub365days,$now])->count();
+             $total_page = ceil($data/$limit);  
+             return response()->json(array('total_page'=>$total_page,'import'=>$import));
         }else{
         return response()->json(['status'=>201]);
     }
 
-        
-
-        
-    
     
 }
 
-public function fixed_table(Request $request) {
-        $data = $request->all();
-
-        $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-
-        $dauthangnay= Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString(); 
-        $dauthangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
-        $cuoithangtruoc= Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
-
-        $sub7days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
-        $sub365days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
-
-        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-
-        if($data['dashboard_value'] == '7ngay'){
-            $get = Statistic::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date','ASC')->get();
-        }
-        elseif($data['dashboard_value'] == 'thangtruoc'){
-            $get = Statistic::whereBetween('order_date',[$dauthangtruoc,$cuoithangtruoc])->orderBy('order_date','ASC')->get();
-        }
-        elseif($data['dashboard_value'] == 'thangnay'){
-            $get = Statistic::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
-        }
-        else{
-            $get = Statistic::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
-        }
-
-        
-
-        
-    if(count($get)>1){
-
-
-        foreach ($get as $key => $val) {
-            $chart_data[] = array(
-                'period'=>$val->order_date,
-                'order'=>$val->total_order,
-                'sales'=>$val->sales,
-                'profit'=>$val->profit,
-                'quantity'=>$val->quantity,
-            );
-        }
-        
-           
-        return $chart_data;
-    }
-    else{
-        return response()->json(['status'=>201]);
-    }
-}
-
-
-    
-     
       public function days_order(Request $request) {
-        
+        $data = $request->all();
 
         
         $sub60days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(60)->toDateString();
@@ -166,16 +127,9 @@ public function fixed_table(Request $request) {
 
         
         $get = Statistic::whereBetween('order_date',[$sub60days,$now])->orderBy('order_date','ASC')->get();
-        $get1 = Statistic::whereBetween('order_date',[$sub60days,$now])->orderBy('order_date','ASC')->limit(10)->get();
-        $count = $get->count()%10;
         
-
-        
-          
 
     if(count($get)>1){
-
-
         foreach ($get as $key => $val) {
             $chart_data[] = array(
                 'period'=>$val->order_date,
@@ -184,22 +138,16 @@ public function fixed_table(Request $request) {
                 'profit'=>$val->profit,
                 'quantity'=>$val->quantity,
             );
-           
+        $start = 0;
+        $limit = 10;
+        $import=DB::table('import')->whereBetween('order_date',[$sub60days,$now])->limit($limit)->offset($start)->get();   
+         $data= DB::table('import')->whereBetween('order_date',[$sub60days,$now])->count();
+         $total_page = ceil($data/$limit); 
 
-        }
-        
-         
-         $limit = 10;
-         $data= DB::table('import')->count();
-         $total_page = ceil($data/$limit);    
-
-          $start = 0;
-          $import=DB::table('import')->limit($limit)->offset($start)->get();
-
-            
-         return response()->json(array("chart_data"=>$chart_data,'total_page'=>$total_page,'import'=>$import));
+         return response()->json(array('chart_data'=>$chart_data,'total_page'=>$total_page,'import'=>$import));
         
     }
+}
     else{
         return response()->json(['status'=>201]);
     }

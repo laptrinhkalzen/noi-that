@@ -39,12 +39,6 @@
         
         $( document ).ready(function() {
 
-
-
-
-
-
-
             $('#btn-dashboard-filter').click(function()
     {
         var _token = $('input[name="_token"]').val();
@@ -111,7 +105,7 @@
                 var _token = $('input[name = "_token"]').val();
                 $.ajax({
 
-                    url:'{{route("admin.statistic.days_order1")}}',
+                    url:'{{route("admin.statistic.days_order")}}',
                     method:"POST",
                     dataType: "JSON",
                     data:{_token:_token},
@@ -122,16 +116,8 @@
                     }
 
 
-                });
-             
-            
-                
-           
-          
+                });      
         }
-                         
-
-
             //chart30daysorder();
 
              var chart = new Morris.Line({
@@ -210,23 +196,17 @@
               //labelColor:"#cccccc", // text color
               //backgroundColor: '#333333', // border color
               data: [
-                {label:"Sản phẩm", value:<?php echo $product ?>, color:colorDanger},
-                {label:"Đơn hàng", value:<?php echo $bill ?>},
+                {label:"Sản phẩm", value:<?php echo $product ?>, color:colorDanger}, 
+                {label:"Đơn hàng", value:<?php echo $bill ?>,
                 {label:"Phiếu nhập", value:<?php echo $import ?>},
                 {label:"Mã giảm giá", value:<?php echo $coupon ?>},
                 {label:"Phiếu kiểm kho", value:<?php echo $inventory ?>},
                 
               ]
+
             });
-
-            
-
         });
 
-
-           
-   
-    
 </script>
 
 

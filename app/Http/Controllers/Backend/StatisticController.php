@@ -18,6 +18,7 @@ use App\Coupon;
 class StatisticController  extends Controller
 {
     
+        
 
        public function index() {
         //$coupons = $this->couponRepo->all();
